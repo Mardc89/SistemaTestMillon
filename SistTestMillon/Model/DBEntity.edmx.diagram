@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eddf01b87f0048ff8ddea6233624ab47" Name="Diagram1">
+        <EntityTypeShape EntityType="TestMillonModel.Administradores" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Citas" Width="1.5" PointX="8.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Cuestionario" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Diagnosticos" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Historias" Width="1.5" PointX="7.5" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Pacientes" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Psicologos" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Usuarios" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <AssociationConnector Association="TestMillonModel.FK_Administradores_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="TestMillonModel.FK_Citas_Pacientes" ManuallyRouted="false" />
+        <AssociationConnector Association="TestMillonModel.FK_Citas_Psicologos" ManuallyRouted="false" />
+        <AssociationConnector Association="TestMillonModel.FK_Diagnosticos_Pacientes" ManuallyRouted="false" />
+        <AssociationConnector Association="TestMillonModel.FK_Historias_Diagnosticos1" ManuallyRouted="false" />
+        <AssociationConnector Association="TestMillonModel.FK_Historias_Psicologos" ManuallyRouted="false" />
+        <AssociationConnector Association="TestMillonModel.FK_Pacientes_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="TestMillonModel.FK_Psicologos_Usuarios" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

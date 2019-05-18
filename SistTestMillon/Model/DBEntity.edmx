@@ -1,0 +1,711 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TestMillonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administradores">
+          <Key>
+            <PropertyRef Name="DniAdministrador" />
+          </Key>
+          <Property Name="IdAdministrador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DniAdministrador" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApeliidoMaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Edad" Type="int" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="Telefono" Type="char" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Citas">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="IdCita" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="DniPaciente" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Hora" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="DniPsicologo" Type="char" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cuestionario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pregunta" Type="varchar" MaxLength="400" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Diagnosticos">
+          <Key>
+            <PropertyRef Name="IdDiagnostico" />
+          </Key>
+          <Property Name="IdDiagnostico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DniPaciente" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Esquizoide" Type="int" Nullable="false" />
+          <Property Name="Evitativo" Type="int" Nullable="false" />
+          <Property Name="Depresivo" Type="int" Nullable="false" />
+          <Property Name="Dependiente" Type="int" Nullable="false" />
+          <Property Name="Histriónico" Type="int" Nullable="false" />
+          <Property Name="Narcisita" Type="int" Nullable="false" />
+          <Property Name="Antisocial" Type="int" Nullable="false" />
+          <Property Name="AgresivoSádico" Type="int" Nullable="false" />
+          <Property Name="Compulsivo" Type="int" Nullable="false" />
+          <Property Name="Negativista" Type="int" Nullable="false" />
+          <Property Name="Autodestructiva" Type="int" Nullable="false" />
+          <Property Name="Esquizotípica" Type="int" Nullable="false" />
+          <Property Name="Límite" Type="int" Nullable="false" />
+          <Property Name="Paranoide" Type="int" Nullable="false" />
+          <Property Name="Ansiedad" Type="int" Nullable="false" />
+          <Property Name="Somatoformo" Type="int" Nullable="false" />
+          <Property Name="Bipolar" Type="int" Nullable="false" />
+          <Property Name="Distímico" Type="int" Nullable="false" />
+          <Property Name="DependenciaAlcohol" Type="int" Nullable="false" />
+          <Property Name="DependenciaSustancias" Type="int" Nullable="false" />
+          <Property Name="EstrésPostraumático" Type="int" Nullable="false" />
+          <Property Name="DesordenPensamiento" Type="int" Nullable="false" />
+          <Property Name="DepresiónMayor" Type="int" Nullable="false" />
+          <Property Name="DesordenDelusional" Type="int" Nullable="false" />
+          <Property Name="Sinceridad" Type="int" Nullable="false" />
+          <Property Name="DeseabilidadSocial" Type="int" Nullable="false" />
+          <Property Name="Devaluación" Type="int" Nullable="false" />
+          <Property Name="Validez" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Historias">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="IdHistoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="CodigoDiagnostico" Type="int" Nullable="false" />
+          <Property Name="DniPsicologo" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Motivo" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Tratamiento" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Observacion" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pacientes">
+          <Key>
+            <PropertyRef Name="DniPaciente" />
+          </Key>
+          <Property Name="IdPaciente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DniPaciente" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApelllidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Edad" Type="int" Nullable="false" />
+          <Property Name="Sexo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Profesion" Type="varchar" MaxLength="50" />
+          <Property Name="FechaNacimiento" Type="date" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="Telefono" Type="char" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Psicologos">
+          <Key>
+            <PropertyRef Name="DniPsicologo" />
+          </Key>
+          <Property Name="IdPsicologo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DniPsicologo" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Edad" Type="int" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="Telefono" Type="char" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contraseña" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Administradores_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Administradores" Type="Self.Administradores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Administradores">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Citas_Pacientes">
+          <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacientes">
+              <PropertyRef Name="DniPaciente" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="DniPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Citas_Psicologos">
+          <End Role="Psicologos" Type="Self.Psicologos" Multiplicity="1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Psicologos">
+              <PropertyRef Name="DniPsicologo" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="DniPsicologo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Diagnosticos_Pacientes">
+          <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="1" />
+          <End Role="Diagnosticos" Type="Self.Diagnosticos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacientes">
+              <PropertyRef Name="DniPaciente" />
+            </Principal>
+            <Dependent Role="Diagnosticos">
+              <PropertyRef Name="DniPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Historias_Diagnosticos1">
+          <End Role="Diagnosticos" Type="Self.Diagnosticos" Multiplicity="1" />
+          <End Role="Historias" Type="Self.Historias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diagnosticos">
+              <PropertyRef Name="IdDiagnostico" />
+            </Principal>
+            <Dependent Role="Historias">
+              <PropertyRef Name="CodigoDiagnostico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Historias_Psicologos">
+          <End Role="Psicologos" Type="Self.Psicologos" Multiplicity="1" />
+          <End Role="Historias" Type="Self.Historias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Psicologos">
+              <PropertyRef Name="DniPsicologo" />
+            </Principal>
+            <Dependent Role="Historias">
+              <PropertyRef Name="DniPsicologo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pacientes_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Pacientes">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Psicologos_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Psicologos" Type="Self.Psicologos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Psicologos">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestMillonModelStoreContainer">
+          <EntitySet Name="Administradores" EntityType="Self.Administradores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Citas" EntityType="Self.Citas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cuestionario" EntityType="Self.Cuestionario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Diagnosticos" EntityType="Self.Diagnosticos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Historias" EntityType="Self.Historias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pacientes" EntityType="Self.Pacientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Psicologos" EntityType="Self.Psicologos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Administradores_Usuarios" Association="Self.FK_Administradores_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Administradores" EntitySet="Administradores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Citas_Pacientes" Association="Self.FK_Citas_Pacientes">
+            <End Role="Pacientes" EntitySet="Pacientes" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Citas_Psicologos" Association="Self.FK_Citas_Psicologos">
+            <End Role="Psicologos" EntitySet="Psicologos" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Diagnosticos_Pacientes" Association="Self.FK_Diagnosticos_Pacientes">
+            <End Role="Pacientes" EntitySet="Pacientes" />
+            <End Role="Diagnosticos" EntitySet="Diagnosticos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Historias_Diagnosticos1" Association="Self.FK_Historias_Diagnosticos1">
+            <End Role="Diagnosticos" EntitySet="Diagnosticos" />
+            <End Role="Historias" EntitySet="Historias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Historias_Psicologos" Association="Self.FK_Historias_Psicologos">
+            <End Role="Psicologos" EntitySet="Psicologos" />
+            <End Role="Historias" EntitySet="Historias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pacientes_Usuarios" Association="Self.FK_Pacientes_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Pacientes" EntitySet="Pacientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Psicologos_Usuarios" Association="Self.FK_Psicologos_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Psicologos" EntitySet="Psicologos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestMillonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administradores">
+          <Key>
+            <PropertyRef Name="DniAdministrador" />
+          </Key>
+          <Property Name="IdAdministrador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DniAdministrador" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApeliidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Edad" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Administradores_Usuarios" FromRole="Administradores" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Citas">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="IdCita" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DniPaciente" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Hora" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DniPsicologo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Pacientes" Relationship="Self.FK_Citas_Pacientes" FromRole="Citas" ToRole="Pacientes" />
+          <NavigationProperty Name="Psicologos" Relationship="Self.FK_Citas_Psicologos" FromRole="Citas" ToRole="Psicologos" />
+        </EntityType>
+        <EntityType Name="Cuestionario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pregunta" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Diagnosticos">
+          <Key>
+            <PropertyRef Name="IdDiagnostico" />
+          </Key>
+          <Property Name="IdDiagnostico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DniPaciente" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Esquizoide" Type="Int32" Nullable="false" />
+          <Property Name="Evitativo" Type="Int32" Nullable="false" />
+          <Property Name="Depresivo" Type="Int32" Nullable="false" />
+          <Property Name="Dependiente" Type="Int32" Nullable="false" />
+          <Property Name="Histriónico" Type="Int32" Nullable="false" />
+          <Property Name="Narcisita" Type="Int32" Nullable="false" />
+          <Property Name="Antisocial" Type="Int32" Nullable="false" />
+          <Property Name="AgresivoSádico" Type="Int32" Nullable="false" />
+          <Property Name="Compulsivo" Type="Int32" Nullable="false" />
+          <Property Name="Negativista" Type="Int32" Nullable="false" />
+          <Property Name="Autodestructiva" Type="Int32" Nullable="false" />
+          <Property Name="Esquizotípica" Type="Int32" Nullable="false" />
+          <Property Name="Límite" Type="Int32" Nullable="false" />
+          <Property Name="Paranoide" Type="Int32" Nullable="false" />
+          <Property Name="Ansiedad" Type="Int32" Nullable="false" />
+          <Property Name="Somatoformo" Type="Int32" Nullable="false" />
+          <Property Name="Bipolar" Type="Int32" Nullable="false" />
+          <Property Name="Distímico" Type="Int32" Nullable="false" />
+          <Property Name="DependenciaAlcohol" Type="Int32" Nullable="false" />
+          <Property Name="DependenciaSustancias" Type="Int32" Nullable="false" />
+          <Property Name="EstrésPostraumático" Type="Int32" Nullable="false" />
+          <Property Name="DesordenPensamiento" Type="Int32" Nullable="false" />
+          <Property Name="DepresiónMayor" Type="Int32" Nullable="false" />
+          <Property Name="DesordenDelusional" Type="Int32" Nullable="false" />
+          <Property Name="Sinceridad" Type="Int32" Nullable="false" />
+          <Property Name="DeseabilidadSocial" Type="Int32" Nullable="false" />
+          <Property Name="Devaluación" Type="Int32" Nullable="false" />
+          <Property Name="Validez" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pacientes" Relationship="Self.FK_Diagnosticos_Pacientes" FromRole="Diagnosticos" ToRole="Pacientes" />
+          <NavigationProperty Name="Historias" Relationship="Self.FK_Historias_Diagnosticos1" FromRole="Diagnosticos" ToRole="Historias" />
+        </EntityType>
+        <EntityType Name="Historias">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="IdHistoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CodigoDiagnostico" Type="Int32" Nullable="false" />
+          <Property Name="DniPsicologo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Motivo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tratamiento" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Observacion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Diagnosticos" Relationship="Self.FK_Historias_Diagnosticos1" FromRole="Historias" ToRole="Diagnosticos" />
+          <NavigationProperty Name="Psicologos" Relationship="Self.FK_Historias_Psicologos" FromRole="Historias" ToRole="Psicologos" />
+        </EntityType>
+        <EntityType Name="Pacientes">
+          <Key>
+            <PropertyRef Name="DniPaciente" />
+          </Key>
+          <Property Name="IdPaciente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DniPaciente" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApelllidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Edad" Type="Int32" Nullable="false" />
+          <Property Name="Sexo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Profesion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Citas" Relationship="Self.FK_Citas_Pacientes" FromRole="Pacientes" ToRole="Citas" />
+          <NavigationProperty Name="Diagnosticos" Relationship="Self.FK_Diagnosticos_Pacientes" FromRole="Pacientes" ToRole="Diagnosticos" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Pacientes_Usuarios" FromRole="Pacientes" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Psicologos">
+          <Key>
+            <PropertyRef Name="DniPsicologo" />
+          </Key>
+          <Property Name="IdPsicologo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DniPsicologo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Edad" Type="Int32" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Citas" Relationship="Self.FK_Citas_Psicologos" FromRole="Psicologos" ToRole="Citas" />
+          <NavigationProperty Name="Historias" Relationship="Self.FK_Historias_Psicologos" FromRole="Psicologos" ToRole="Historias" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Psicologos_Usuarios" FromRole="Psicologos" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Administradores" Relationship="Self.FK_Administradores_Usuarios" FromRole="Usuarios" ToRole="Administradores" />
+          <NavigationProperty Name="Pacientes" Relationship="Self.FK_Pacientes_Usuarios" FromRole="Usuarios" ToRole="Pacientes" />
+          <NavigationProperty Name="Psicologos" Relationship="Self.FK_Psicologos_Usuarios" FromRole="Usuarios" ToRole="Psicologos" />
+        </EntityType>
+        <Association Name="FK_Administradores_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Administradores" Type="Self.Administradores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Administradores">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Citas_Pacientes">
+          <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacientes">
+              <PropertyRef Name="DniPaciente" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="DniPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Citas_Psicologos">
+          <End Role="Psicologos" Type="Self.Psicologos" Multiplicity="1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Psicologos">
+              <PropertyRef Name="DniPsicologo" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="DniPsicologo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Diagnosticos_Pacientes">
+          <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="1" />
+          <End Role="Diagnosticos" Type="Self.Diagnosticos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacientes">
+              <PropertyRef Name="DniPaciente" />
+            </Principal>
+            <Dependent Role="Diagnosticos">
+              <PropertyRef Name="DniPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Historias_Diagnosticos1">
+          <End Role="Diagnosticos" Type="Self.Diagnosticos" Multiplicity="1" />
+          <End Role="Historias" Type="Self.Historias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diagnosticos">
+              <PropertyRef Name="IdDiagnostico" />
+            </Principal>
+            <Dependent Role="Historias">
+              <PropertyRef Name="CodigoDiagnostico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Historias_Psicologos">
+          <End Role="Psicologos" Type="Self.Psicologos" Multiplicity="1" />
+          <End Role="Historias" Type="Self.Historias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Psicologos">
+              <PropertyRef Name="DniPsicologo" />
+            </Principal>
+            <Dependent Role="Historias">
+              <PropertyRef Name="DniPsicologo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pacientes_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Pacientes">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Psicologos_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Psicologos" Type="Self.Psicologos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Psicologos">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entidades" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administradores" EntityType="Self.Administradores" />
+          <EntitySet Name="Citas" EntityType="Self.Citas" />
+          <EntitySet Name="Cuestionario" EntityType="Self.Cuestionario" />
+          <EntitySet Name="Diagnosticos" EntityType="Self.Diagnosticos" />
+          <EntitySet Name="Historias" EntityType="Self.Historias" />
+          <EntitySet Name="Pacientes" EntityType="Self.Pacientes" />
+          <EntitySet Name="Psicologos" EntityType="Self.Psicologos" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_Administradores_Usuarios" Association="Self.FK_Administradores_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Administradores" EntitySet="Administradores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Citas_Pacientes" Association="Self.FK_Citas_Pacientes">
+            <End Role="Pacientes" EntitySet="Pacientes" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Citas_Psicologos" Association="Self.FK_Citas_Psicologos">
+            <End Role="Psicologos" EntitySet="Psicologos" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Diagnosticos_Pacientes" Association="Self.FK_Diagnosticos_Pacientes">
+            <End Role="Pacientes" EntitySet="Pacientes" />
+            <End Role="Diagnosticos" EntitySet="Diagnosticos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Historias_Diagnosticos1" Association="Self.FK_Historias_Diagnosticos1">
+            <End Role="Diagnosticos" EntitySet="Diagnosticos" />
+            <End Role="Historias" EntitySet="Historias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Historias_Psicologos" Association="Self.FK_Historias_Psicologos">
+            <End Role="Psicologos" EntitySet="Psicologos" />
+            <End Role="Historias" EntitySet="Historias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pacientes_Usuarios" Association="Self.FK_Pacientes_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Pacientes" EntitySet="Pacientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Psicologos_Usuarios" Association="Self.FK_Psicologos_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Psicologos" EntitySet="Psicologos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestMillonModelStoreContainer" CdmEntityContainer="Entidades">
+          <EntitySetMapping Name="Administradores">
+            <EntityTypeMapping TypeName="TestMillonModel.Administradores">
+              <MappingFragment StoreEntitySet="Administradores">
+                <ScalarProperty Name="IdAdministrador" ColumnName="IdAdministrador" />
+                <ScalarProperty Name="DniAdministrador" ColumnName="DniAdministrador" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApeliidoMaterno" ColumnName="ApeliidoMaterno" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Citas">
+            <EntityTypeMapping TypeName="TestMillonModel.Citas">
+              <MappingFragment StoreEntitySet="Citas">
+                <ScalarProperty Name="IdCita" ColumnName="IdCita" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="DniPaciente" ColumnName="DniPaciente" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="DniPsicologo" ColumnName="DniPsicologo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cuestionario">
+            <EntityTypeMapping TypeName="TestMillonModel.Cuestionario">
+              <MappingFragment StoreEntitySet="Cuestionario">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Pregunta" ColumnName="Pregunta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Diagnosticos">
+            <EntityTypeMapping TypeName="TestMillonModel.Diagnosticos">
+              <MappingFragment StoreEntitySet="Diagnosticos">
+                <ScalarProperty Name="IdDiagnostico" ColumnName="IdDiagnostico" />
+                <ScalarProperty Name="DniPaciente" ColumnName="DniPaciente" />
+                <ScalarProperty Name="Esquizoide" ColumnName="Esquizoide" />
+                <ScalarProperty Name="Evitativo" ColumnName="Evitativo" />
+                <ScalarProperty Name="Depresivo" ColumnName="Depresivo" />
+                <ScalarProperty Name="Dependiente" ColumnName="Dependiente" />
+                <ScalarProperty Name="Histriónico" ColumnName="Histriónico" />
+                <ScalarProperty Name="Narcisita" ColumnName="Narcisita" />
+                <ScalarProperty Name="Antisocial" ColumnName="Antisocial" />
+                <ScalarProperty Name="AgresivoSádico" ColumnName="AgresivoSádico" />
+                <ScalarProperty Name="Compulsivo" ColumnName="Compulsivo" />
+                <ScalarProperty Name="Negativista" ColumnName="Negativista" />
+                <ScalarProperty Name="Autodestructiva" ColumnName="Autodestructiva" />
+                <ScalarProperty Name="Esquizotípica" ColumnName="Esquizotípica" />
+                <ScalarProperty Name="Límite" ColumnName="Límite" />
+                <ScalarProperty Name="Paranoide" ColumnName="Paranoide" />
+                <ScalarProperty Name="Ansiedad" ColumnName="Ansiedad" />
+                <ScalarProperty Name="Somatoformo" ColumnName="Somatoformo" />
+                <ScalarProperty Name="Bipolar" ColumnName="Bipolar" />
+                <ScalarProperty Name="Distímico" ColumnName="Distímico" />
+                <ScalarProperty Name="DependenciaAlcohol" ColumnName="DependenciaAlcohol" />
+                <ScalarProperty Name="DependenciaSustancias" ColumnName="DependenciaSustancias" />
+                <ScalarProperty Name="EstrésPostraumático" ColumnName="EstrésPostraumático" />
+                <ScalarProperty Name="DesordenPensamiento" ColumnName="DesordenPensamiento" />
+                <ScalarProperty Name="DepresiónMayor" ColumnName="DepresiónMayor" />
+                <ScalarProperty Name="DesordenDelusional" ColumnName="DesordenDelusional" />
+                <ScalarProperty Name="Sinceridad" ColumnName="Sinceridad" />
+                <ScalarProperty Name="DeseabilidadSocial" ColumnName="DeseabilidadSocial" />
+                <ScalarProperty Name="Devaluación" ColumnName="Devaluación" />
+                <ScalarProperty Name="Validez" ColumnName="Validez" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Historias">
+            <EntityTypeMapping TypeName="TestMillonModel.Historias">
+              <MappingFragment StoreEntitySet="Historias">
+                <ScalarProperty Name="IdHistoria" ColumnName="IdHistoria" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="CodigoDiagnostico" ColumnName="CodigoDiagnostico" />
+                <ScalarProperty Name="DniPsicologo" ColumnName="DniPsicologo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="Tratamiento" ColumnName="Tratamiento" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pacientes">
+            <EntityTypeMapping TypeName="TestMillonModel.Pacientes">
+              <MappingFragment StoreEntitySet="Pacientes">
+                <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
+                <ScalarProperty Name="DniPaciente" ColumnName="DniPaciente" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="ApelllidoPaterno" ColumnName="ApelllidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Profesion" ColumnName="Profesion" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Psicologos">
+            <EntityTypeMapping TypeName="TestMillonModel.Psicologos">
+              <MappingFragment StoreEntitySet="Psicologos">
+                <ScalarProperty Name="IdPsicologo" ColumnName="IdPsicologo" />
+                <ScalarProperty Name="DniPsicologo" ColumnName="DniPsicologo" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="TestMillonModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="TipoUsuario" ColumnName="TipoUsuario" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
