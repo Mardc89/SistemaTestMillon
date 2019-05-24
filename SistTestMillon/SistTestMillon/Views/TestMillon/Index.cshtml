@@ -1,0 +1,146 @@
+﻿@model IEnumerable<Model.Cuestionario>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ViewMillon.cshtml";
+
+}
+<br /><br />
+<div class="row u-mb-large" id="PreguntasTest">
+    <div class="col-sm-12">
+        <div class="c-table-responsive@desktop">
+            <table class="c-table c-table--highlight u-mb-small">
+                <caption class="c-table__title" style="background-color:Highlight">
+                        <h3 style="text-align:center">Test Millon</h3>
+                        <p style="text-align:center">Contesta las siguientes preguntas marcando V o F</p>
+                </caption>
+                <thead class="c-table__head c-table__head--slim">
+                    <tr class="c-table__row">
+                        <th class="c-table__cell c-table__cell--head">N°</th>
+                        <th class="c-table__cell c-table__cell--head">Pregunta</th>
+                        <th class="c-table__cell c-table__cell--head">
+                            <span class="u-hidden-visually">Tools</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody >
+                    @{int inicio = 0;}
+                    @if (Model.Count() > 0)
+                    {
+                        
+                        foreach (var item in Model)
+                        {
+                            inicio = item.Id; 
+                            <tr class="c-table__row">
+                                <td class="c-table__cell Numero">
+                                    @item.Id
+                                </td>
+                                <td class="c-table__cell Pregunta">
+                                    @item.Pregunta
+                                </td>
+                                <td class="c-table__cell">
+                                    <div style="text-align:right">
+                                        V<input id="Respuesta+@item.Id" name="Respuesta+@item.Id" value="1" type="radio" />
+                                        F<input id="Respuesta+@item.Id" name="Respuesta+@item.Id" value="0" type="radio" />
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                        }
+                        
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="c-table__cell" colspan="10">
+                                No tienes productos registrados
+                            </td>
+                        </tr>
+                    }
+
+                    
+                </tbody>
+            </table>
+            <div style="text-align:right">
+                <input type="button" class="c-btn c-btn--info" disabled value="Procesar" id="Proceso"/>
+                <input type="button" class="c-btn c-btn--info" onclick="cambiarPreguntas(2)" value="Siguiente"/>
+                <input type="button" class="c-btn c-btn--info" onclick="Retroceder(2)" value="Atras" />
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script type="text/javascript">
+    var a=0;
+    function cambiarPreguntas(m) {
+        var c = document.getElementsByClassName("Numero")[4].textContent;
+        if (c <= 170) {
+            a = a + 5;
+        }
+        if (c == 170) {
+            document.getElementById("Proceso").disabled =false;
+        
+        }
+        var primero = parseInt(a);
+        $.ajax({
+            url: "@Url.Action("Index", "TestMillon")",
+            type: "POST",
+            dataType:'json',
+        //crossDomain: true,
+        data: { min:primero,max:primero+5},
+        success: function (data) {
+            // Si la petición es satisfactoria, se recarga la página actual
+            //$('#PreguntasTest').load(' #PreguntasTest');
+            for (var i = 0; i < 5; i++) {
+
+            document.getElementsByClassName("Numero")[i].textContent = data[i].Id;
+            document.getElementsByClassName("Pregunta")[i].textContent = data[i].Pregunta;
+
+            }
+
+
+                      
+        }
+    });
+
+    }
+
+    function Retroceder(m) {
+        b = document.getElementsByClassName("Numero")[0].textContent;
+        c = document.getElementsByClassName("Numero")[4].textContent;
+        document.getElementById("Proceso").disabled =true;
+        if (b>5) {
+            a = a - 5;
+
+        }       
+        var primero = parseInt(b);
+        var segundo = parseInt(c);
+        $.ajax({
+            url: "@Url.Action("Retroceso", "TestMillon")",
+            type: "POST",
+        dataType:'json',
+        //crossDomain: true,
+        data: { min:primero-5,max:segundo-5},
+        success: function (data) {
+            // Si la petición es satisfactoria, se recarga la página actual
+            //$('#PreguntasTest').load(' #PreguntasTest');
+            for (var i = 0; i < 5; i++) {
+
+                document.getElementsByClassName("Numero")[i].textContent = data[i].Id;
+                document.getElementsByClassName("Pregunta")[i].textContent = data[i].Pregunta;
+
+            }
+
+
+                      
+        }
+    });
+
+    }
+
+
+</script>
+}

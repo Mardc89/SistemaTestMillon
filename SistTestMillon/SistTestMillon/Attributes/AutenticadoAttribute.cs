@@ -37,6 +37,22 @@ namespace SistTestMillon.Attributes
         }
     }
 
+
+    public class CloseSesionAttribute : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            base.OnActionExecuting(filterContext);
+            SessionHelper.DestroyUserSession();
+            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+             {
+                    controller = "Account",
+                    action = "Index"
+             }));
+            
+        }
+    }
+
     public class NoLoginAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -48,10 +64,11 @@ namespace SistTestMillon.Attributes
                 IRepository Repositorio = new Model.Repository();
                 int idUser = SessionHelper.GetUser();
                 var Usuario = Repositorio.FindEntity<Usuarios>(c => c.IdUsuario == idUser);
+                var UsuarioID = Repositorio.FindEntity<Usuarios>(c => c.IdUsuario == idUser).IdUsuario;
                 if (Usuario != null)
                 {
                     SessionHelper.ActualizarSession(Usuario);
-                    if (Usuario.IdUsuario == 1)
+                    if (Usuario.IdUsuario == UsuarioID)
                     {
                         filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
                         {

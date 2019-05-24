@@ -24,7 +24,7 @@ namespace Model
         public int IdPaciente { get; set; }
         public string DniPaciente { get; set; }
         public string Nombres { get; set; }
-        public string ApelllidoPaterno { get; set; }
+        public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
         public string Direccion { get; set; }
         public int Edad { get; set; }
@@ -34,6 +34,7 @@ namespace Model
         public string Correo { get; set; }
         public int IdUsuario { get; set; }
         public string Telefono { get; set; }
+        public string Token { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Citas> Citas { get; set; }

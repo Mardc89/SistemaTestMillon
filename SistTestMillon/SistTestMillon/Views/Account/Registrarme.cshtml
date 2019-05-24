@@ -7,31 +7,72 @@
 <div class="o-page__card">
     <div class="c-card u-mb-xsmall">
         <header class="c-card__header u-pt-large">
-            <a class="c-card__icon" href="#!">
-                <img src="~/Content/img/logoinventario.png" alt="Panel de Control" />
-            </a>
-            <h1 class="u-h3 u-text-center u-mb-zero">Registrarme al Sistema de Inventarios.</h1>
+            <h1 class="u-h3 u-text-center u-mb-zero">Registrarme al Sistema de Psicologia.</h1>
         </header>
 
         <form class="c-card__body formAjax" method="post" action="~/Account/Registrarme">
             <div class="c-field u-mb-small">
-                <label class="c-field__label" for="NombreEmpresa">Nombre de la Empresa</label>
-                <input class="c-input" type="text" id="NombreEmpresa" required="required" name="NombreEmpresa" placeholder="Abarrotes la Pasada">
+                <label class="c-field__label" for="Dni">Dni</label>
+                <input class="c-input" type="text" id="Dni" required="required" name="Dni" placeholder="Dni">
             </div>
             <div class="c-field u-mb-small">
-                <label class="c-field__label" for="email">Correo electrónico</label>
-                <input class="c-input" type="email" id="email" required="required" name="CorreoElectronico" placeholder="clark@dashboard.com">
+                <label class="c-field__label" for="Nombres">Nombres</label>
+                <input class="c-input" type="text" id="Nombres" required="required" name="Nombres" placeholder="Nombres">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="Apaterno">Apellido Paterno</label>
+                <input class="c-input" type="text" id="Apaterno" required="required" name="Apaterno" placeholder="ApellidoPaterno">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="Amaterno">Apellido Materno</label>
+                <input class="c-input" type="text" id="Amaterno" required="required" name="Amaterno" placeholder="ApellidoMaterno">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="Direccion">Direccion</label>
+                <input class="c-input" type="text" id="Direccion" required="required" name="Direccion" placeholder="Direccion">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="NombreUsu">Nombre Usuario</label>
+                <input class="c-input" type="text" id="NombreUsu" required="required" name="NombreUsu" placeholder="Usuario">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="TipoUsu">Tipo de Usuario</label>
+                <input class="c-input" type="text" id="TipoUsu" required="required" name="TipoUsu" placeholder="Usuario">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="Edad">Edad</label>
+                <input class="c-input" type="text" id="Edad" required="required" name="Edad" placeholder="Edad">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="Sexo">Sexo</label>
+                <input class="c-input" type="text" id="Sexo" required="required" name="Sexo" placeholder="Sexo">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="Profesion">Profesion</label>
+                <input class="c-input" type="text" id="Profesion" required="required" name="Profesion" placeholder="Profesion">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="fecha">Fecha Nacimiento</label>
+                <input class="c-input" type="date" id="fecha" required="required" name="fecha" placeholder="Fecha Nacimiento">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="correo">Correo electrónico</label>
+                <input class="c-input" type="email" id="correo" required="required" name="correo" placeholder="clark@dashboard.com">
+            </div>
+            <div class="c-field u-mb-small">
+                <label class="c-field__label" for="telefono">Telefono</label>
+                <input class="c-input" type="text" id="telefono" required="required" name="telefono" placeholder="Telefono">
             </div>
             <div class="c-field u-mb-small">
                 <label class="c-field__label" for="input2">Contraseña</label>
-                <input class="c-input" type="password" id="password" required="required" name="Password" placeholder="*****">
+                <input class="c-input" type="password" id="contraseña" required="required" name="contraseña" placeholder="*****">
             </div>
             <div class="c-field u-mb-small">
                 <label class="c-field__label" for="input2">Repetir Contraseña</label>
-                <input class="c-input" type="password" id="re-password" required="required" EqualTo="#password" placeholder="*****">
+                <input class="c-input" type="password" id="re-contraseña" required="required" EqualTo="#contraseña" placeholder="*****">
             </div>            
             <button class="c-btn c-btn--info c-btn--fullwidth btnAjax" type="submit">
-                Entrar
+                Registrar
                 <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
             </button>
         </form>

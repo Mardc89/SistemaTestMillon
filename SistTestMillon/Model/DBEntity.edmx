@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TestMillonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TestMillonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Administradores">
           <Key>
             <PropertyRef Name="DniAdministrador" />
@@ -93,7 +93,7 @@
           <Property Name="IdPaciente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DniPaciente" Type="char" MaxLength="8" Nullable="false" />
           <Property Name="Nombres" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ApelllidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Direccion" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Edad" Type="int" Nullable="false" />
@@ -103,6 +103,7 @@
           <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IdUsuario" Type="int" Nullable="false" />
           <Property Name="Telefono" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Psicologos">
           <Key>
@@ -118,6 +119,9 @@
           <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IdUsuario" Type="int" Nullable="false" />
           <Property Name="Telefono" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="Sexo" Type="varchar" MaxLength="50" />
+          <Property Name="Profesion" Type="varchar" MaxLength="50" />
+          <Property Name="FechaNacimiento" Type="date" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -126,7 +130,7 @@
           <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TipoUsuario" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NombreUsuario" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Contraseña" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contraseña" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <Association Name="FK_Administradores_Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
@@ -266,8 +270,7 @@
             <End Role="Psicologos" EntitySet="Psicologos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TestMillonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -366,7 +369,7 @@
           <Property Name="IdPaciente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DniPaciente" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ApelllidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Edad" Type="Int32" Nullable="false" />
@@ -376,6 +379,7 @@
           <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IdUsuario" Type="Int32" Nullable="false" />
           <Property Name="Telefono" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Citas" Relationship="Self.FK_Citas_Pacientes" FromRole="Pacientes" ToRole="Citas" />
           <NavigationProperty Name="Diagnosticos" Relationship="Self.FK_Diagnosticos_Pacientes" FromRole="Pacientes" ToRole="Diagnosticos" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Pacientes_Usuarios" FromRole="Pacientes" ToRole="Usuarios" />
@@ -397,6 +401,9 @@
           <NavigationProperty Name="Citas" Relationship="Self.FK_Citas_Psicologos" FromRole="Psicologos" ToRole="Citas" />
           <NavigationProperty Name="Historias" Relationship="Self.FK_Historias_Psicologos" FromRole="Psicologos" ToRole="Historias" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Psicologos_Usuarios" FromRole="Psicologos" ToRole="Usuarios" />
+          <Property Name="Sexo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Profesion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -405,7 +412,7 @@
           <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contraseña" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Administradores" Relationship="Self.FK_Administradores_Usuarios" FromRole="Usuarios" ToRole="Administradores" />
           <NavigationProperty Name="Pacientes" Relationship="Self.FK_Pacientes_Usuarios" FromRole="Usuarios" ToRole="Pacientes" />
           <NavigationProperty Name="Psicologos" Relationship="Self.FK_Psicologos_Usuarios" FromRole="Usuarios" ToRole="Psicologos" />
@@ -643,10 +650,10 @@
           <EntitySetMapping Name="Pacientes">
             <EntityTypeMapping TypeName="TestMillonModel.Pacientes">
               <MappingFragment StoreEntitySet="Pacientes">
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
                 <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
                 <ScalarProperty Name="DniPaciente" ColumnName="DniPaciente" />
                 <ScalarProperty Name="Nombres" ColumnName="Nombres" />
-                <ScalarProperty Name="ApelllidoPaterno" ColumnName="ApelllidoPaterno" />
                 <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
                 <ScalarProperty Name="Edad" ColumnName="Edad" />
@@ -656,12 +663,16 @@
                 <ScalarProperty Name="Correo" ColumnName="Correo" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Psicologos">
             <EntityTypeMapping TypeName="TestMillonModel.Psicologos">
               <MappingFragment StoreEntitySet="Psicologos">
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Profesion" ColumnName="Profesion" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
                 <ScalarProperty Name="IdPsicologo" ColumnName="IdPsicologo" />
                 <ScalarProperty Name="DniPsicologo" ColumnName="DniPsicologo" />
                 <ScalarProperty Name="Nombres" ColumnName="Nombres" />

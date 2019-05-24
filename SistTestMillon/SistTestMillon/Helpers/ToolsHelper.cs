@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 
-namespace Sys.Inventarios.Helpers
+namespace SistTestMillon.Helpers
 {
     public class ToolsHelper
     {
