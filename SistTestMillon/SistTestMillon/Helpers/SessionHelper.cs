@@ -36,7 +36,7 @@ namespace SistTestMillon.Helpers
             var cookie = FormsAuthentication.GetAuthCookie("UserInventory", persist);
 
             cookie.Name = FormsAuthentication.FormsCookieName;
-            cookie.Expires = DateTime.Now.AddMonths(1);
+            cookie.Expires = DateTime.Now.AddHours(1);
 
             var ticket = FormsAuthentication.Decrypt(cookie.Value);
             var newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, id);
@@ -51,6 +51,19 @@ namespace SistTestMillon.Helpers
             HttpContext.Current.Session["TipoUsuario"] = Usuario.TipoUsuario;
             HttpContext.Current.Session["NombreUsuario"] = Usuario.NombreUsuario;
             HttpContext.Current.Session["Contraseña"] = Usuario.Contraseña;
+        }
+
+        public static void ActualizarSessionPacienteUser(Usuarios Usuario,Pacientes Paciente)
+        {
+            HttpContext.Current.Session["Usuario_Id"] = Usuario.IdUsuario;
+            HttpContext.Current.Session["TipoUsuario"] = Usuario.TipoUsuario;
+            HttpContext.Current.Session["NombreUsuario"] = Usuario.NombreUsuario;
+            HttpContext.Current.Session["Contraseña"] = Usuario.Contraseña;
+            HttpContext.Current.Session["Sexo"] = Paciente.Sexo;
+            HttpContext.Current.Session["DniPaciente"] = Paciente.DniPaciente;
+            HttpContext.Current.Session["Nombres"] = Paciente.Nombres;
+            HttpContext.Current.Session["ApellidoPaterno"] = Paciente.ApellidoPaterno;
+            HttpContext.Current.Session["ApellidoMaterno"] = Paciente.ApellidoMaterno;
         }
 
     }

@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_ViewMillon.cshtml";
+    string dni=HttpContext.Current.Session["DniPaciente"].ToString();
+    string sexo = HttpContext.Current.Session["Sexo"].ToString();
 
 }
 <br /><br />
@@ -39,8 +41,8 @@
                                 </td>
                                 <td class="c-table__cell">
                                     <div style="text-align:right">
-                                        V<input id="Respuesta+@item.Id" name="Respuesta+@item.Id" value="1" type="radio" />
-                                        F<input id="Respuesta+@item.Id" name="Respuesta+@item.Id" value="0" type="radio" />
+                                        V<input id="@item.Id" name="Respuesta+@item.Id" value="1" type="radio" />
+                                        F<input id="@item.Id+1" name="Respuesta+@item.Id" value="0" type="radio" />
                                     </div>
 
                                 </td>
@@ -62,9 +64,9 @@
                 </tbody>
             </table>
             <div style="text-align:right">
-                <input type="button" class="c-btn c-btn--info" disabled value="Procesar" id="Proceso"/>
-                <input type="button" class="c-btn c-btn--info" onclick="cambiarPreguntas(2)" value="Siguiente"/>
-                <input type="button" class="c-btn c-btn--info" onclick="Retroceder(2)" value="Atras" />
+                <input type="button" class="c-btn c-btn--info" disabled value="Procesar" onclick=" CapturarDatos(2)" id="Proceso"/>
+                <input type="button" class="c-btn c-btn--info" onclick="cambiarPreguntas(2)" value="Siguiente" id="Next"/>
+                <input type="button" class="c-btn c-btn--info" onclick="Retroceder(2)" value="Atras" id="Back"/>
                 
             </div>
 
@@ -74,16 +76,59 @@
 
 @section Scripts {
 <script type="text/javascript">
-    var a=0;
+    var a = 0;
+    var cadena = "";
+
+    function almacenar(s) {
+
+        var seleccion1 = $("input:radio[name='Respuesta+1']:checked").val();
+        var seleccion2 = $("input:radio[name='Respuesta+2']:checked").val();
+        var seleccion3 = $("input:radio[name='Respuesta+3']:checked").val();
+        var seleccion4 = $("input:radio[name='Respuesta+4']:checked").val();
+        var seleccion5 = $("input:radio[name='Respuesta+5']:checked").val();
+
+        if ($("input:radio[name='Respuesta+1']:checked").val() == null) {
+            seleccion1 = '0';
+        }
+        if ($("input:radio[name='Respuesta+2']:checked").val() == null) {
+            seleccion2 = '0';
+        }
+        if ($("input:radio[name='Respuesta+3']:checked").val() == null) {
+            seleccion3 = '0';
+        }
+        if ($("input:radio[name='Respuesta+4']:checked").val() == null) {
+            seleccion4 = '0';
+        }
+        if ($("input:radio[name='Respuesta+5']:checked").val() == null) {
+            seleccion5 = '0';
+        }
+
+
+        var seleccionados = seleccion1 + seleccion2 + seleccion3 + seleccion4 + seleccion5;
+
+        return seleccionados;
+
+    }
+
     function cambiarPreguntas(m) {
         var c = document.getElementsByClassName("Numero")[4].textContent;
+
+        
+
+        if (c<= 175) {
+            cadena = cadena + almacenar(2);
+            alert(cadena);
+        }
+        
         if (c <= 170) {
             a = a + 5;
         }
         if (c == 170) {
-            document.getElementById("Proceso").disabled =false;
+            document.getElementById("Proceso").disabled = false;
+            document.getElementById("Next").disabled = true;
         
         }
+        $('input[type=radio]').prop('checked', false);
         var primero = parseInt(a);
         $.ajax({
             url: "@Url.Action("Index", "TestMillon")",
@@ -109,6 +154,15 @@
     }
 
     function Retroceder(m) {
+        document.getElementById("Next").disabled =false;
+        var cadenaNueva = "";
+        for (var i =0; i<cadena.length-5;i++) {
+            cadenaNueva = cadenaNueva + cadena[i];            
+        }
+
+        cadena = cadenaNueva;
+        alert(cadenaNueva);
+        $('input[type=radio]').prop('checked', false);
         b = document.getElementsByClassName("Numero")[0].textContent;
         c = document.getElementsByClassName("Numero")[4].textContent;
         document.getElementById("Proceso").disabled =true;
@@ -138,6 +192,15 @@
                       
         }
     });
+
+    }
+
+    function CapturarDatos(m) {
+        cadena = cadena + almacenar(2);
+        alert(cadena);
+        document.getElementById("Proceso").disabled = true;
+        document.getElementById("Back").disabled = true;
+
 
     }
 

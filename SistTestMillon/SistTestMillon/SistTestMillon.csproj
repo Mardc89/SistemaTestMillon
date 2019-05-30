@@ -166,8 +166,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CryproHelper.cs" />
+    <Compile Include="Helpers\PatronClinicoHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\ToolsHelper.cs" />
+    <Compile Include="Models\Puntuacion.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

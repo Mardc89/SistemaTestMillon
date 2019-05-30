@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace SistTestMillon.Attributes
 {
@@ -44,6 +45,11 @@ namespace SistTestMillon.Attributes
         {
             base.OnActionExecuting(filterContext);
             SessionHelper.DestroyUserSession();
+
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            cookie.Expires = DateTime.Now.AddHours(-1);
+            HttpContext.Current.Response.Cookies.Add(cookie);
+
             filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
              {
                     controller = "Account",

@@ -24,6 +24,7 @@ namespace SistTestMillon.Controllers
             IRepository repository = new Model.Repository();
             var objUsu = repository.FindEntity<Usuarios>(c => c.NombreUsuario==Usuario);
             var UsuID = repository.FindEntity<Usuarios>(c => c.NombreUsuario == Usuario).IdUsuario;
+            var UsuIDPaciente = repository.FindEntity<Pacientes>(c => c.IdUsuario ==UsuID);
             var Nombre = repository.FindEntity<Usuarios>(c => c.NombreUsuario == Usuario).NombreUsuario;
             var TipoUsuario = repository.FindEntity<Usuarios>(c => c.NombreUsuario == Usuario).TipoUsuario;
             int id = 0;
@@ -31,7 +32,7 @@ namespace SistTestMillon.Controllers
             recordar = recordar == null ? false : true;
             if (objUsu != null)
             {
-                if (TipoUsuario == "Paciente"|| TipoUsuario == "Psicologo") {
+                if (TipoUsuario == "Psicologo") {
                     if (CryproHelper.Confirm(password, objUsu.Contraseña, CryproHelper.Supported_HA.SHA512))
                     {
                         id = -1;
@@ -41,6 +42,21 @@ namespace SistTestMillon.Controllers
                         {
                             strMensaje = Url.Content("~/Home");
                             
+                        }
+                    }
+                }
+
+                if (TipoUsuario == "Paciente")
+                {
+                    if (CryproHelper.Confirm(password, objUsu.Contraseña, CryproHelper.Supported_HA.SHA512))
+                    {
+                        id = -1;
+                        SessionHelper.AddUserToSession(objUsu.IdUsuario.ToString(), (bool)recordar);
+                        SessionHelper.ActualizarSessionPacienteUser(objUsu,UsuIDPaciente);
+                        if (objUsu.IdUsuario == UsuID)
+                        {
+                            strMensaje = Url.Content("~/Home");
+
                         }
                     }
                 }
@@ -145,8 +161,9 @@ namespace SistTestMillon.Controllers
                         if (TipoUsu == "Paciente")
                         {
                             ViewBag.DniPaciente = Dni;
-                            strMensaje = Url.Action("Index", "TestMillon");
-                            return Json(new Response { IsSuccess = true, Message = strMensaje, Id = -1 }, JsonRequestBehavior.AllowGet);
+                            //strMensaje = Url.Action("Index", "TestMillon");
+                            //return Json(new Response { IsSuccess = true, Message = strMensaje, Id = -1 }, JsonRequestBehavior.AllowGet);
+                            return RedirectToAction("Index","TestMillon");
                             
                         }
                         else {
