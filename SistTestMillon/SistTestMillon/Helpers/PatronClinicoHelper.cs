@@ -7,75 +7,10 @@ namespace SistTestMillon.Helpers
 {
     public class PatronClinicoHelper
     {
-
-        public static string Sinceridad(string[] patrones)
-        {
-
-            string patron = "";
-            string car = "";
-            string diagnostico = "";
-            int TotalSinceridad = 0, sinceridad = 0;
-
-            for (int i = 0; i < patrones.Count(); i++)
-            {
-                patron = patrones[i];
-                for (int j = 0; j < patron.Count(); j++)
-                {
-                    car = patron[j] + "";
-                    if (car=="1")
-                    {
-                        sinceridad++;
-                    }
-                }
-                if (i == 5)
-                    TotalSinceridad = TotalSinceridad + (sinceridad * 2 / 3);
-                else
-                    TotalSinceridad = TotalSinceridad + sinceridad;
-                sinceridad = 0;
-            }
-
-            if ((TotalSinceridad >= 0 && TotalSinceridad <= 34) || (TotalSinceridad >= 178 && TotalSinceridad <= 262))
-                diagnostico = "Exageró o Minimizó síntomas significativos";
-            else if ((TotalSinceridad >= 35 && TotalSinceridad <= 85))
-                diagnostico = "Trata de responder con sinceridad";
-            else if ((TotalSinceridad >= 86 && TotalSinceridad <= 177))
-                diagnostico = "Ha sido bastante sincero en sus respuestas";
-
-           
-            return diagnostico;
-        }
-
-        public static string PatronValidez(string patron)
-        {
-
-            string validez, car;
-            int cont = 0;
-            string diagnostico = "";
-
-            validez = patron[64] + "" + patron[109] + "" + patron[156];
-
-            for (int i = 0; i < validez.Count(); i++)
-            {
-                car = validez[i] + "";
-                if (car=="1")
-                    cont++;
-            }
-
-            if (cont == 0)
-                diagnostico = "Puntaje Valido";
-            else if (cont == 1)
-                diagnostico = "Puntaje Cuestionable";
-            else
-                diagnostico = "Puntaje No Leyo o Comprendio bien";
-
-            return diagnostico;
-        }
         
         public static string PatronDeseabilidadSocial(string patron)
         {
-            string diagnostico = "";
-            string deseabilidad, car;
-            int cont = 0;
+            string deseabilidad;
 
             deseabilidad = patron[19] + "" + patron[31] + "" + patron[34] + "" + patron[39] + "" + patron[50] + "" +
                     patron[56] + "" + patron[58] + "" + patron[68] + "" + patron[79] + "" + patron[81] + "" +
@@ -84,23 +19,12 @@ namespace SistTestMillon.Helpers
 
 
 
-
-            for (int i = 0; i < deseabilidad.Count(); i++)
-            {
-                car = deseabilidad[i] + "";
-                if (car=="1")
-                    cont++;
-            }
-
-
-            return diagnostico;
+            return deseabilidad;
         }
 
         public static string PatronDevaluacion(string patron)
         {
-            string diagnostico = "";
-            string devaluacion, car;
-            int cont = 0;
+            string devaluacion;
 
             devaluacion = patron[0] + "" + patron[3] + "" + patron[7] + "" + patron[14] + "" + patron[21] + "" +
                     patron[23] + "" + patron[29] + "" + patron[33] + "" + patron[35] + "" + patron[43] + "" +
@@ -111,20 +35,8 @@ namespace SistTestMillon.Helpers
                     patron[149] + "" + patron[170] + "";
 
 
-
-            for (int i = 0; i < devaluacion.Count(); i++)
-            {
-                car = devaluacion[i] + "";
-                if (car=="1")
-                    cont++;
-            }
-
-            return diagnostico;
+            return devaluacion;
         }
-
-
-
-
 
         public static string PatronEsquizoide(string patron)
         {
@@ -170,7 +82,7 @@ namespace SistTestMillon.Helpers
             return dependiente;
         }
 
-        public static string PatronHistronico(string patron)
+        public static string PatronHistrionico(string patron)
         {
             string histrionico;
             histrionico = patron[9] + "" + patron[11] + "" + patron[20] + "" + patron[23] + "" + patron[26] + "" +

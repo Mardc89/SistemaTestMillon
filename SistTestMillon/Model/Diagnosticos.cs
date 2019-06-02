@@ -27,7 +27,7 @@ namespace Model
         public int Depresivo { get; set; }
         public int Dependiente { get; set; }
         public int Histriónico { get; set; }
-        public int Narcisita { get; set; }
+        public int Narcisista { get; set; }
         public int Antisocial { get; set; }
         public int AgresivoSádico { get; set; }
         public int Compulsivo { get; set; }

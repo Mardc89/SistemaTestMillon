@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -3910,7 +3911,7 @@ namespace SistTestMillon.Models
             return cont;
         }
 
-        public int Sinceridad(string[] patrones)
+        public int Sinceridad(List<string>patrones)
         {
             string patron = "";
             string car = "";

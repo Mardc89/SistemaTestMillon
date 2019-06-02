@@ -49,7 +49,7 @@
           <Property Name="Depresivo" Type="int" Nullable="false" />
           <Property Name="Dependiente" Type="int" Nullable="false" />
           <Property Name="Histriónico" Type="int" Nullable="false" />
-          <Property Name="Narcisita" Type="int" Nullable="false" />
+          <Property Name="Narcisista" Type="int" Nullable="false" />
           <Property Name="Antisocial" Type="int" Nullable="false" />
           <Property Name="AgresivoSádico" Type="int" Nullable="false" />
           <Property Name="Compulsivo" Type="int" Nullable="false" />
@@ -321,7 +321,7 @@
           <Property Name="Depresivo" Type="Int32" Nullable="false" />
           <Property Name="Dependiente" Type="Int32" Nullable="false" />
           <Property Name="Histriónico" Type="Int32" Nullable="false" />
-          <Property Name="Narcisita" Type="Int32" Nullable="false" />
+          <Property Name="Narcisista" Type="Int32" Nullable="false" />
           <Property Name="Antisocial" Type="Int32" Nullable="false" />
           <Property Name="AgresivoSádico" Type="Int32" Nullable="false" />
           <Property Name="Compulsivo" Type="Int32" Nullable="false" />
@@ -398,12 +398,12 @@
           <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IdUsuario" Type="Int32" Nullable="false" />
           <Property Name="Telefono" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Citas" Relationship="Self.FK_Citas_Psicologos" FromRole="Psicologos" ToRole="Citas" />
-          <NavigationProperty Name="Historias" Relationship="Self.FK_Historias_Psicologos" FromRole="Psicologos" ToRole="Historias" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Psicologos_Usuarios" FromRole="Psicologos" ToRole="Usuarios" />
           <Property Name="Sexo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Profesion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Citas" Relationship="Self.FK_Citas_Psicologos" FromRole="Psicologos" ToRole="Citas" />
+          <NavigationProperty Name="Historias" Relationship="Self.FK_Historias_Psicologos" FromRole="Psicologos" ToRole="Historias" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Psicologos_Usuarios" FromRole="Psicologos" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -607,7 +607,7 @@
                 <ScalarProperty Name="Depresivo" ColumnName="Depresivo" />
                 <ScalarProperty Name="Dependiente" ColumnName="Dependiente" />
                 <ScalarProperty Name="Histriónico" ColumnName="Histriónico" />
-                <ScalarProperty Name="Narcisita" ColumnName="Narcisita" />
+                <ScalarProperty Name="Narcisista" ColumnName="Narcisista" />
                 <ScalarProperty Name="Antisocial" ColumnName="Antisocial" />
                 <ScalarProperty Name="AgresivoSádico" ColumnName="AgresivoSádico" />
                 <ScalarProperty Name="Compulsivo" ColumnName="Compulsivo" />
@@ -650,10 +650,10 @@
           <EntitySetMapping Name="Pacientes">
             <EntityTypeMapping TypeName="TestMillonModel.Pacientes">
               <MappingFragment StoreEntitySet="Pacientes">
-                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
                 <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
                 <ScalarProperty Name="DniPaciente" ColumnName="DniPaciente" />
                 <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
                 <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
                 <ScalarProperty Name="Edad" ColumnName="Edad" />
@@ -670,9 +670,6 @@
           <EntitySetMapping Name="Psicologos">
             <EntityTypeMapping TypeName="TestMillonModel.Psicologos">
               <MappingFragment StoreEntitySet="Psicologos">
-                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
-                <ScalarProperty Name="Profesion" ColumnName="Profesion" />
-                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
                 <ScalarProperty Name="IdPsicologo" ColumnName="IdPsicologo" />
                 <ScalarProperty Name="DniPsicologo" ColumnName="DniPsicologo" />
                 <ScalarProperty Name="Nombres" ColumnName="Nombres" />
@@ -683,6 +680,9 @@
                 <ScalarProperty Name="Correo" ColumnName="Correo" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Profesion" ColumnName="Profesion" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

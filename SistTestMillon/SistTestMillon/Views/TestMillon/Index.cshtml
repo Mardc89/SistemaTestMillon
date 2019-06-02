@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_ViewMillon.cshtml";
     string dni=HttpContext.Current.Session["DniPaciente"].ToString();
     string sexo = HttpContext.Current.Session["Sexo"].ToString();
+    DateTime fecha = DateTime.Now;
 
 }
 <br /><br />
@@ -12,7 +13,7 @@
         <div class="c-table-responsive@desktop">
             <table class="c-table c-table--highlight u-mb-small">
                 <caption class="c-table__title" style="background-color:Highlight">
-                        <h3 style="text-align:center">Test Millon</h3>
+                        <h3 style="text-align:center">Test Millon @fecha</h3>
                         <p style="text-align:center">Contesta las siguientes preguntas marcando V o F</p>
                 </caption>
                 <thead class="c-table__head c-table__head--slim">
@@ -64,7 +65,7 @@
                 </tbody>
             </table>
             <div style="text-align:right">
-                <input type="button" class="c-btn c-btn--info" disabled value="Procesar" onclick=" CapturarDatos(2)" id="Proceso"/>
+                <input type="button" class="c-btn c-btn--info" disabled value="Procesar" onclick="CapturarDatos(2)" id="Proceso"/>
                 <input type="button" class="c-btn c-btn--info" onclick="cambiarPreguntas(2)" value="Siguiente" id="Next"/>
                 <input type="button" class="c-btn c-btn--info" onclick="Retroceder(2)" value="Atras" id="Back"/>
                 
@@ -113,11 +114,9 @@
     function cambiarPreguntas(m) {
         var c = document.getElementsByClassName("Numero")[4].textContent;
 
-        
-
         if (c<= 175) {
             cadena = cadena + almacenar(2);
-            alert(cadena);
+            //alert(cadena);
         }
         
         if (c <= 170) {
@@ -197,9 +196,22 @@
 
     function CapturarDatos(m) {
         cadena = cadena + almacenar(2);
-        alert(cadena);
+        //alert(cadena);
         document.getElementById("Proceso").disabled = true;
         document.getElementById("Back").disabled = true;
+
+        $.ajax({
+            url: "@Url.Action("Diagnosticar", "TestMillon")",
+            type: "POST",
+        dataType:'json',
+        //crossDomain: true,
+        data: { Patron:cadena,Dni:"@dni",Sexo:"@sexo"},
+        success: function (data) {
+            // Si la petición es satisfactoria, se recarga la página actual
+            window.location.href = data;                       
+        }
+    });
+
 
 
     }
