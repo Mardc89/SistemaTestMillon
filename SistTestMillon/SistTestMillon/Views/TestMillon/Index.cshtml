@@ -4,16 +4,19 @@
     Layout = "~/Views/Shared/_ViewMillon.cshtml";
     string dni=HttpContext.Current.Session["DniPaciente"].ToString();
     string sexo = HttpContext.Current.Session["Sexo"].ToString();
-    DateTime fecha = DateTime.Now;
+    string fecha = DateTime.Now.ToString("dd/MM/yyyy");
+    string horaInicio = DateTime.Now.ToString("hh:mm:ss tt");
+
 
 }
 <br /><br />
-<div class="row u-mb-large" id="PreguntasTest">
+<body style="background-color:#eff3f6">
+<div class="row u-mb-large" id="PreguntasTest" >
     <div class="col-sm-12">
         <div class="c-table-responsive@desktop">
             <table class="c-table c-table--highlight u-mb-small">
-                <caption class="c-table__title" style="background-color:Highlight">
-                        <h3 style="text-align:center">Test Millon @fecha</h3>
+                <caption class="c-table__title" style="background-color:Highlight;caption-side:top">
+                        <h3 style="text-align:center">Test Millon</h3>
                         <p style="text-align:center">Contesta las siguientes preguntas marcando V o F</p>
                 </caption>
                 <thead class="c-table__head c-table__head--slim">
@@ -41,9 +44,17 @@
                                     @item.Pregunta
                                 </td>
                                 <td class="c-table__cell">
-                                    <div style="text-align:right">
-                                        V<input id="@item.Id" name="Respuesta+@item.Id" value="1" type="radio" />
-                                        F<input id="@item.Id+1" name="Respuesta+@item.Id" value="0" type="radio" />
+                                    <div class="text-right">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input u-text-right" id="@item.Id" name="Respuesta+@item.Id" value="1">
+                                            <label class="custom-control-label" for="@item.Id">V</label>
+                                        </div>
+
+                                        <!-- Default inline 2-->
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" id="@item.Id+1" name="Respuesta+@item.Id" value="0">
+                                            <label class="custom-control-label" for="@item.Id+1">F</label>
+                                        </div>
                                     </div>
 
                                 </td>
@@ -74,11 +85,24 @@
         </div>
     </div>
 </div>
+</body>
 
 @section Scripts {
 <script type="text/javascript">
     var a = 0;
     var cadena = "";
+    var myVar = setInterval(myTimer, 1000);
+    var horaFinal;
+
+    function myTimer() {
+        var d = new Date();
+        horaFinal = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, second: 'numeric' });
+        //document.getElementById("demo").innerHTML = horaFinal;
+    }
+
+    function myStopFunction() {
+        clearInterval(myVar);
+    }
 
     function almacenar(s) {
 
@@ -199,13 +223,14 @@
         //alert(cadena);
         document.getElementById("Proceso").disabled = true;
         document.getElementById("Back").disabled = true;
+        clearInterval(myVar);
 
         $.ajax({
             url: "@Url.Action("Diagnosticar", "TestMillon")",
             type: "POST",
         dataType:'json',
         //crossDomain: true,
-        data: { Patron:cadena,Dni:"@dni",Sexo:"@sexo"},
+        data: { Patron: cadena, Dni: "@dni", Sexo: "@sexo", Fecha: "@fecha", HoraInicio: "@horaInicio", HoraFinal:horaFinal },
         success: function (data) {
             // Si la petición es satisfactoria, se recarga la página actual
             window.location.href = data;                       

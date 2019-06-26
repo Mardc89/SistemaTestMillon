@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DS" targetNamespace="http://tempuri.org/DS.xsd" xmlns:mstns="http://tempuri.org/DS.xsd" xmlns="http://tempuri.org/DS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="TestMillonConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="TestMillonConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.TestMillonConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ResultsDiagnosticoTableAdapter" GeneratorDataComponentClassName="ResultsDiagnosticoTableAdapter" Name="ResultsDiagnostico" UserDataComponentName="ResultsDiagnosticoTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TestMillonConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT Diagnosticos.IdDiagnostico,Diagnosticos.DniPaciente, Diagnosticos.Esquizoide, Diagnosticos.Evitativo , Diagnosticos.Depresivo, 
+                         Diagnosticos.Dependiente, Diagnosticos.HoraFinal, Diagnosticos.HoraInicio, Diagnosticos.Validez, Diagnosticos.Fecha, 
+                         Diagnosticos.Devaluación, Diagnosticos.DeseabilidadSocial, Diagnosticos.Sinceridad, Diagnosticos.DesordenDelusional, 
+                         Diagnosticos.DepresiónMayor, Diagnosticos.DesordenPensamiento, Diagnosticos.EstrésPostraumático, Diagnosticos.DependenciaSustancias, 
+                         Diagnosticos.DependenciaAlcohol, Diagnosticos.Distímico, Diagnosticos.Bipolar, Diagnosticos.Somatoformo, Diagnosticos.Ansiedad, 
+                         Diagnosticos.Paranoide, Diagnosticos.Límite, dbo.Diagnosticos.Esquizotípica, Diagnosticos.Autodestructiva, Diagnosticos.Negativista, 
+                         Diagnosticos.Compulsivo, Diagnosticos.AgresivoSádico, Diagnosticos.Antisocial, Diagnosticos.Narcisista, Diagnosticos.Histriónico, 
+                         Pacientes.Nombres, Pacientes.ApellidoPaterno, dbo.Pacientes.ApellidoMaterno, Pacientes.Direccion, Pacientes.Edad, Pacientes.Sexo, 
+                         Pacientes.Telefono, Pacientes.Correo, Pacientes.FechaNacimiento, Pacientes.Profesion
+                                FROM   Pacientes INNER JOIN
+                         Diagnosticos ON Pacientes.DniPaciente = Diagnosticos.DniPaciente</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="IdDiagnostico" DataSetColumn="IdDiagnostico" />
+              <Mapping SourceColumn="DniPaciente" DataSetColumn="DniPaciente" />
+              <Mapping SourceColumn="Esquizoide" DataSetColumn="Esquizoide" />
+              <Mapping SourceColumn="Evitativo" DataSetColumn="Evitativo" />
+              <Mapping SourceColumn="Depresivo" DataSetColumn="Depresivo" />
+              <Mapping SourceColumn="Dependiente" DataSetColumn="Dependiente" />
+              <Mapping SourceColumn="HoraFinal" DataSetColumn="HoraFinal" />
+              <Mapping SourceColumn="HoraInicio" DataSetColumn="HoraInicio" />
+              <Mapping SourceColumn="Validez" DataSetColumn="Validez" />
+              <Mapping SourceColumn="Fecha" DataSetColumn="Fecha" />
+              <Mapping SourceColumn="Devaluación" DataSetColumn="Devaluación" />
+              <Mapping SourceColumn="DeseabilidadSocial" DataSetColumn="DeseabilidadSocial" />
+              <Mapping SourceColumn="Sinceridad" DataSetColumn="Sinceridad" />
+              <Mapping SourceColumn="DesordenDelusional" DataSetColumn="DesordenDelusional" />
+              <Mapping SourceColumn="DepresiónMayor" DataSetColumn="DepresiónMayor" />
+              <Mapping SourceColumn="DesordenPensamiento" DataSetColumn="DesordenPensamiento" />
+              <Mapping SourceColumn="EstrésPostraumático" DataSetColumn="EstrésPostraumático" />
+              <Mapping SourceColumn="DependenciaSustancias" DataSetColumn="DependenciaSustancias" />
+              <Mapping SourceColumn="DependenciaAlcohol" DataSetColumn="DependenciaAlcohol" />
+              <Mapping SourceColumn="Distímico" DataSetColumn="Distímico" />
+              <Mapping SourceColumn="Bipolar" DataSetColumn="Bipolar" />
+              <Mapping SourceColumn="Somatoformo" DataSetColumn="Somatoformo" />
+              <Mapping SourceColumn="Ansiedad" DataSetColumn="Ansiedad" />
+              <Mapping SourceColumn="Paranoide" DataSetColumn="Paranoide" />
+              <Mapping SourceColumn="Límite" DataSetColumn="Límite" />
+              <Mapping SourceColumn="Esquizotípica" DataSetColumn="Esquizotípica" />
+              <Mapping SourceColumn="Autodestructiva" DataSetColumn="Autodestructiva" />
+              <Mapping SourceColumn="Negativista" DataSetColumn="Negativista" />
+              <Mapping SourceColumn="Compulsivo" DataSetColumn="Compulsivo" />
+              <Mapping SourceColumn="AgresivoSádico" DataSetColumn="AgresivoSádico" />
+              <Mapping SourceColumn="Antisocial" DataSetColumn="Antisocial" />
+              <Mapping SourceColumn="Narcisista" DataSetColumn="Narcisista" />
+              <Mapping SourceColumn="Histriónico" DataSetColumn="Histriónico" />
+              <Mapping SourceColumn="Nombres" DataSetColumn="Nombres" />
+              <Mapping SourceColumn="ApellidoPaterno" DataSetColumn="ApellidoPaterno" />
+              <Mapping SourceColumn="ApellidoMaterno" DataSetColumn="ApellidoMaterno" />
+              <Mapping SourceColumn="Direccion" DataSetColumn="Direccion" />
+              <Mapping SourceColumn="Edad" DataSetColumn="Edad" />
+              <Mapping SourceColumn="Sexo" DataSetColumn="Sexo" />
+              <Mapping SourceColumn="Telefono" DataSetColumn="Telefono" />
+              <Mapping SourceColumn="Correo" DataSetColumn="Correo" />
+              <Mapping SourceColumn="FechaNacimiento" DataSetColumn="FechaNacimiento" />
+              <Mapping SourceColumn="Profesion" DataSetColumn="Profesion" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DS" msprop:Generator_UserDSName="DS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ResultsDiagnostico" msprop:Generator_TableClassName="ResultsDiagnosticoDataTable" msprop:Generator_TableVarName="tableResultsDiagnostico" msprop:Generator_TablePropName="ResultsDiagnostico" msprop:Generator_RowDeletingName="ResultsDiagnosticoRowDeleting" msprop:Generator_RowChangingName="ResultsDiagnosticoRowChanging" msprop:Generator_RowEvHandlerName="ResultsDiagnosticoRowChangeEventHandler" msprop:Generator_RowDeletedName="ResultsDiagnosticoRowDeleted" msprop:Generator_UserTableName="ResultsDiagnostico" msprop:Generator_RowChangedName="ResultsDiagnosticoRowChanged" msprop:Generator_RowEvArgName="ResultsDiagnosticoRowChangeEvent" msprop:Generator_RowClassName="ResultsDiagnosticoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdDiagnostico" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdDiagnostico" msprop:Generator_ColumnPropNameInRow="IdDiagnostico" msprop:Generator_ColumnPropNameInTable="IdDiagnosticoColumn" msprop:Generator_UserColumnName="IdDiagnostico" type="xs:int" />
+              <xs:element name="DniPaciente" msprop:Generator_ColumnVarNameInTable="columnDniPaciente" msprop:Generator_ColumnPropNameInRow="DniPaciente" msprop:Generator_ColumnPropNameInTable="DniPacienteColumn" msprop:Generator_UserColumnName="DniPaciente">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Esquizoide" msprop:Generator_ColumnVarNameInTable="columnEsquizoide" msprop:Generator_ColumnPropNameInRow="Esquizoide" msprop:Generator_ColumnPropNameInTable="EsquizoideColumn" msprop:Generator_UserColumnName="Esquizoide" type="xs:int" />
+              <xs:element name="Evitativo" msprop:Generator_ColumnVarNameInTable="columnEvitativo" msprop:Generator_ColumnPropNameInRow="Evitativo" msprop:Generator_ColumnPropNameInTable="EvitativoColumn" msprop:Generator_UserColumnName="Evitativo" type="xs:int" />
+              <xs:element name="Depresivo" msprop:Generator_ColumnVarNameInTable="columnDepresivo" msprop:Generator_ColumnPropNameInRow="Depresivo" msprop:Generator_ColumnPropNameInTable="DepresivoColumn" msprop:Generator_UserColumnName="Depresivo" type="xs:int" />
+              <xs:element name="Dependiente" msprop:Generator_ColumnVarNameInTable="columnDependiente" msprop:Generator_ColumnPropNameInRow="Dependiente" msprop:Generator_ColumnPropNameInTable="DependienteColumn" msprop:Generator_UserColumnName="Dependiente" type="xs:int" />
+              <xs:element name="HoraFinal" msprop:Generator_ColumnVarNameInTable="columnHoraFinal" msprop:Generator_ColumnPropNameInRow="HoraFinal" msprop:Generator_ColumnPropNameInTable="HoraFinalColumn" msprop:Generator_UserColumnName="HoraFinal" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="HoraInicio" msprop:Generator_ColumnVarNameInTable="columnHoraInicio" msprop:Generator_ColumnPropNameInRow="HoraInicio" msprop:Generator_ColumnPropNameInTable="HoraInicioColumn" msprop:Generator_UserColumnName="HoraInicio" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Validez" msprop:Generator_ColumnVarNameInTable="columnValidez" msprop:Generator_ColumnPropNameInRow="Validez" msprop:Generator_ColumnPropNameInTable="ValidezColumn" msprop:Generator_UserColumnName="Validez" type="xs:int" />
+              <xs:element name="Fecha" msprop:Generator_ColumnVarNameInTable="columnFecha" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_UserColumnName="Fecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Devaluación" msprop:Generator_ColumnVarNameInTable="columnDevaluación" msprop:Generator_ColumnPropNameInRow="Devaluación" msprop:Generator_ColumnPropNameInTable="DevaluaciónColumn" msprop:Generator_UserColumnName="Devaluación" type="xs:int" />
+              <xs:element name="DeseabilidadSocial" msprop:Generator_ColumnVarNameInTable="columnDeseabilidadSocial" msprop:Generator_ColumnPropNameInRow="DeseabilidadSocial" msprop:Generator_ColumnPropNameInTable="DeseabilidadSocialColumn" msprop:Generator_UserColumnName="DeseabilidadSocial" type="xs:int" />
+              <xs:element name="Sinceridad" msprop:Generator_ColumnVarNameInTable="columnSinceridad" msprop:Generator_ColumnPropNameInRow="Sinceridad" msprop:Generator_ColumnPropNameInTable="SinceridadColumn" msprop:Generator_UserColumnName="Sinceridad" type="xs:int" />
+              <xs:element name="DesordenDelusional" msprop:Generator_ColumnVarNameInTable="columnDesordenDelusional" msprop:Generator_ColumnPropNameInRow="DesordenDelusional" msprop:Generator_ColumnPropNameInTable="DesordenDelusionalColumn" msprop:Generator_UserColumnName="DesordenDelusional" type="xs:int" />
+              <xs:element name="DepresiónMayor" msprop:Generator_ColumnVarNameInTable="columnDepresiónMayor" msprop:Generator_ColumnPropNameInRow="DepresiónMayor" msprop:Generator_ColumnPropNameInTable="DepresiónMayorColumn" msprop:Generator_UserColumnName="DepresiónMayor" type="xs:int" />
+              <xs:element name="DesordenPensamiento" msprop:Generator_ColumnVarNameInTable="columnDesordenPensamiento" msprop:Generator_ColumnPropNameInRow="DesordenPensamiento" msprop:Generator_ColumnPropNameInTable="DesordenPensamientoColumn" msprop:Generator_UserColumnName="DesordenPensamiento" type="xs:int" />
+              <xs:element name="EstrésPostraumático" msprop:Generator_ColumnVarNameInTable="columnEstrésPostraumático" msprop:Generator_ColumnPropNameInRow="EstrésPostraumático" msprop:Generator_ColumnPropNameInTable="EstrésPostraumáticoColumn" msprop:Generator_UserColumnName="EstrésPostraumático" type="xs:int" />
+              <xs:element name="DependenciaSustancias" msprop:Generator_ColumnVarNameInTable="columnDependenciaSustancias" msprop:Generator_ColumnPropNameInRow="DependenciaSustancias" msprop:Generator_ColumnPropNameInTable="DependenciaSustanciasColumn" msprop:Generator_UserColumnName="DependenciaSustancias" type="xs:int" />
+              <xs:element name="DependenciaAlcohol" msprop:Generator_ColumnVarNameInTable="columnDependenciaAlcohol" msprop:Generator_ColumnPropNameInRow="DependenciaAlcohol" msprop:Generator_ColumnPropNameInTable="DependenciaAlcoholColumn" msprop:Generator_UserColumnName="DependenciaAlcohol" type="xs:int" />
+              <xs:element name="Distímico" msprop:Generator_ColumnVarNameInTable="columnDistímico" msprop:Generator_ColumnPropNameInRow="Distímico" msprop:Generator_ColumnPropNameInTable="DistímicoColumn" msprop:Generator_UserColumnName="Distímico" type="xs:int" />
+              <xs:element name="Bipolar" msprop:Generator_ColumnVarNameInTable="columnBipolar" msprop:Generator_ColumnPropNameInRow="Bipolar" msprop:Generator_ColumnPropNameInTable="BipolarColumn" msprop:Generator_UserColumnName="Bipolar" type="xs:int" />
+              <xs:element name="Somatoformo" msprop:Generator_ColumnVarNameInTable="columnSomatoformo" msprop:Generator_ColumnPropNameInRow="Somatoformo" msprop:Generator_ColumnPropNameInTable="SomatoformoColumn" msprop:Generator_UserColumnName="Somatoformo" type="xs:int" />
+              <xs:element name="Ansiedad" msprop:Generator_ColumnVarNameInTable="columnAnsiedad" msprop:Generator_ColumnPropNameInRow="Ansiedad" msprop:Generator_ColumnPropNameInTable="AnsiedadColumn" msprop:Generator_UserColumnName="Ansiedad" type="xs:int" />
+              <xs:element name="Paranoide" msprop:Generator_ColumnVarNameInTable="columnParanoide" msprop:Generator_ColumnPropNameInRow="Paranoide" msprop:Generator_ColumnPropNameInTable="ParanoideColumn" msprop:Generator_UserColumnName="Paranoide" type="xs:int" />
+              <xs:element name="Límite" msprop:Generator_ColumnVarNameInTable="columnLímite" msprop:Generator_ColumnPropNameInRow="Límite" msprop:Generator_ColumnPropNameInTable="LímiteColumn" msprop:Generator_UserColumnName="Límite" type="xs:int" />
+              <xs:element name="Esquizotípica" msprop:Generator_ColumnVarNameInTable="columnEsquizotípica" msprop:Generator_ColumnPropNameInRow="Esquizotípica" msprop:Generator_ColumnPropNameInTable="EsquizotípicaColumn" msprop:Generator_UserColumnName="Esquizotípica" type="xs:int" />
+              <xs:element name="Autodestructiva" msprop:Generator_ColumnVarNameInTable="columnAutodestructiva" msprop:Generator_ColumnPropNameInRow="Autodestructiva" msprop:Generator_ColumnPropNameInTable="AutodestructivaColumn" msprop:Generator_UserColumnName="Autodestructiva" type="xs:int" />
+              <xs:element name="Negativista" msprop:Generator_ColumnVarNameInTable="columnNegativista" msprop:Generator_ColumnPropNameInRow="Negativista" msprop:Generator_ColumnPropNameInTable="NegativistaColumn" msprop:Generator_UserColumnName="Negativista" type="xs:int" />
+              <xs:element name="Compulsivo" msprop:Generator_ColumnVarNameInTable="columnCompulsivo" msprop:Generator_ColumnPropNameInRow="Compulsivo" msprop:Generator_ColumnPropNameInTable="CompulsivoColumn" msprop:Generator_UserColumnName="Compulsivo" type="xs:int" />
+              <xs:element name="AgresivoSádico" msprop:Generator_ColumnVarNameInTable="columnAgresivoSádico" msprop:Generator_ColumnPropNameInRow="AgresivoSádico" msprop:Generator_ColumnPropNameInTable="AgresivoSádicoColumn" msprop:Generator_UserColumnName="AgresivoSádico" type="xs:int" />
+              <xs:element name="Antisocial" msprop:Generator_ColumnVarNameInTable="columnAntisocial" msprop:Generator_ColumnPropNameInRow="Antisocial" msprop:Generator_ColumnPropNameInTable="AntisocialColumn" msprop:Generator_UserColumnName="Antisocial" type="xs:int" />
+              <xs:element name="Narcisista" msprop:Generator_ColumnVarNameInTable="columnNarcisista" msprop:Generator_ColumnPropNameInRow="Narcisista" msprop:Generator_ColumnPropNameInTable="NarcisistaColumn" msprop:Generator_UserColumnName="Narcisista" type="xs:int" />
+              <xs:element name="Histriónico" msprop:Generator_ColumnVarNameInTable="columnHistriónico" msprop:Generator_ColumnPropNameInRow="Histriónico" msprop:Generator_ColumnPropNameInTable="HistriónicoColumn" msprop:Generator_UserColumnName="Histriónico" type="xs:int" />
+              <xs:element name="Nombres" msprop:Generator_ColumnVarNameInTable="columnNombres" msprop:Generator_ColumnPropNameInRow="Nombres" msprop:Generator_ColumnPropNameInTable="NombresColumn" msprop:Generator_UserColumnName="Nombres">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ApellidoPaterno" msprop:Generator_ColumnVarNameInTable="columnApellidoPaterno" msprop:Generator_ColumnPropNameInRow="ApellidoPaterno" msprop:Generator_ColumnPropNameInTable="ApellidoPaternoColumn" msprop:Generator_UserColumnName="ApellidoPaterno">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ApellidoMaterno" msprop:Generator_ColumnVarNameInTable="columnApellidoMaterno" msprop:Generator_ColumnPropNameInRow="ApellidoMaterno" msprop:Generator_ColumnPropNameInTable="ApellidoMaternoColumn" msprop:Generator_UserColumnName="ApellidoMaterno">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Direccion" msprop:Generator_ColumnVarNameInTable="columnDireccion" msprop:Generator_ColumnPropNameInRow="Direccion" msprop:Generator_ColumnPropNameInTable="DireccionColumn" msprop:Generator_UserColumnName="Direccion">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Edad" msprop:Generator_ColumnVarNameInTable="columnEdad" msprop:Generator_ColumnPropNameInRow="Edad" msprop:Generator_ColumnPropNameInTable="EdadColumn" msprop:Generator_UserColumnName="Edad" type="xs:int" />
+              <xs:element name="Sexo" msprop:Generator_ColumnVarNameInTable="columnSexo" msprop:Generator_ColumnPropNameInRow="Sexo" msprop:Generator_ColumnPropNameInTable="SexoColumn" msprop:Generator_UserColumnName="Sexo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Telefono" msprop:Generator_ColumnVarNameInTable="columnTelefono" msprop:Generator_ColumnPropNameInRow="Telefono" msprop:Generator_ColumnPropNameInTable="TelefonoColumn" msprop:Generator_UserColumnName="Telefono">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Correo" msprop:Generator_ColumnVarNameInTable="columnCorreo" msprop:Generator_ColumnPropNameInRow="Correo" msprop:Generator_ColumnPropNameInTable="CorreoColumn" msprop:Generator_UserColumnName="Correo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FechaNacimiento" msprop:Generator_ColumnVarNameInTable="columnFechaNacimiento" msprop:Generator_ColumnPropNameInRow="FechaNacimiento" msprop:Generator_ColumnPropNameInTable="FechaNacimientoColumn" msprop:Generator_UserColumnName="FechaNacimiento" type="xs:dateTime" />
+              <xs:element name="Profesion" msprop:Generator_ColumnVarNameInTable="columnProfesion" msprop:Generator_ColumnPropNameInRow="Profesion" msprop:Generator_ColumnPropNameInTable="ProfesionColumn" msprop:Generator_UserColumnName="Profesion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ResultsDiagnostico" />
+      <xs:field xpath="mstns:IdDiagnostico" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

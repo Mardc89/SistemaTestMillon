@@ -1,0 +1,110 @@
+﻿@model Model.Historias
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row u-mb-large">
+    <div class="col-sm-12">
+        <div id="msgCargando" class="col-md-12 c-table justify-content-center" style="text-align:center;">
+            <img src="~/Content/img/preloader.gif" />
+            <h3>Cargando...</h3>
+        </div>
+
+        <div id="divProductos" class="c-table-responsive@desktop">
+
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="c-modal c-modal--large modal fade ocultarDespues" id="modal8" tabindex="-1" role="dialog" aria-labelledby="modal8" data-backdrop="static">
+    <div class="c-modal__dialog modal-dialog" role="document">
+        <div class="c-modal__content">
+            <div class="c-modal__header u-bg-primary">
+                <h3 class="c-modal__title">Historia</h3>
+                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-close"></i>
+                </span>
+            </div>
+            <div class="c-modal__body">
+                <form class="c-card__body formAjaxAdd" method="post" action="~/Productos/Add">
+                    <div class="row">
+                        <div class="col-md-12" id="anexosUpload" style="background-color:#808080; display:none;">
+                        </div>
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="input-project">Código</label>
+                            <input type="text" class="c-input" name="Codigo" id="txtCodigo" disabled="disabled">
+                        </div>
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="input-project">Codigo Diagnostico</label>
+                            <input type="text" class="c-input" name="Nombre" id="txtNombre" placeholder="Nombre del Producto" required="required">
+                        </div>
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="input-project">Dni Psicologo</label>
+                            <input type="text" class="c-input" name="Descripcion" id="txtDescripcion" placeholder="Descripción del Producto" required="required">
+                        </div>
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="input-project">Fecha</label>
+                            <input type="date" class="c-input" name="Marca" id="txtMarca" placeholder="Marca" required="required">
+                        </div>
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="input-project">Motivo</label>
+                            <input type="text" class="c-input" name="Modelo" id="txtModelo" placeholder="Modelo" required="required">
+                        </div>
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="input-project">Tratamiento</label>
+                            <input type="text" class="c-input" name="Stock" id="txtStock" placeholder="5"  required="required">
+                        </div>
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="input-project">Observacion</label>
+                            <input type="text" class="c-input" name="Modelo" id="txtModelo" placeholder="Modelo" required="required">
+                        </div>
+                        <input type="hidden" name="archivos" id="archivos" />
+                        <input type="hidden" name="Id" id="Id" />
+                    </div>
+                    <div class="c-modal__footer u-justify-center">
+                        <button class="c-btn c-btn--success btnAjaxAdd" type="submit">
+                            Guardar
+                            <img src="~/Content/img/load.gif" class="loadingAjaxAdd" style="display:none" />
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div><!-- // .c-modal__content -->
+    </div><!-- // .c-modal__dialog -->
+</div><!-- // .c-modal -->
+@section scripts
+{
+    <script>
+        var strFiltro = "";
+        var strValOrder = "";
+        $(document).ready(function () {
+            cargaTabla("IdHistoria", "");
+        });
+        function cargaTabla(val, valOrder) {
+            if (val.length > 0) {
+                strFiltro = val;
+                val = "/?val=" + val;
+            }
+            if (valOrder.length > 0) {
+                strValOrder = valOrder;
+                valOrder = "valSearch=" + valOrder;
+                if (val.length < 1)
+                    valOrder = "/?" + valOrder;
+                else
+                    valOrder = "&" + valOrder;
+            }
+
+
+
+
+            $.ajaxSetup({ cache: false })
+            $('#divProductos').load(urlGeneral + 'Historias/ListaHistorias' + val + valOrder, function (response, status, xhr) {
+                $("#msgCargando").hide()
+            });
+        }
+    </script>
+    <script src="~/Content/js/custom.js"></script>
+}
+
+

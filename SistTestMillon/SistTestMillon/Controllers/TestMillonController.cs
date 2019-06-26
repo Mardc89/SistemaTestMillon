@@ -6,6 +6,7 @@ using SistTestMillon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -13,17 +14,14 @@ using System.Web.Security;
 
 namespace SistTestMillon.Controllers
 {
-    
+    [Authorize]
     public class TestMillonController : Controller
     {
         // GET: TestMillon
-        [CloseSesion]
         public ActionResult Cerrar()
         {
-            Session.Abandon();
-            FormsAuthentication.SignOut();
-            HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
-            return RedirectToAction("Index", "Account");
+            SessionHelper.DestroyUserSession();
+            return RedirectToAction("Users", "Users");
         }
 
 
@@ -56,7 +54,7 @@ namespace SistTestMillon.Controllers
         }
 
         [HttpPost]
-        public ActionResult Diagnosticar(string Patron,string Dni,string Sexo)
+        public ActionResult Diagnosticar(string Patron,string Dni,string Sexo,string Fecha,string HoraInicio,string HoraFinal)
         {
             List<string> Patrones = new List<string>();
             string Esquizoide = PatronClinicoHelper.PatronEsquizoide(Patron);
@@ -237,7 +235,10 @@ namespace SistTestMillon.Controllers
                 Sinceridad=PuntosSinceridad,
                 DeseabilidadSocial= PuntosDeseabilidadSocial,
                 Devaluación=PuntosDevaluacion,
-                Validez=PuntosValidez
+                Validez=PuntosValidez,
+                Fecha=Convert.ToDateTime(Fecha),
+                HoraInicio=HoraInicio,
+                HoraFinal=HoraFinal
 
 
             });

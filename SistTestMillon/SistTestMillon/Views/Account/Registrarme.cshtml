@@ -37,7 +37,11 @@
             </div>
             <div class="c-field u-mb-small">
                 <label class="c-field__label" for="TipoUsu">Tipo de Usuario</label>
-                <input class="c-input" type="text" id="TipoUsu" required="required" name="TipoUsu" placeholder="Usuario">
+                <select name="TipoUsu" class="c-input" id="TipoUsu">
+                    <!-- Opciones de la lista -->
+                    <option value="Paciente">Paciente</option>
+                    <option value="Psicologo" selected>Psicologo</option>
+                </select>
             </div>
             <div class="c-field u-mb-small">
                 <label class="c-field__label" for="Edad">Edad</label>
@@ -45,7 +49,11 @@
             </div>
             <div class="c-field u-mb-small">
                 <label class="c-field__label" for="Sexo">Sexo</label>
-                <input class="c-input" type="text" id="Sexo" required="required" name="Sexo" placeholder="Sexo">
+                <select name="Sexo" class="c-input" id="Sexo">
+                    <!-- Opciones de la lista -->
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino" selected>Femenino</option>
+                </select>
             </div>
             <div class="c-field u-mb-small">
                 <label class="c-field__label" for="Profesion">Profesion</label>

@@ -66,6 +66,19 @@ namespace SistTestMillon.Helpers
             HttpContext.Current.Session["ApellidoMaterno"] = Paciente.ApellidoMaterno;
         }
 
+        public static void ActualizarSessionAdmin(Usuarios Usuario,Administradores admin)
+        {
+            HttpContext.Current.Session["Usuario_Id"] = Usuario.IdUsuario;
+            HttpContext.Current.Session["TipoUsuario"] = Usuario.TipoUsuario;
+            HttpContext.Current.Session["NombreUsuario"] = Usuario.NombreUsuario;
+            HttpContext.Current.Session["Contraseña"] = Usuario.Contraseña;
+            HttpContext.Current.Session["Sexo"] = admin.Sexo;
+            HttpContext.Current.Session["DniPaciente"] = admin.DniAdministrador;
+            HttpContext.Current.Session["Nombres"] = admin.Nombres;
+            HttpContext.Current.Session["ApellidoPaterno"] = admin.ApellidoPaterno;
+            HttpContext.Current.Session["ApellidoMaterno"] = admin.ApellidoMaterno;
+        }
+
     }
 
 }

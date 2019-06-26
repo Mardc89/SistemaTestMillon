@@ -25,6 +25,7 @@ namespace SistTestMillon.Controllers
             var objUsu = repository.FindEntity<Usuarios>(c => c.NombreUsuario==Usuario);
             var UsuID = repository.FindEntity<Usuarios>(c => c.NombreUsuario == Usuario).IdUsuario;
             var UsuIDPaciente = repository.FindEntity<Pacientes>(c => c.IdUsuario ==UsuID);
+            var UsuIDAdmin = repository.FindEntity<Administradores>(c => c.IdUsuario ==UsuID);
             var Nombre = repository.FindEntity<Usuarios>(c => c.NombreUsuario == Usuario).NombreUsuario;
             var TipoUsuario = repository.FindEntity<Usuarios>(c => c.NombreUsuario == Usuario).TipoUsuario;
             int id = 0;
@@ -65,7 +66,7 @@ namespace SistTestMillon.Controllers
                 {
                     id = -1;
                     SessionHelper.AddUserToSession(objUsu.IdUsuario.ToString(), (bool)recordar);
-                    SessionHelper.ActualizarSession(objUsu);
+                    SessionHelper.ActualizarSessionAdmin(objUsu,UsuIDAdmin);
                     if (objUsu.IdUsuario == UsuID)
                     {
                         strMensaje = Url.Content("~/Home");
@@ -167,8 +168,7 @@ namespace SistTestMillon.Controllers
                             
                         }
                         else {
-                            strMensaje = Url.Action("Index", "Home");
-                            return Json(new Response { IsSuccess = true, Message = strMensaje, Id = -1 }, JsonRequestBehavior.AllowGet);
+                            return RedirectToAction("Index", "Home");
 
                         }
 

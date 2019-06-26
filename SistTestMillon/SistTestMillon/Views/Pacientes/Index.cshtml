@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Model.Pacientes>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+<div class="row u-mb-large" id="PreguntasTest">
+    <div class="col-sm-12">
+        <div class="c-table-responsive@desktop">
+            <table class="c-table c-table--highlight u-mb-small">
+                <caption class="c-table__title" >
+                    <h3 style="text-align:center">Pacientes</h3>
+                </caption>
+                <thead class="c-table__head c-table__head--slim">
+                    <tr class="c-table__row">
+                        <th class="c-table__cell c-table__cell--head">N°</th>
+                        <th class="c-table__cell c-table__cell--head">Nombres</th>
+                        <th class="c-table__cell c-table__cell--head">Apellido Paterno</th>
+                        <th class="c-table__cell c-table__cell--head">Apellido Materno</th>
+                        <th class="c-table__cell c-table__cell--head">Edad</th>
+                        <th class="c-table__cell c-table__cell--head">Telefono</th>
+                        <th class="c-table__cell c-table__cell--head">Correo</th>
+                        <th class="c-table__cell c-table__cell--head">
+                            <span class="u-hidden-visually">Tools</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int inicio = 0;}
+                    @if (Model.Count() > 0)
+                    {
+
+                        foreach (var item in Model)
+                        {
+                            inicio = item.IdPaciente;
+                            <tr class="c-table__row">
+                                <td class="c-table__cell">
+                                    <small class="u-block u-text-mute">@item.IdPaciente</small>
+                                </td>
+                                <td class="c-table__cell Pregunta">
+                                    @item.Nombres
+                                </td>
+                                <td class="c-table__cell Pregunta">
+                                    @item.ApellidoPaterno
+                                </td>
+                                <td class="c-table__cell Pregunta">
+                                    @item.ApellidoMaterno
+                                </td>
+                                <td class="c-table__cell Pregunta">
+                                    @item.Edad
+                                </td>
+                                <td class="c-table__cell Pregunta">
+                                    @item.Telefono
+                                </td>
+                                <td class="c-table__cell Pregunta">
+                                    @item.Correo
+                                </td>
+                                <td class="c-table__cell u-text-right">
+                                    <a class="c-btn c-btn--primary">
+                                        <i class="fa fa-pencil-square-o u-mr-small"></i>Eliminar
+                                    </a>
+                                    <a class="c-btn c-btn--info">
+                                        <i class="fa fa-pencil-square-o u-mr-small"></i>Reporte
+                                    </a>
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="c-table__cell" colspan="10">
+                                No tienes productos registrados
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+

@@ -21,8 +21,8 @@ namespace SistTestMillon.Attributes
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
                 {
-                    controller = "Account",
-                    action = "Index"
+                    controller = "Users",
+                    action = "Users"
                 }));
             }
             else
@@ -45,10 +45,6 @@ namespace SistTestMillon.Attributes
         {
             base.OnActionExecuting(filterContext);
             SessionHelper.DestroyUserSession();
-
-            HttpCookie cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-            cookie.Expires = DateTime.Now.AddHours(-1);
-            HttpContext.Current.Response.Cookies.Add(cookie);
 
             filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
              {

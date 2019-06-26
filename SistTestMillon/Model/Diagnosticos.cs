@@ -50,6 +50,9 @@ namespace Model
         public int DeseabilidadSocial { get; set; }
         public int Devaluación { get; set; }
         public int Validez { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
+        public string HoraInicio { get; set; }
+        public string HoraFinal { get; set; }
     
         public virtual Pacientes Pacientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
