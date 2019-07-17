@@ -1,0 +1,240 @@
+﻿@model PagedList.IPagedList<Model.Citas>
+@using PagedList.Mvc
+@{ string strOrden = ""; string strImgOrder = "";}
+<table class="c-table c-table--highlight u-mb-small">
+    <caption class="c-table__title">
+        <div class="row">
+            <div class="col-md-6">
+                Citas <small>20</small>
+                <button type="button" class="c-btn c-btn--info" data-toggle="modal" data-target="#modal8">
+                    Agregar Citas
+                </button>
+            </div>
+            <div class="col-md-6">
+                <div class="c-field has-addon-right">
+                    <input class="c-input" id="txtBuscar" type="text" placeholder="Buscar..." value="@ViewBag.Buscar">
+                    <button id="btnBuscar" type="button" class="c-btn c-btn--info c-field__addon">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </caption>
+    <thead class="c-table__head c-table__head--slim">
+
+        <tr class="c-table__row">
+            <th class="c-table__cell c-table__cell--head">N°</th>
+            <th class="c-table__cell c-table__cell--head">Fecha</th>
+            <th class="c-table__cell c-table__cell--head">Hora</th>
+            <th class="c-table__cell c-table__cell--head">Dni Paciente</th>
+            <th class="c-table__cell c-table__cell--head">Dni Psicologo</th>
+            <th class="c-table__cell c-table__cell--head">
+                <span class="u-hidden-visually">Tools</span>
+            </th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @if (Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr class="c-table__row">
+                    <td class="c-table__cell">
+                        @item.IdCita
+                    </td>
+                    <td class="c-table__cell">
+                        @item.Fecha
+
+                    </td>
+                    <td class="c-table__cell">
+                        @item.Hora
+                    </td>
+                    <td class="c-table__cell">
+                        @item.DniPaciente
+                    </td>
+                    <td class="c-table__cell">
+                        @item.DniPsicologo
+
+                    </td>
+                    <td class="c-table__cell u-text-right">
+                        <div>
+                            <a class="c-btn c-btn--success" href="#!" onclick="funProd(@item.IdCita, 'M', event);">
+                                <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Editar
+                            </a>
+                            <a class="c-btn c-btn--danger" href="#!" onclick="funProd(@item.IdCita, 'E', event);">
+                                <i class="fa fa-trash-o u-mr-xsmall"></i>Eliminar
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td class="c-table__cell" colspan="10">
+                    No tienes productos registrados
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="col-lg-6 u-mb-medium">
+    <h4 class="u-mb-medium">Alerts</h4>
+    <div class="c-alert c-alert--success">
+        <i class="c-alert__icon fa fa-check-circle"></i> Success! This is positive notification.
+    </div>
+
+    <div class="c-alert c-alert--info">
+        <i class="c-alert__icon fa fa-info-circle"></i> All servers are now running smoothly again! Thanks.
+    </div>
+
+    <div class="c-alert c-alert--warning alert fade show">
+        <i class="c-alert__icon fa fa-exclamation-circle"></i> Warning. Loading of this page taking a way too long.
+
+        <button class="c-close" data-dismiss="alert" type="button">×</button>
+    </div>
+
+    <div class="c-alert c-alert--danger alert fade show">
+        <i class="c-alert__icon fa fa-times-circle"></i> Error. Can’t connect to the platform.
+
+        <button class="c-close" data-dismiss="alert" type="button">×</button>
+    </div>
+</div>
+
+
+
+<div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+</div>
+<div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
+    @Html.PagedListPager(Model, page => Url.Action("ListaCitas", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
+</div>
+<script>
+    var permiteOrdenar = '';
+    $(document).ready(function () {
+        $(".permiteOrdenar").on("click", function () {
+            permiteOrdenar = $(this).data("order");
+            cargaTabla($(this).data("order"), $("#txtBuscar").val());
+        });
+        $("#btnBuscar").click(function () {
+            cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+        });
+        $("#datatable_paginate").on("click", 'a', function (e) {
+            e.preventDefault();
+            $("#msgCargando").show();
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $("#msgCargando").hide();
+                    $('#divProductos').html(result);
+                }
+            });
+        });
+    });
+
+
+
+</script>
+<script src="~/Content/js/main.min.js"></script>
+<script src="~/packages/interaction/main.js"></script>
+<script src="~/packages/daygrid/main.js"></script>
+<script src="~/packages/timegrid/main.js"></script>
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      defaultDate: '2019-06-12',
+      navLinks: true, // can click day/week names to navigate views
+      selectable: true,
+      selectMirror: true,
+      select: function(arg) {
+        var title = prompt('Event Title:');
+        if (title) {
+          calendar.addEvent({
+            title: title,
+            start: arg.start,
+            end: arg.end,
+            allDay: arg.allDay
+          })
+        }
+        calendar.unselect()
+      },
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events
+      events: [
+        {
+          title: 'All Day Event',
+          start: '2019-06-01'
+        },
+        {
+          title: 'Long Event',
+          start: '2019-06-07',
+          end: '2019-06-10'
+        },
+        {
+          groupId: 999,
+          title: 'Repeating Event',
+          start: '2019-06-09T16:00:00'
+        },
+        {
+          groupId: 999,
+          title: 'Repeating Event',
+          start: '2019-06-16T16:00:00'
+        },
+        {
+          title: 'Conference',
+          start: '2019-06-11',
+          end: '2019-06-13'
+        },
+        {
+          title: 'Meeting',
+          start: '2019-06-12T10:30:00',
+          end: '2019-06-12T12:30:00'
+        },
+        {
+          title: 'Lunch',
+          start: '2019-06-12T12:00:00'
+        },
+        {
+          title: 'Meeting',
+          start: '2019-06-12T14:30:00'
+        },
+        {
+          title: 'Happy Hour',
+          start: '2019-06-12T17:30:00'
+        },
+        {
+          title: 'Dinner',
+          start: '2019-06-12T20:00:00'
+        },
+        {
+          title: 'Birthday Party',
+          start: '2019-06-13T07:00:00'
+        },
+        {
+          title: 'Click for Google',
+          url: 'http://google.com/',
+          start: '2019-06-28'
+        }
+      ]
+    });
+
+    calendar.render();
+  });
+
+</script>
+

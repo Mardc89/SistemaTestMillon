@@ -10,9 +10,11 @@ using System.Web.Mvc;
 namespace SistTestMillon.Controllers
 {
     [Autenticado]
+
     public class HomeController : Controller
     {
         // GET: Home
+        [Authorize]
         public ActionResult Index()
         {
             IRepository repository = new Model.Repository();

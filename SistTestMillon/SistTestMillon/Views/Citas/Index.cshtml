@@ -1,85 +1,183 @@
-﻿
+﻿@model Model.Citas
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Layout = null;
 }
 
-<h2>Index</h2>
 
-<div class="c-modal c-modal--large modal fade" id="modal8" tabindex="-1" role="dialog" aria-labelledby="modal8" data-backdrop="static">
-    <div class="c-modal__dialog modal-dialog" role="document">
-        <div class="c-modal__content">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <link href='~/Content/calendar/core/main.css' rel='stylesheet' />
+    <link href='~/Content/calendar/daygrid/main.css' rel='stylesheet' />
+    <link href='~/Content/calendar/timegrid/main.css' rel='stylesheet' />
+    
+    <style>
+        body {
+           background-color:#eff3f6;
+            margin: 40px 10px;
+            padding: 0;
+            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+            font-size: 14px;
+        }
 
-            <div class="c-modal__header u-bg-primary">
-                <h3 class="c-modal__title">Producto</h3>
-                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
-                    <i class="fa fa-close"></i>
-                </span>
-            </div>
-            <div class="c-modal__body">
-                <form action="~/Productos/FileUpload" class="dropzone u-mb-small" id="modal-dropzone" style="height: 180px;">
-                    <div class="dz-message" data-dz-message>
-                        <i class="dz-icon fa fa-cloud-upload"></i>
-                        <span>Arrastra y suelta las imagenes del producto</span>
-                    </div>
-                    <div class="fallback">
-                        <input name="file" type="file" multiple>
-                    </div>
+        #calendar {
+            background-color:#ffffff;
+                max-width: 900px;
+    margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div id='calendar'></div>
+</body>
 
-                </form>
-                <form class="c-card__body formAjax" method="post" action="~/Productos/Add">
-                    <div class="row">
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Código</label>
-                            <input type="text" class="c-input" name="Codigo" id="input-project" disabled="disabled">
-                        </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Nombre del Producto</label>
-                            <input type="text" class="c-input" name="Nombre" id="input-project" placeholder="Nombre del Producto"  required="required">
-                        </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Descripción del Producto</label>
-                            <input type="text" class="c-input" name="Descripcion" id="input-project" placeholder="Descripción del Producto"  required="required">
-                        </div>
-                        <div class="col-md-4 sin-padding c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Marca</label>
-                            <input type="text" class="c-input" name="Marca" id="input-project" placeholder="Marca"  required="required">
-                        </div>
-                        <div class="col-md-4 c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Modelo</label>
-                            <input type="text" class="c-input" name="Modelo" id="input-project" placeholder="Modelo"  required="required">
-                        </div>
+</html>
 
-                        <div class="col-md-4 sin-padding-last c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Stock</label>
-                            <input type="number" class="c-input" name="Stock" id="input-project" placeholder="5" min="0"  required="required">
-                        </div>
-                        <div class="col-md-4 sin-padding c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Unidad de Medida</label>
-                            <input type="text" class="c-input" name="UnidadMedida" id="input-project" placeholder="Unidad de Medida"  required="required">
-                        </div>
-                        <div class="col-md-4 c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Costo</label>
-                            <input type="number" class="c-input" name="Costo" id="input-project" placeholder="20.00" min="0"  required="required">
-                        </div>
-                        <div class="col-md-4 sin-padding c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Precio Venta</label>
-                            <input type="number" class="c-input" name="PrecioVenta" id="input-project" placeholder="35.00" min="0"  required="required">
-                        </div>
-                        <input type="hidden" name="archivos" id="archivos" />
-                        <input type="hidden" name="Id" id="Id" />
-                    </div>
-                    <div class="c-modal__footer u-justify-center">
-                        <button class="c-btn c-btn--success btnAjax" type="submit">
-                            Crear Producto
-                            <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
-                        </button>
-                    </div>
-                </form>
-                    
 
-            </div>
-            
-        </div><!-- // .c-modal__content -->
-    </div><!-- // .c-modal__dialog -->
-</div>
+
+
+
+    <script src='~/Content/calendar/core/main.js'></script>
+    <script src='~/Content/calendar/interaction/main.js'></script>
+    <script src='~/Content/calendar/daygrid/main.js'></script>
+    <script src='~/Content/calendar/timegrid/main.js'></script>
+    <script>
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var calendarEl = document.getElementById('calendar');
+
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    plugins: ['interaction', 'dayGrid', 'timeGrid'],
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    navLinks: true, // can click day/week names to navigate views
+                    selectable: true,
+                    selectMirror: true,
+                    select: function (arg) {
+                        var title = prompt('Event Title:');
+                        if (title) {
+                            calendar.addEvent({
+                                title: title,
+                                start: arg.start,
+                                end: arg.end,
+                                allDay: arg.allDay
+                            })
+                        }
+                        calendar.unselect()
+                    },
+                    editable: true,
+                    eventLimit: true, // allow "more" link when too many events
+                    events: [
+                      {
+                          title: 'All Day Event',
+                          start: '2019-06-01'
+                      },
+                      {
+                          title: 'Long Event',
+                          start: '2019-06-07',
+                          end: '2019-06-10'
+                      },
+                      {
+                          groupId: 999,
+                          title: 'Repeating Event',
+                          start: '2019-06-09T16:00:00'
+                      },
+                      {
+                          groupId: 999,
+                          title: 'Repeating Event',
+                          start: '2019-06-16T16:00:00'
+                      },
+                      {
+                          title: 'Conference',
+                          start: '2019-06-11',
+                          end: '2019-06-13'
+                      },
+                      {
+                          title: 'Meeting',
+                          start: '2019-06-12T10:30:00',
+                          end: '2019-06-12T12:30:00'
+                      },
+                      {
+                          title: 'Lunch',
+                          start: '2019-06-12T12:00:00'
+                      },
+                      {
+                          title: 'Meeting',
+                          start: '2019-06-12T14:30:00'
+                      },
+                      {
+                          title: 'Happy Hour',
+                          start: '2019-06-12T17:30:00'
+                      },
+                      {
+                          title: 'Dinner',
+                          start: '2019-06-12T20:00:00'
+                      },
+                      {
+                          title: 'Birthday Party',
+                          start: '2019-06-13T07:00:00'
+                      },
+                      {
+                          title: 'Click for Google',
+                          url: 'http://google.com/',
+                          start: '2019-06-28'
+                      }
+                    ]
+                });
+
+                calendar.render();
+            });
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

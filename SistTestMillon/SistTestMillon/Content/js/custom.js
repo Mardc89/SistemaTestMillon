@@ -135,7 +135,7 @@ function funProd(id, tipo, evt) {
     if (tipo == 'E') {
         $.ajax({
             type: "POST",
-            url: urlGeneral + "Productos/Eliminar",
+            url: urlGeneral + "Historias/Eliminar",
             data: "{Id: " + id + "}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -148,7 +148,7 @@ function funProd(id, tipo, evt) {
                 }).then(function () {
                     $(".ocultarDespues").modal('hide');
                     cargaTabla(strFiltro, strValOrder);
-                    removeInfoForm(formAjaxAdd);
+                    
                 });
                 $(".loadingAjaxAdd").hide();
             },
@@ -168,36 +168,20 @@ function funProd(id, tipo, evt) {
         $("#modal8").modal("show");
         $.ajax({
             type: "POST",
-            url: urlGeneral + "Productos/Get",
+            url: urlGeneral + "Historias/Get",
             data: "{Id: " + id + "}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
                 if (response.IsSuccess == true) {
-                    $("#Id").val(response.Result.Id);
-                    $("#archivos").val(response.Result.archivos);
-                    $("#txtCodigo").val(response.Result.Codigo);
-                    $("#txtNombre").val(response.Result.Nombre);
-                    $("#txtDescripcion").val(response.Result.Descripcion);
-                    $("#txtMarca").val(response.Result.Marca);
-                    $("#txtModelo").val(response.Result.Modelo);
-                    $("#txtStock").val(response.Result.Stock);
-                    $("#txtUnidadMedida").val(response.Result.UnidadMedida);
-                    $("#txtCosto").val(response.Result.Costo);
-                    $("#txtPrecioVenta").val(response.Result.PrecioVenta);
-                    var arrayDeCadenas = response.Result.archivos.split("|");
-                    var strImgs = "";
-                    for (var i = 0; i < arrayDeCadenas.length; i++) {
-                        if (arrayDeCadenas[i]) {
-                            var funEli = 'eliminarImagen("' + arrayDeCadenas[i] + '", "divImagen' + i + '")';
-                            strImgs += "<div id='divImagen" + i + "'><img src='/Uploads/" + arrayDeCadenas[i] + "' /><br/><a class='c-btn c-btn--danger' href='#!' onclick='" + funEli + "'><i class='fa fa-trash-o u-mr-xsmall'></i></a></div>";
-                        }
-                    }
-                    if (strImgs != "") {
-                        $("#anexosUpload").append(strImgs);
-                        $("#anexosUpload").show();
-                    }
-                    
+                    $("#IdHistoria").val(response.Result.IdHistoria);
+                    $("#CodigoDiagnostico").val(response.Result.CodigoDiagnostico);
+                    $("#DniPsicologo").val(response.Result.DniPsicologo);
+                    $("#textarea2").val(response.Result.Motivo);
+                    $("#textarea3").val(response.Result.Tratamiento);
+                    $("#textarea4").val(response.Result.Observacion);
+                    removeInfoForm(formAjaxAdd);
+                                       
                 } else {
                     swal({
                         "title": "",

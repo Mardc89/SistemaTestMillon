@@ -13,7 +13,7 @@
     <meta name="description" content="Dashboard UI Kit">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600" rel="stylesheet">
+    
     <!-- Favicon -->
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="icon" href="~/Content/img/favicon.png" type="image/png">
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="~/Content/css/main.min.css">
     <link href="~/Content/css/custom.css" rel="stylesheet" />
     
-    <link href="~/Content/css/bootstrap" rel="stylesheet" />
+   
 </head>
 <body class="o-page">
     <!--[if lte IE 9]>
@@ -31,13 +31,12 @@
     <div class="o-page__sidebar js-page-sidebar">
         <div class="c-sidebar">
             <a class="c-sidebar__brand" href="#">
-                <img class="c-sidebar__brand-img" src="~/Content/img/logoinventario_white.png" alt="Sistema de Invenarios">
+                <img class="c-sidebar__brand-img" src="~/Content/img/logo.png" alt="Logo"> System Millon
             </a>
-
             <h4 class="c-sidebar__title">Panel de Control</h4>
             <ul class="c-sidebar__list">
                 <li class="c-sidebar__item">
-                    <a class="c-sidebar__link" href="~/Home">
+                    <a class="c-sidebar__link is-active" href="~/Home">
                         <i class="fa fa-home u-mr-xsmall"></i>Inicio
                     </a>
                 </li>
@@ -57,7 +56,7 @@
 
                 @if (HttpContext.Current.Session["TipoUsuario"].Equals("Psicologo")|| HttpContext.Current.Session["TipoUsuario"].Equals("administrador")) {
                 <li class="c-sidebar__item">
-                    <a class="c-sidebar__link is-active" href="~/Pacientes">
+                    <a class="c-sidebar__link " href="~/Pacientes">
                         <i class="fa fa-balance-scale u-mr-xsmall"></i>Pacientes
                     </a>
                 </li>
@@ -170,8 +169,7 @@
                     <img  src="~/Content/img/users.png"  style="width:40px;height:40px">
                 </a>
                 <div class="c-dropdown__menu dropdown-menu dropdown-menu-right" aria-labelledby="dropdwonMenuAvatar">
-                    <a class="c-dropdown__item dropdown-item" href="#">Edit Profile</a>
-                    <a class="c-dropdown__item dropdown-item" href="#">View Activity</a>
+                    <a class="c-dropdown__item dropdown-item" href="#">Editar Perfil</a>
                     <a class="c-dropdown__item dropdown-item" href="@Url.Action("Cerrar", "TestMillon")">Cerrar Sesion</a>
 
                 </div>
@@ -186,6 +184,7 @@
     </script>
     <script src="~/Content/js/main.js"></script>
     <script src="~/Content/js/jquery.plugins.js"></script>
+    
 
     @RenderSection("scripts", false)
 </body>

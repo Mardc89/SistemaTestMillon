@@ -1,8 +1,97 @@
-﻿
+﻿@model Model.Usuarios
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row u-mb-large">
+    <div class="col-sm-12">
+        <div id="msgCargando" class="col-md-12 c-table justify-content-center" style="text-align:center;">
+            <img src="~/Content/img/preloader.gif" />
+            <h3>Cargando...</h3>
+        </div>
 
-<h2>Index</h2>
+        <div id="divProductos" class="c-table-responsive@desktop">
 
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="c-modal c-modal--large modal fade ocultarDespues" id="modal8" tabindex="-1" role="dialog" aria-labelledby="modal8" data-backdrop="static">
+    <div class="c-modal__dialog modal-dialog" role="document">
+        <div class="c-modal__content">
+            <div class="c-modal__header u-bg-primary">
+                <h3 class="c-modal__title">Historia</h3>
+                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-close"></i>
+                </span>
+            </div>
+            <div class="c-modal__body">
+                <form class="c-card__body formAjaxAdd" method="post" action="~/Historias/Add">
+                    <div class="row">
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="input-project">Codigo Diagnostico</label>
+                            <input type="text" class="c-input" name="CodigoDiagnostico" id="CodigoDiagnostico" placeholder="Nombre del Producto" required="required">
+                        </div>
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="input-project">Dni Psicologo</label>
+                            <input type="text" class="c-input" name="DniPsicologo" id="DniPsicologo" placeholder="Descripción del Producto" required="required">
+                        </div>
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="textarea2">Motivo</label>
+                            <textarea class="c-input" id="textarea2" name="Motivo" placeholder="Tratamiento" required="required"></textarea>
+                        </div>
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="textarea3">Tratamiento</label>
+                            <textarea type="text" class="c-input" name="Tratamiento" id="textarea3" placeholder="Tratamiento" required="required"></textarea>
+                        </div>
+                        <div class="c-field u-mb-xsmall">
+                            <label class="c-field__label" for="textarea4">Observacion</label>
+                            <textarea type="text" class="c-input" name="Observacion" id="textarea4" placeholder="Modelo" required="required"></textarea>
+                        </div>
+                        <input type="hidden" name="IdHistoria" id="IdHistoria" />
+                    </div>
+                    <div class="c-modal__footer u-justify-center">
+                        <button class="c-btn c-btn--success btnAjaxAdd" type="submit">
+                            Guardar
+                            <img src="~/Content/img/load.gif" class="loadingAjaxAdd" style="display:none" />
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div><!-- // .c-modal__content -->
+    </div><!-- // .c-modal__dialog -->
+</div><!-- // .c-modal -->
+@section scripts
+{
+    <script>
+        var strFiltro = "";
+        var strValOrder = "";
+        $(document).ready(function () {
+            cargaTabla("IdHistoria", "");
+        });
+        function cargaTabla(val, valOrder) {
+            if (val.length > 0) {
+                strFiltro = val;
+                val = "/?val=" + val;
+            }
+            if (valOrder.length > 0) {
+                strValOrder = valOrder;
+                valOrder = "valSearch=" + valOrder;
+                if (val.length < 1)
+                    valOrder = "/?" + valOrder;
+                else
+                    valOrder = "&" + valOrder;
+            }
+
+
+
+
+            $.ajaxSetup({ cache: false })
+            $('#divProductos').load(urlGeneral + 'Users/ListaUsuarios' + val + valOrder, function (response, status, xhr) {
+                $("#msgCargando").hide()
+            });
+        }
+    </script>
+    <script src="~/Content/js/custom.js"></script>
+}

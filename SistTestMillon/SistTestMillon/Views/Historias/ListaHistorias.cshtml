@@ -55,7 +55,7 @@
                         
                     </td>
                     <td class="c-table__cell u-text-right">
-                        <div class="c-btn-group">
+                        <div>
                             <a class="c-btn c-btn--success" href="#!" onclick="funProd(@item.IdHistoria, 'M', event);">
                                 <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Editar
                             </a>
@@ -81,9 +81,11 @@
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 </div>
 <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-    @Html.PagedListPager(Model, page => Url.Action("ListaProductos", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
+    @Html.PagedListPager(Model, page => Url.Action("ListaHistorias", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
 </div>
 <script>
+
+
     var permiteOrdenar = '';
     $(document).ready(function () {
         $(".permiteOrdenar").on("click", function () {

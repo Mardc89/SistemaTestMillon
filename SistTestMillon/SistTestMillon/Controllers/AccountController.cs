@@ -25,6 +25,7 @@ namespace SistTestMillon.Controllers
             var objUsu = repository.FindEntity<Usuarios>(c => c.NombreUsuario==Usuario);
             var UsuID = repository.FindEntity<Usuarios>(c => c.NombreUsuario == Usuario).IdUsuario;
             var UsuIDPaciente = repository.FindEntity<Pacientes>(c => c.IdUsuario ==UsuID);
+            var UsuIDPsicologo = repository.FindEntity<Psicologos>(c => c.IdUsuario == UsuID);
             var UsuIDAdmin = repository.FindEntity<Administradores>(c => c.IdUsuario ==UsuID);
             var Nombre = repository.FindEntity<Usuarios>(c => c.NombreUsuario == Usuario).NombreUsuario;
             var TipoUsuario = repository.FindEntity<Usuarios>(c => c.NombreUsuario == Usuario).TipoUsuario;
@@ -38,7 +39,7 @@ namespace SistTestMillon.Controllers
                     {
                         id = -1;
                         SessionHelper.AddUserToSession(objUsu.IdUsuario.ToString(), (bool)recordar);
-                        SessionHelper.ActualizarSession(objUsu);
+                        SessionHelper.ActualizarSessionPsicolog(objUsu, UsuIDPsicologo);
                         if (objUsu.IdUsuario == UsuID)
                         {
                             strMensaje = Url.Content("~/Home");
@@ -126,9 +127,9 @@ namespace SistTestMillon.Controllers
                             Telefono = telefono,
                             Correo = correo,
                             IdUsuario = objUsuID
-
                         });
-                    }
+
+                      }
 
                     if (TipoUsu=="Psicologo") {
                         objUsuPsicolog = repository.Create(new Psicologos
@@ -158,20 +159,8 @@ namespace SistTestMillon.Controllers
                             "y contraseña registrada. <a href='" + baseAddress + "'>INVENTARIOS</a>";
                         ToolsHelper.SendMail(correo, "Gracias por registrarte a INVENTARIOS", Mensaje);
                         strMensaje = "Te registraste correctamente, ya puedes entrar al sistema.";
-                        
-                        if (TipoUsu == "Paciente")
-                        {
-                            ViewBag.DniPaciente = Dni;
-                            //strMensaje = Url.Action("Index", "TestMillon");
-                            //return Json(new Response { IsSuccess = true, Message = strMensaje, Id = -1 }, JsonRequestBehavior.AllowGet);
-                            return RedirectToAction("Index","TestMillon");
-                            
-                        }
-                        else {
-                            return RedirectToAction("Index", "Home");
-
-                        }
-
+                        strMensaje = Url.Content("~/Home");
+                        return Json(new Response { IsSuccess = true, Message = strMensaje, Id = -1 }, JsonRequestBehavior.AllowGet);
 
                     }
                     else

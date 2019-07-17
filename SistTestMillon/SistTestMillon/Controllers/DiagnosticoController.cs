@@ -1,5 +1,6 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using Model;
+using PagedList;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,73 @@ using System.Web.Mvc;
 
 namespace SistTestMillon.Controllers
 {
+    [Authorize]
     public class DiagnosticoController : Controller
     {
         // GET: Diagnostico
         public ActionResult Index()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ListaDiagnosticos2(int? page, string search = null)
+        {
             IRepository repository = new Model.Repository();
-            var Diagnostico = repository.FindEntitySet<Diagnosticos>(c => c.IdDiagnostico > 0 && c.IdDiagnostico < 6).OrderBy(c => c.IdDiagnostico);
-            return View(Diagnostico);
+            List<Diagnosticos> objProduct = new List<Diagnosticos>();
+            if (string.IsNullOrEmpty(search))
+                objProduct = repository.FindEntitySet<Diagnosticos>(c => true).OrderBy(c => c.IdDiagnostico).ToList();
+            else
+                objProduct = repository.FindEntitySet<Diagnosticos>(c => true && (c.Fecha.ToString().Contains(search) || c.HoraInicio.Contains(search) || c.IdDiagnostico.ToString().Contains(search) || c.DniPaciente.Contains(search))).OrderBy(c => c.IdDiagnostico).ToList();
+
+
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
+        }
+
+
+
+        public ActionResult ListaDiagnosticos2(int? page)
+        {
+            IRepository repository = new Model.Repository();
+            List<Diagnosticos> objProduct = new List<Diagnosticos>();
+           
+            objProduct = repository.FindEntitySet<Diagnosticos>(c => true).OrderBy(c => c.IdDiagnostico).ToList();
+
+
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult ListaDiagnosticos(string val, string valSearch, int? page)
+        {
+            ViewBag.CurrentSort = val;
+            ViewBag.Buscar = valSearch;
+            IRepository repository = new Model.Repository();
+            List<Diagnosticos> objProduct = new List<Diagnosticos>();
+            if (string.IsNullOrEmpty(valSearch))
+                objProduct = repository.FindEntitySet<Diagnosticos>(c => true).OrderBy(c => c.IdDiagnostico).ToList();
+            else
+                objProduct = repository.FindEntitySet<Diagnosticos>(c => true && (c.Fecha.ToString().Contains(valSearch) || c.HoraInicio.Contains(valSearch) || c.IdDiagnostico.ToString().Contains(valSearch))).OrderBy(c => c.IdDiagnostico).ToList();
+
+            if (val == "IdDiagnostico" || string.IsNullOrEmpty(val))
+            {
+                val = "IdDiagnostico";
+                objProduct = objProduct.OrderBy(c => c.IdDiagnostico).ToList();
+            }
+
+            ViewBag.Order = val;
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult ImprimirDetalle(int id)

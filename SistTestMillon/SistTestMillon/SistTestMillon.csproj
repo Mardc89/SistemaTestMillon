@@ -155,12 +155,33 @@
     <Content Include="Content\css\custom.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\main.min.css" />
+    <Content Include="Content\css\main2.min.css" />
+    <Content Include="Content\img\millon.png" />
+    <Content Include="Content\img\millonT.png" />
+    <Content Include="Content\img\millonTest.png" />
     <Content Include="Content\img\users.png" />
+    <Content Include="Content\js\bootstrap4.js" />
     <Content Include="Content\js\custom.js" />
     <Content Include="Content\js\jquery.plugins.js" />
     <Content Include="Content\js\main.js" />
     <Content Include="Content\js\main.min.js" />
+    <Content Include="Content\scripts\jquery-3.3.1.min.js" />
+    <Content Include="Content\scripts\modalform.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\scripts\bootstrap.js" />
+    <Content Include="Content\scripts\bootstrap.min.js" />
+    <None Include="Content\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Content\scripts\jquery-1.10.2.js" />
+    <Content Include="Content\scripts\jquery-1.10.2.min.js" />
+    <None Include="Content\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Content\scripts\jquery.validate.js" />
+    <Content Include="Content\scripts\jquery.validate.min.js" />
+    <Content Include="Content\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\scripts\modernizr-2.6.2.js" />
+    <Content Include="Content\scripts\respond.js" />
+    <Content Include="Content\scripts\respond.min.js" />
+    <None Include="Content\scripts\_references.js" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
@@ -194,6 +215,7 @@
     <Compile Include="Helpers\PatronClinicoHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\ToolsHelper.cs" />
+    <Compile Include="Models\Historia.cs" />
     <Compile Include="Models\Puntuacion.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -227,6 +249,7 @@
     <Content Include="DS.xsc">
       <DependentUpon>DS.xsd</DependentUpon>
     </Content>
+    <Content Include="Content\scripts\jquery-1.10.2.min.map" />
     <None Include="DS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -241,6 +264,14 @@
     <Content Include="Views\Administradores\Index.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Historias\ListaHistorias.cshtml" />
+    <Content Include="Views\Pacientes\ListaPacientes.cshtml" />
+    <Content Include="Views\Diagnostico\ListaDiagnosticos.cshtml" />
+    <Content Include="Views\Citas\ListaCitas.cshtml" />
+    <Content Include="Views\Psicologos\ListaPsicologos.cshtml" />
+    <Content Include="Views\Administradores\ListaAdministradores.cshtml" />
+    <Content Include="Views\Users\ListaUsuarios.cshtml" />
+    <Content Include="Views\Historias\DetalleDiagnostico.cshtml" />
+    <Content Include="Views\Diagnostico\ListaDiagnosticos2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -250,6 +281,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\calendar\bootstrap\" />
+    <Folder Include="Content\calendar\core\" />
+    <Folder Include="Content\calendar\daygrid\" />
+    <Folder Include="Content\calendar\google-calendar\" />
+    <Folder Include="Content\calendar\interaction\" />
+    <Folder Include="Content\calendar\list\" />
+    <Folder Include="Content\calendar\luxon\" />
+    <Folder Include="Content\calendar\moment-timezone\" />
+    <Folder Include="Content\calendar\moment\" />
+    <Folder Include="Content\calendar\rrule\" />
+    <Folder Include="Content\calendar\timegrid\" />
     <Folder Include="Content\fonts\" />
   </ItemGroup>
   <ItemGroup>

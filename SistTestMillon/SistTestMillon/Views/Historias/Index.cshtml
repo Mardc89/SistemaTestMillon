@@ -16,50 +16,41 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="c-modal c-modal--large modal fade ocultarDespues" id="modal8" tabindex="-1" role="dialog" aria-labelledby="modal8" data-backdrop="static">
+<div class="c-modal c-modal--medium modal fade ocultarDespues" id="modal8" tabindex="-1" role="dialog" aria-labelledby="modal8" aria-hidden="true">
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
             <div class="c-modal__header u-bg-primary">
                 <h3 class="c-modal__title">Historia</h3>
-                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                <span class="c-modal__close" data-dismiss="modal" aria-label="Close" aria-hidden="true">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
             <div class="c-modal__body">
-                <form class="c-card__body formAjaxAdd" method="post" action="~/Productos/Add">
+                <form class="c-card__body formAjaxAdd" method="post" action="~/Historias/Add">
                     <div class="row">
-                        <div class="col-md-12" id="anexosUpload" style="background-color:#808080; display:none;">
-                        </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Código</label>
-                            <input type="text" class="c-input" name="Codigo" id="txtCodigo" disabled="disabled">
-                        </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Codigo Diagnostico</label>
-                            <input type="text" class="c-input" name="Nombre" id="txtNombre" placeholder="Nombre del Producto" required="required">
+                        <div class="c-field has-addon-right" style="margin-bottom:10px">
+                            <input type="text" class="c-input" name="CodigoDiagnostico" id="CodigoDiagnostico" placeholder="Seleccionar Diagnostico" required="required">
+                            <button type="button" class="c-btn c-btn--info" id="CodDiagnosticos">
+                                <i class="fa fa-search"></i>
+                            </button>
                         </div>
                         <div class="c-field u-mb-xsmall">
                             <label class="c-field__label" for="input-project">Dni Psicologo</label>
-                            <input type="text" class="c-input" name="Descripcion" id="txtDescripcion" placeholder="Descripción del Producto" required="required">
+                            <input type="text" class="c-input" name="DniPsicologo" id="DniPsicologo" placeholder="Descripción del Producto" required="required">
                         </div>
                         <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Fecha</label>
-                            <input type="date" class="c-input" name="Marca" id="txtMarca" placeholder="Marca" required="required">
+                            <label class="c-field__label" for="textarea2">Motivo</label>
+                            <textarea class="c-input" id="textarea2"  name="Motivo" placeholder="Tratamiento" required="required"></textarea>
                         </div>
                         <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Motivo</label>
-                            <input type="text" class="c-input" name="Modelo" id="txtModelo" placeholder="Modelo" required="required">
+                            <label class="c-field__label" for="textarea3">Tratamiento</label>
+                            <textarea type="text" class="c-input" name="Tratamiento" id="textarea3" placeholder="Tratamiento" required="required"></textarea>
                         </div>
                         <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Tratamiento</label>
-                            <input type="text" class="c-input" name="Stock" id="txtStock" placeholder="5"  required="required">
+                            <label class="c-field__label" for="textarea4">Observacion</label>
+                            <textarea type="text" class="c-input" name="Observacion" id="textarea4" placeholder="Modelo" required="required"></textarea>
                         </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Observacion</label>
-                            <input type="text" class="c-input" name="Modelo" id="txtModelo" placeholder="Modelo" required="required">
-                        </div>
-                        <input type="hidden" name="archivos" id="archivos" />
-                        <input type="hidden" name="Id" id="Id" />
+                        <input type="hidden" name="IdHistoria" id="IdHistoria" />
                     </div>
                     <div class="c-modal__footer u-justify-center">
                         <button class="c-btn c-btn--success btnAjaxAdd" type="submit">
@@ -73,9 +64,35 @@
         </div><!-- // .c-modal__content -->
     </div><!-- // .c-modal__dialog -->
 </div><!-- // .c-modal -->
+
+
+<div class="c-modal c-modal--huge modal fade ocultarDespues2" id="modal9" tabindex="-1" role="dialog" aria-labelledby="modal9" aria-hidden="true" data-backdrop="false">
+    <div class="c-modal__dialog modal-dialog" role="document">
+        <div class="c-modal__content">
+            <div class="c-modal__header u-bg-primary">
+                <h3 class="c-modal__title">Seleccionar Diagnostico</h3>
+                <span class="c-modal__close" data-dismiss="modal" aria-label="Close" aria-hidden="true">
+                    <i class="fa fa-close"></i>
+                </span>
+            </div>
+            <div class="c-modal__body">
+                <div id="divProductos2" class="c-table-responsive@desktop">
+
+                </div>
+
+            </div>
+        </div><!-- // .c-modal__content -->
+    </div><!-- // .c-modal__dialog -->
+</div>
+
+
 @section scripts
 {
     <script>
+
+
+
+
         var strFiltro = "";
         var strValOrder = "";
         $(document).ready(function () {
@@ -95,7 +112,17 @@
                     valOrder = "&" + valOrder;
             }
 
-
+            $("#CodDiagnosticos").click(function () {
+                $.ajax({
+                    type: "Get",
+                    url: '@Url.Action("ListaDiagnosticos2", "Diagnostico")',
+                    cache: false,
+                    success: function (result) {
+                        $('#modal9').modal('show');
+                        $('#divProductos2').html(result);
+                    }
+                })
+            })
 
 
             $.ajaxSetup({ cache: false })

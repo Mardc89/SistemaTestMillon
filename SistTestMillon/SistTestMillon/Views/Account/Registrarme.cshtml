@@ -10,7 +10,7 @@
             <h1 class="u-h3 u-text-center u-mb-zero">Registrarme al Sistema de Psicologia.</h1>
         </header>
 
-        <form class="c-card__body" method="post" action="~/Account/Registrarme">
+        <form class="c-card__body formAjax" method="post" action="~/Account/Registrarme">
             <div class="c-field u-mb-small">
                 <label class="c-field__label" for="Dni">Dni</label>
                 <input class="c-input" type="text" id="Dni" required="required" name="Dni" placeholder="Dni">
@@ -79,7 +79,7 @@
                 <label class="c-field__label" for="input2">Repetir Contraseña</label>
                 <input class="c-input" type="password" id="re-contraseña" required="required" EqualTo="#contraseña" placeholder="*****">
             </div>            
-            <button class="c-btn c-btn--info" type="submit">
+            <button class="c-btn c-btn--info c-btn--fullwidth btnAjax" type="submit">
                 Registrar
                 <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
             </button>

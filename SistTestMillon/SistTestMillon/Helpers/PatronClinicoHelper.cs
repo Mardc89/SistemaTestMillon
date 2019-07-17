@@ -1,4 +1,7 @@
-﻿using System;
+﻿using EFRepository;
+using Model;
+using Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -293,6 +296,24 @@ namespace SistTestMillon.Helpers
                                  patron[152] + "" + patron[158] + "" + patron[174] + "";
 
             return desordendelusional;
+        }
+
+        public static string aletorio() {
+            bool bandera = true;
+            string numero = "";
+            while (bandera==true) {
+
+                int numeroAleatorio = new Random().Next(100000000, 1000000000);                
+                IRepository repository = new Model.Repository();
+                Historias objUpdateProd = repository.FindEntity<Historias>(c => c.Codigo == numeroAleatorio.ToString());
+
+                if (objUpdateProd== null)
+                {
+                    numero = numeroAleatorio.ToString();
+                    bandera = false;
+                }
+            }
+            return numero;
         }
     }
 }

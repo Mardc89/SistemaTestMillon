@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_ViewMillon.cshtml";
-    string dni=HttpContext.Current.Session["DniPaciente"].ToString();
+    string dni=HttpContext.Current.Session["Dni"].ToString();
     string sexo = HttpContext.Current.Session["Sexo"].ToString();
     string fecha = DateTime.Now.ToString("dd/MM/yyyy");
     string horaInicio = DateTime.Now.ToString("hh:mm:ss tt");
