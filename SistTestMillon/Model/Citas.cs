@@ -15,11 +15,11 @@ namespace Model
     public partial class Citas
     {
         public int IdCita { get; set; }
-        public string Codigo { get; set; }
         public string DniPaciente { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public string Hora { get; set; }
         public string DniPsicologo { get; set; }
+        public string Descripcion { get; set; }
+        public Nullable<System.DateTime> Hora_inicial { get; set; }
+        public Nullable<System.DateTime> Hora_final { get; set; }
     
         public virtual Pacientes Pacientes { get; set; }
         public virtual Psicologos Psicologos { get; set; }

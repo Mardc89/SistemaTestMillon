@@ -4,7 +4,6 @@
     Layout = null;
 }
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,10 +11,16 @@
     <link href='~/Content/calendar/core/main.css' rel='stylesheet' />
     <link href='~/Content/calendar/daygrid/main.css' rel='stylesheet' />
     <link href='~/Content/calendar/timegrid/main.css' rel='stylesheet' />
-    
+    <link href='~/Content/css/bootstrap.min.css' rel='stylesheet' />
+    <link href='~/Content/css/fontawesome.css' rel='stylesheet' />
+    <link href='~/Content/css/all.css' rel='stylesheet' />
+    <link href='~/Content/css/tempusdominus-bootstrap-4.min.css' rel='stylesheet' />
+
+
+
+
     <style>
         body {
-           background-color:#eff3f6;
             margin: 40px 10px;
             padding: 0;
             font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
@@ -23,117 +28,559 @@
         }
 
         #calendar {
-            background-color:#ffffff;
-                max-width: 900px;
-    margin: 0 auto;
+            max-width: 900px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <div id='calendar'></div>
-</body>
 
+    <div id='calendar'></div>
+    <div id='calendar2'></div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cita</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="Detalles"></p>
+
+                </div>
+                <div class="modal-footer" id="opciones">
+                    <button id="btnDelete" class="btn btn-primary btn-sm pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>Eliminar
+                    </button>
+                    <button id="btnEditar" class="btn btn-primary btn-sm pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>Editar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="Pacientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cita</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="ListaPacientes">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="ModalSave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registrar Cita</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <input type="hidden" id="IdCita" value="0" />
+                        <div class="form-group">
+                            <label>Paciente</label>
+                            <div class="input-group-append">
+                                <input type="text" id="DniPaciente" class="form-control" />
+                                <div class="input-group-text" id="PacientesTotales"><i class="fas fa-user-alt"></i></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Psicologo</label>
+                            <div class="input-group-append">
+                                <input type="text" id="DniPsicologo" class="form-control" />
+                                <div class="input-group-text"><i class="fas fa-user-alt"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Inicio</label>
+                            <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                                <input type="text" id="HoraInicio" class="form-control datetimepicker-input" data-target="#datetimepicker2" />
+                                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Final</label>
+                            <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                <input type="text" id="HoraFinal" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
+                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripcion</label>
+                            <textarea class="form-control" id="Descripcion"></textarea>
+                        </div>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" id="btnSave" class="btn btn-success">Guardar</button>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
 </html>
 
+<script src='~/Content/calendar/core/main.js'></script>
+<script src='~/Content/calendar/core/locales-all.min.js'></script>
+<script src='~/Content/calendar/interaction/main.js'></script>
+<script src='~/Content/calendar/daygrid/main.js'></script>
+<script src='~/Content/calendar/js/jquery-3.4.1.min.js'></script>
+<script src='~/Content/calendar/timegrid/main.js'></script>
+<script src='~/Content/calendar/moment/main.min.js'></script>
+<script src='~/Content/calendar/js/bootstrap.js'></script>
+<script src='~/Content/calendar/js/moment.js'></script>
+<script src='~/Content/calendar/moment-timezone/main.min.js'></script>
+<script src='~/Content/calendar/js/tempusdominus-bootstrap-4.js'></script>
 
 
 
 
-    <script src='~/Content/calendar/core/main.js'></script>
-    <script src='~/Content/calendar/interaction/main.js'></script>
-    <script src='~/Content/calendar/daygrid/main.js'></script>
-    <script src='~/Content/calendar/timegrid/main.js'></script>
-    <script>
 
-            document.addEventListener('DOMContentLoaded', function () {
-                var calendarEl = document.getElementById('calendar');
 
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    plugins: ['interaction', 'dayGrid', 'timeGrid'],
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                    },
-                    navLinks: true, // can click day/week names to navigate views
-                    selectable: true,
-                    selectMirror: true,
-                    select: function (arg) {
-                        var title = prompt('Event Title:');
-                        if (title) {
-                            calendar.addEvent({
-                                title: title,
-                                start: arg.start,
-                                end: arg.end,
-                                allDay: arg.allDay
-                            })
-                        }
-                        calendar.unselect()
-                    },
-                    editable: true,
-                    eventLimit: true, // allow "more" link when too many events
-                    events: [
-                      {
-                          title: 'All Day Event',
-                          start: '2019-06-01'
-                      },
-                      {
-                          title: 'Long Event',
-                          start: '2019-06-07',
-                          end: '2019-06-10'
-                      },
-                      {
-                          groupId: 999,
-                          title: 'Repeating Event',
-                          start: '2019-06-09T16:00:00'
-                      },
-                      {
-                          groupId: 999,
-                          title: 'Repeating Event',
-                          start: '2019-06-16T16:00:00'
-                      },
-                      {
-                          title: 'Conference',
-                          start: '2019-06-11',
-                          end: '2019-06-13'
-                      },
-                      {
-                          title: 'Meeting',
-                          start: '2019-06-12T10:30:00',
-                          end: '2019-06-12T12:30:00'
-                      },
-                      {
-                          title: 'Lunch',
-                          start: '2019-06-12T12:00:00'
-                      },
-                      {
-                          title: 'Meeting',
-                          start: '2019-06-12T14:30:00'
-                      },
-                      {
-                          title: 'Happy Hour',
-                          start: '2019-06-12T17:30:00'
-                      },
-                      {
-                          title: 'Dinner',
-                          start: '2019-06-12T20:00:00'
-                      },
-                      {
-                          title: 'Birthday Party',
-                          start: '2019-06-13T07:00:00'
-                      },
-                      {
-                          title: 'Click for Google',
-                          url: 'http://google.com/',
-                          start: '2019-06-28'
-                      }
-                    ]
-                });
+<script type="text/javascript">
 
-                calendar.render();
-            });
+    document.getElementById("Pacientes").style.zIndex = "1052";
+    document.getElementById("ModalSave").style.zIndex = "1051";
 
-    </script>
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+
+    });
+
+
+    $(document).ready(function () {
+        var selectedEvent = null;
+        var dnis = "";
+        var dniPacientes = "";
+        var events = [];
+        var calendar = null;
+        Generar();
+
+    });
+
+
+
+    function Generar() {
+        
+        events = [];
+        $.ajax({
+            type: "Get",
+            url: "/Citas/GetEvents",
+            success: function (data) {               
+                $.each(data, function (i, v) {                    
+                    events.push({
+                        id: v.Id,
+                        title: v.title,
+                        start: v.start,
+                        end: v.end,
+                        dniPaciente: v.dniPaciente,
+                        dniPsicologo: v.dniPsicologo,
+                        description: v.description,
+                        Psicologo: v.Psicologo
+                        
+                    });
+
+                })
+                Calendario(events);
+
+
+            },
+            error: function (error) {
+                alert('failed');
+
+            }
+
+
+        })
+    }
+
+
+    function Generar2() {
+       
+        events = [];
+        $.ajax({
+            type: "Get",
+            url: "/Citas/GetEvents",
+            success: function (data) {
+                $.each(data, function (i, v) {
+                    events.push({
+                        id: v.Id,
+                        title: v.title,
+                        start: v.start,
+                        end: v.end,
+                        dniPaciente: v.dniPaciente,
+                        dniPsicologo: v.dniPsicologo,
+                        description: v.description,
+                        Psicologo: v.Psicologo
+
+                    });
+
+                })
+                
+                
+                
+                
+
+            },
+            error: function (error) {
+                alert('failed');
+
+            }
+
+
+        })
+    }
+
+
+
+
+    function Calendario(events) {
+        
+        var calendarEl = document.getElementById('calendar');
+        
+            calendar = new FullCalendar.Calendar(calendarEl, {
+            
+            plugins: ['interaction', 'dayGrid', 'timeGrid'],
+            header: {
+                left: 'prev,next,today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            
+            
+            navLinks: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: events,
+            extraParams: function() {
+                return {
+                    cachebuster: new Date().valueOf()
+                }
+            },
+            
+            titleFormat: { // will produce something like "Tuesday, September 18, 2018"
+                month: 'numeric',
+                year: 'numeric',
+                day: 'numeric',
+                weekday: 'long',
+
+               
+            },
+
+            
+            selectMirror: false,
+            eventClick: function (info) {
+                selectedEvent = info.event;
+                info.jsEvent.preventDefault();
+                var $descripcion = $('<div/>');
+                $descripcion.append($('<h4/>').html('<b>Hora de Inicio:</b><br>' + moment(info.event.start).format('MMMM Do YYYY, h:mm:ss a')));
+
+                $descripcion.append($('<h4/>').html('<b>Paciente:</b><br>' + info.event.title));
+                $descripcion.append($('<h4/>').html('<b>Psicologo:</b><br>' + info.event.extendedProps.Psicologo));
+                dnis = info.event.extendedProps.dniPsicologo;
+                dniPacientes = info.event.extendedProps.dniPaciente;
+
+                var dfff = "@HttpContext.Current.Session["Dni"]";
+                var usuario = "@HttpContext.Current.Session["TipoUsuario"]";
+
+                if (usuario == "administrador" || usuario == "Psicologo") {
+                    document.getElementById('opciones').style.visibility = 'visible';
+                }
+
+                else if (dfff == dniPacientes && usuario == "Paciente") {
+                    document.getElementById('opciones').style.visibility = 'visible';
+                }
+                else {
+                    document.getElementById('opciones').style.visibility = 'hidden';
+
+                }
+
+
+                $("#exampleModal #Detalles").empty().html($descripcion);
+                $("#exampleModal").modal("show");
+            },
+            selectable: true,
+            select: function (info) {
+                selectedEvent = {
+                    id: 0,
+                    title: '',
+                    start: info.start.toLocaleString('en-GB'),
+                    end: info.end.toLocaleString('en-GB'),
+                    dniPsicogolo: "",
+                    dniPaciente: "",
+                    description: ""
+                };
+                OpenAddEdit();
+                
+                calendar.unselect();
+            },
+
+            editable: true,
+            eventDrop: function (info) {
+
+                var data = {
+                    id: info.event.id,
+                    start: info.event.start.toISOString().toLocaleString(),
+                    end: info.event.end.toISOString(),
+                    dniPsicogolo: selectedEvent.dniPsicogolo,
+                    dniPaciente: info.event.dniPaciente,
+                    description: info.event.description
+                };
+                
+                
+                alert(data.dniPsicogolo);
+                Guardar(data);
+                info.revert();
+
+            }
+
+        });
+        
+        calendar.render();
+        
+
+    }
+
+    $('#btnSave').click(function () {
+        if ($('#DniPaciente').val().trim() == "") {
+            alert('Es requerido el Dni del paciente');
+            return;
+        }
+        if ($('#DniPsicologo').val().trim() == "") {
+            alert('Es requerido el Dni del paciente');
+            return;
+        }
+
+        var data = {
+            IdCita: $('#IdCita').val(),
+            DniPaciente: $('#DniPaciente').val().trim(),
+            DniPsicologo: $('#DniPsicologo').val().trim(),
+            Hora_inicial: $('#HoraInicio').val().trim(),
+            Hora_final: $('#HoraFinal').val().trim(),
+            Descripcion: $('#Descripcion').val(),
+
+        }
+        Guardar(data);
+
+    })
+
+    $('#btnDelete').click(function () {
+        $.ajax({
+            type: "Post",
+            url: "/Citas/DeleEvent",
+            data: { 'EventId': selectedEvent.id },
+            success: function (data) {
+                if (data.status) {                  
+                    calendar.getEventById(selectedEvent.id).remove();
+                    $("#exampleModal").modal('hide');
+                   
+                }
+
+
+
+            },
+            error: function (error) {
+                alert('failed');
+
+            }
+
+
+        })
+
+    })
+
+
+
+
+    function Guardar(data) {
+        $.ajax({
+            type: "Post",
+            url: "/Citas/SaveEvent",
+            data: data,
+            success: function (data) {
+                if (data.status) {
+                    calendar.addEvent({
+                        id: data.objUsuNew.IdCita,
+                        title: data.nombrePaciente,
+                        start: moment(data.objUsuNew.Hora_inicial).format(),
+                        end: moment(data.objUsuNew.Hora_final).format(),
+                        Psicologo:data.nombrePsicologo, 
+                        dniPsicologo: data.DniPsicogolo,
+                        dniPaciente: data.DniPaciente,
+                        description: data.Descripcion
+                    });
+
+                    $("#ModalSave").modal('hide');
+                }
+                else {
+                    calendar.addEvent({
+                        id: data.v.IdCita,
+                        title: data.nombrePaciente,
+                        start: moment(data.v.Hora_inicial).format(),
+                        end: moment(data.v.Hora_final).format(),
+                        Psicologo:data.nombrePsicologo, 
+                        dniPsicologo: data.DniPsicogolo,
+                        dniPaciente: data.DniPaciente,
+                        description: data.Descripcion
+                    });
+                    calendar.getEventById(data.v.IdCita).remove();
+                    $("#ModalSave").modal('hide');
+
+
+                }
+
+
+
+            },
+            error: function (error) {
+                alert('failed');
+
+            }
+
+
+        })
+    }
+
+
+
+
+    $("#PacientesTotales").click(function () {
+        $.ajax({
+            type: "Get",
+            url: '@Url.Action("ListaDiagnosticos2", "Diagnostico")',
+            cache: false,
+            success: function (result) {
+                $('#Pacientes').modal('show');
+                $('#ListaPacientes').html(result);
+            }
+        })
+    })
+
+    $('#btnEditar').click(function () {
+        OpenAddEdit();
+
+    })
+
+
+    function OpenAddEdit2() {
+
+        $('#IdCita').val("");
+        $('#DniPaciente').val("");
+        $('#DniPsicologo').val("");
+        $('#Descripcion').val("");
+        $('#HoraInicio').val("");
+        $('#HoraFinal').val("");
+    }
+
+
+
+
+    function OpenAddEdit() {
+
+        if (selectedEvent != null) {
+            $('#IdCita').val(selectedEvent.id);
+            if (selectedEvent.dniPaciente != "" && selectedEvent.dniPsicogolo != "") {
+                $('#DniPaciente').val(selectedEvent.extendedProps.dniPaciente);
+                $('#DniPsicologo').val(dnis);
+                $('#Descripcion').val(selectedEvent.extendedProps.description);
+            }
+            $('#HoraInicio').val(selectedEvent.start.toLocaleString('en-GB'));
+            $('#HoraFinal').val(selectedEvent.end.toLocaleString('en-GB'));
+            alert(selectedEvent.end);
+
+        }
+        $("#exampleModal").modal("hide");
+        $("#ModalSave").modal("show");
+
+
+    }
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -2,6 +2,7 @@
 using Model;
 using Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -314,6 +315,19 @@ namespace SistTestMillon.Helpers
                 }
             }
             return numero;
+        }
+
+
+
+        public static string nombres(string id) {
+            IRepository repository = new Model.Repository();
+
+            var objProduct2 = repository.FindEntity<Pacientes>(c =>c.DniPaciente==id).Nombres;
+            var objProduct3 = repository.FindEntity<Pacientes>(c => c.DniPaciente == id).ApellidoPaterno;
+            var objProduct4 = repository.FindEntity<Pacientes>(c => c.DniPaciente == id).ApellidoMaterno;
+
+            return objProduct2+" "+objProduct3+" "+objProduct4;
+
         }
     }
 }

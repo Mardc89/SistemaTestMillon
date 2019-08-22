@@ -23,14 +23,14 @@
         </EntityType>
         <EntityType Name="Citas">
           <Key>
-            <PropertyRef Name="Codigo" />
+            <PropertyRef Name="IdCita" />
           </Key>
           <Property Name="IdCita" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Codigo" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="DniPaciente" Type="char" MaxLength="8" Nullable="false" />
-          <Property Name="Fecha" Type="date" Nullable="false" />
-          <Property Name="Hora" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="DniPsicologo" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="Hora_inicial" Type="datetime" />
+          <Property Name="Hora_final" Type="datetime" />
         </EntityType>
         <EntityType Name="Cuestionario">
           <Key>
@@ -298,14 +298,14 @@
         </EntityType>
         <EntityType Name="Citas">
           <Key>
-            <PropertyRef Name="Codigo" />
+            <PropertyRef Name="IdCita" />
           </Key>
           <Property Name="IdCita" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DniPaciente" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Hora" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DniPsicologo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Hora_inicial" Type="DateTime" Precision="3" />
+          <Property Name="Hora_final" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Pacientes" Relationship="Self.FK_Citas_Pacientes" FromRole="Citas" ToRole="Pacientes" />
           <NavigationProperty Name="Psicologos" Relationship="Self.FK_Citas_Psicologos" FromRole="Citas" ToRole="Psicologos" />
         </EntityType>
@@ -591,11 +591,11 @@
             <EntityTypeMapping TypeName="TestMillonModel.Citas">
               <MappingFragment StoreEntitySet="Citas">
                 <ScalarProperty Name="IdCita" ColumnName="IdCita" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="DniPaciente" ColumnName="DniPaciente" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Hora" ColumnName="Hora" />
                 <ScalarProperty Name="DniPsicologo" ColumnName="DniPsicologo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Hora_inicial" ColumnName="Hora_inicial" />
+                <ScalarProperty Name="Hora_final" ColumnName="Hora_final" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

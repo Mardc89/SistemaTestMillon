@@ -1,5 +1,5 @@
 /*!
-FullCalendar Time Grid Plugin v4.2.0
+FullCalendar Time Grid Plugin v4.0.2
 Docs & License: https://fullcalendar.io/
 (c) 2019 Adam Shaw
 */
@@ -615,7 +615,7 @@ Docs & License: https://fullcalendar.io/
             return html;
         };
         TimeGrid.prototype._renderColumns = function (cells, dateProfile) {
-            var _a = this, theme = _a.theme, dateEnv = _a.dateEnv, view = _a.view;
+            var theme = this.theme;
             var bgRow = new daygrid.DayBgRow(this.context);
             this.rootBgContainerEl.innerHTML =
                 '<table class="' + theme.getClass('tableGrid') + '">' +
@@ -626,15 +626,6 @@ Docs & License: https://fullcalendar.io/
                     }) +
                     '</table>';
             this.colEls = core.findElements(this.el, '.fc-day, .fc-disabled-day');
-            for (var col = 0; col < this.colCnt; col++) {
-                this.publiclyTrigger('dayRender', [
-                    {
-                        date: dateEnv.toDate(cells[col].date),
-                        el: this.colEls[col],
-                        view: view
-                    }
-                ]);
-            }
             if (this.isRtl) {
                 this.colEls.reverse();
             }
@@ -818,10 +809,6 @@ Docs & License: https://fullcalendar.io/
         };
         /* Sizing
         ------------------------------------------------------------------------------------------------------------------*/
-        TimeGrid.prototype.buildPositionCaches = function () {
-            this.buildColPositions();
-            this.buildSlatPositions();
-        };
         TimeGrid.prototype.buildColPositions = function () {
             this.colPositions.build();
         };
@@ -1158,8 +1145,9 @@ Docs & License: https://fullcalendar.io/
         /* Scroll
         ------------------------------------------------------------------------------------------------------------------*/
         // Computes the initial pre-configured scroll state prior to allowing the user to change it
-        TimeGridView.prototype.computeDateScroll = function (timeMs) {
-            var top = this.timeGrid.computeTimeTop(timeMs);
+        TimeGridView.prototype.computeInitialDateScroll = function () {
+            var scrollTime = core.createDuration(this.opt('scrollTime'));
+            var top = this.timeGrid.computeTimeTop(scrollTime.milliseconds);
             // zoom can give weird floating-point values. rather scroll a little bit further
             top = Math.ceil(top);
             if (top) {
@@ -1209,9 +1197,6 @@ Docs & License: https://fullcalendar.io/
         };
         SimpleTimeGrid.prototype.renderNowIndicator = function (date) {
             this.timeGrid.renderNowIndicator(this.slicer.sliceNowDate(date, this.timeGrid, this.dayRanges), date);
-        };
-        SimpleTimeGrid.prototype.buildPositionCaches = function () {
-            this.timeGrid.buildPositionCaches();
         };
         SimpleTimeGrid.prototype.queryHit = function (positionLeft, positionTop) {
             var rawHit = this.timeGrid.positionToHit(positionLeft, positionTop);

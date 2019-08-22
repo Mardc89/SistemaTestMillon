@@ -2,6 +2,7 @@
 using Model;
 using PagedList;
 using Repository;
+using SistTestMillon.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -46,10 +47,8 @@ namespace SistTestMillon.Controllers
         {
             IRepository repository = new Model.Repository();
             List<Diagnosticos> objProduct = new List<Diagnosticos>();
-           
+            
             objProduct = repository.FindEntitySet<Diagnosticos>(c => true).OrderBy(c => c.IdDiagnostico).ToList();
-
-
             int pageSize = 3;
             int pageNumber = page ?? 1;
 
