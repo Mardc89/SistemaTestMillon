@@ -3,6 +3,7 @@ using Model;
 using PagedList;
 using Repository;
 using SistTestMillon.Helpers;
+using SistTestMillon.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,6 +23,76 @@ namespace SistTestMillon.Controllers
         {
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult ListaPsicologos(int? page, string search = null)
+        {
+            IRepository repository = new Model.Repository();
+            List<Psicologos> objProduct = new List<Psicologos>();
+            if (string.IsNullOrEmpty(search))
+                objProduct = repository.FindEntitySet<Psicologos>(c => true).OrderBy(c => c.IdPsicologo).ToList();
+            else
+                objProduct = repository.FindEntitySet<Psicologos>(c => true && (c.FechaNacimiento.ToString().Contains(search) || c.Nombres.Contains(search) || c.ApellidoPaterno.Contains(search) || c.ApellidoMaterno.ToString().Contains(search) || c.Dni.Contains(search))).OrderBy(c => c.IdPsicologo).ToList();
+
+
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
+        }
+
+
+
+        public ActionResult ListaPsicologos(int? page)
+        {
+            IRepository repository = new Model.Repository();
+            List<Psicologos> objProduct = new List<Psicologos>();
+
+            objProduct = repository.FindEntitySet<Psicologos>(c => true).OrderBy(c => c.IdPsicologo).ToList();
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
+        }
+
+
+        [HttpPost]
+        public ActionResult ListaPacientes(int? page, string search = null)
+        {
+            IRepository repository = new Model.Repository();
+            List<Pacientes> objProduct = new List<Pacientes>();
+            if (string.IsNullOrEmpty(search))
+                objProduct = repository.FindEntitySet<Pacientes>(c => true).OrderBy(c => c.IdPaciente).ToList();
+            else
+                objProduct = repository.FindEntitySet<Pacientes>(c => true && (c.FechaNacimiento.ToString().Contains(search) || c.Nombres.Contains(search) || c.ApellidoPaterno.Contains(search)|| c.ApellidoMaterno.ToString().Contains(search) || c.Dni.Contains(search))).OrderBy(c => c.IdPaciente).ToList();
+
+
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
+        }
+
+
+
+        public ActionResult ListaPacientes(int? page)
+        {
+            IRepository repository = new Model.Repository();
+            List<Pacientes> objProduct = new List<Pacientes>();
+
+            objProduct = repository.FindEntitySet<Pacientes>(c => true).OrderBy(c => c.IdPaciente).ToList();
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
+        }
+
+
 
         [HttpPost]
         public ActionResult ListaDiagnosticos2(int? page, string search = null)
@@ -106,7 +177,7 @@ namespace SistTestMillon.Controllers
                          Pacientes.Nombres, Pacientes.ApellidoPaterno, dbo.Pacientes.ApellidoMaterno, Pacientes.Direccion, Pacientes.Edad, Pacientes.Sexo, 
                          Pacientes.Telefono, Pacientes.Correo, Pacientes.FechaNacimiento, Pacientes.Profesion
                                 FROM   Pacientes INNER JOIN
-                         Diagnosticos ON Pacientes.DniPaciente = Diagnosticos.DniPaciente
+                         Diagnosticos ON Pacientes.Dni = Diagnosticos.DniPaciente
 
                         WHERE Diagnosticos.IdDiagnostico=" + id;
             try
@@ -127,6 +198,133 @@ namespace SistTestMillon.Controllers
             report.Load();
             report.SetDataSource(dataTable);
             return report;
+        }
+
+
+        [HttpPost]
+        public ActionResult Add(Diagnostico diag)
+        {
+            IRepository repository = new Model.Repository();
+            int id = 0;
+            string strMensaje = "No se pudo actualizar la información, intentelo más tarde";
+            bool okResult = false;
+            if (diag.IdDiagnostico > 0)
+            {
+                id = diag.IdDiagnostico;
+                Diagnosticos diagnostico = repository.FindEntity<Diagnosticos>(c => c.IdDiagnostico == diag.IdDiagnostico);
+                if (diagnostico != null)
+                {
+                    diagnostico.Esquizoide = diag.Esquizoide;
+                    diagnostico.Evitativo =diag.Evitativo;
+                    diagnostico.Depresivo = diag.Depresivo;
+                    diagnostico.Dependiente = diag.Dependiente;
+                    diagnostico.Histriónico = diag.Histriónico;
+                    diagnostico.Narcisista = diag.Narcisista;
+                    diagnostico.AgresivoSádico = diag.AgresivoSádico;
+                    diagnostico.Compulsivo = diag.Compulsivo;
+                    diagnostico.Negativista = diag.Negativista;
+                    diagnostico.Autodestructiva = diag.Autodestructiva;
+                    diagnostico.Esquizotípica = diag.Esquizotípica;
+                    diagnostico.Límite = diag.Límite;
+                    diagnostico.Paranoide = diag.Paranoide;
+                    diagnostico.Ansiedad = diag.Ansiedad;
+                    diagnostico.Somatoformo = diag.Somatoformo;
+                    diagnostico.Bipolar = diag.Bipolar;
+                    diagnostico.Distímico = diag.Distímico;
+                    diagnostico.DependenciaAlcohol = diag.DependenciaAlcohol;
+                    diagnostico.DependenciaSustancias = diag.DependenciaSustancias;
+                    diagnostico.EstrésPostraumático = diag.EstrésPostraumático;
+                    diagnostico.DesordenPensamiento = diag.DesordenPensamiento;
+                    diagnostico.DepresiónMayor = diag.DepresiónMayor;
+                    diagnostico.DesordenDelusional = diag.DesordenDelusional;
+                    diagnostico.Sinceridad = diag.Sinceridad;
+                    diagnostico.DeseabilidadSocial = diag.DeseabilidadSocial;
+                    diagnostico.Devaluación = diag.Devaluación;
+                    diagnostico.Validez = diag.Validez;
+                }
+                //Productos objUpdateProd = (Productos)objProd;
+                repository.Update(diagnostico);
+                strMensaje = "Se actualizo el producto";
+                okResult = true;
+            }
+
+            return Json(new Response { IsSuccess = okResult, Message = strMensaje, Id = id }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Get(int Id)
+        {
+            string strMensaje = "No se encontro el diagnostico que desea editar";
+            IRepository repository = new Model.Repository();
+            var diagnostico = repository.FindEntity<Diagnosticos>(c => c.IdDiagnostico == Id);
+            if (diagnostico != null)
+            {
+                Diagnostico diag = new Diagnostico
+                {
+                    IdDiagnostico = diagnostico.IdDiagnostico,
+                    DniPaciente = diagnostico.DniPaciente,
+                    Fecha = diagnostico.Fecha,
+                    Esquizoide = diagnostico.Esquizoide,
+                    Evitativo = diagnostico.Evitativo,
+                    Depresivo = diagnostico.Depresivo,
+                    Dependiente = diagnostico.Dependiente,
+                    Histriónico = diagnostico.Histriónico,
+                    Narcisista = diagnostico.Narcisista,
+                    Antisocial = diagnostico.AgresivoSádico,
+                    AgresivoSádico = diagnostico.AgresivoSádico,
+                    Compulsivo = diagnostico.Compulsivo,
+                    Negativista=diagnostico.Negativista,
+                    Autodestructiva=diagnostico.Autodestructiva,
+                    Esquizotípica=diagnostico.Esquizotípica,
+                    Límite=diagnostico.Límite,
+                    Paranoide=diagnostico.Paranoide,
+                    Ansiedad=diagnostico.Ansiedad,
+                    Somatoformo=diagnostico.Somatoformo,
+                    Bipolar=diagnostico.Bipolar,
+                    Distímico=diagnostico.Distímico,
+                    DependenciaAlcohol=diagnostico.DependenciaAlcohol,
+                    DependenciaSustancias=diagnostico.DependenciaSustancias,
+                    EstrésPostraumático=diagnostico.EstrésPostraumático,
+                    DesordenPensamiento=diagnostico.DesordenPensamiento,
+                    DepresiónMayor=diagnostico.DepresiónMayor,
+                    DesordenDelusional=diagnostico.DesordenDelusional,
+                    Sinceridad=diagnostico.Sinceridad,
+                    DeseabilidadSocial=diagnostico.DeseabilidadSocial,
+                    Devaluación=diagnostico.Devaluación,
+                    Validez=diagnostico.Validez
+
+                };
+
+
+                return Json(new Response { IsSuccess = true, Id = Id, Result =diag}, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new Response { IsSuccess = false, Message = strMensaje, Id = Id }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public ActionResult Eliminar(int Id)
+        {
+            string strMensaje = "No se encontro el producto que desea eliminar";
+            bool okResult = false;
+            IRepository repository = new Model.Repository();
+            var objProd = repository.FindEntity<Diagnosticos>(c => c.IdDiagnostico == Id);
+            if (objProd != null)
+            {
+                try
+                {
+                    repository.Delete(objProd);
+                    strMensaje = "Se elimino el diagnostico correctamente";
+                    okResult = true;
+
+                }
+                catch (Exception)
+                {
+
+                    strMensaje = "No Se puede eliminir el diagnostico";
+                    okResult = true;
+                }
+            }
+            return Json(new Response { IsSuccess = okResult, Message = strMensaje, Id = Id }, JsonRequestBehavior.AllowGet);
         }
     }
 }

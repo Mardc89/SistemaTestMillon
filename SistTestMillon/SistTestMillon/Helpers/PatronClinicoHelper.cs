@@ -322,9 +322,9 @@ namespace SistTestMillon.Helpers
         public static string nombres(string id) {
             IRepository repository = new Model.Repository();
 
-            var objProduct2 = repository.FindEntity<Pacientes>(c =>c.DniPaciente==id).Nombres;
-            var objProduct3 = repository.FindEntity<Pacientes>(c => c.DniPaciente == id).ApellidoPaterno;
-            var objProduct4 = repository.FindEntity<Pacientes>(c => c.DniPaciente == id).ApellidoMaterno;
+            var objProduct2 = repository.FindEntity<Pacientes>(c =>c.Dni==id).Nombres;
+            var objProduct3 = repository.FindEntity<Pacientes>(c => c.Dni == id).ApellidoPaterno;
+            var objProduct4 = repository.FindEntity<Pacientes>(c => c.Dni == id).ApellidoMaterno;
 
             return objProduct2+" "+objProduct3+" "+objProduct4;
 

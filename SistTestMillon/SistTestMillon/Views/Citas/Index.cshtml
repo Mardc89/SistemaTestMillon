@@ -35,8 +35,17 @@
 </head>
 <body>
 
+    <div class="text-center">
+        @if (HttpContext.Current.Session["Nombres"] == null || HttpContext.Current.Session["ApellidoPaterno"] == null)
+        {
+            Response.Redirect("~/Account/Index");
+        }
+        else
+        {
+            <h6  style="font-family:Cambria" >Bienvenido @HttpContext.Current.Session["Nombres"] @HttpContext.Current.Session["ApellidoPaterno"] @HttpContext.Current.Session["ApellidoMaterno"]</h6>
+        }
+    </div>
     <div id='calendar'></div>
-    <div id='calendar2'></div>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,11 +75,11 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="Pacientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade bd-example-modal-lg" id="Pacientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document" >
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cita</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Pacientes</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -82,6 +91,24 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade bd-example-modal-lg" id="Psicologos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Psicologos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="ListaPsicologos">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
 
     <div class="modal fade" id="ModalSave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
@@ -100,14 +127,18 @@
                             <label>Paciente</label>
                             <div class="input-group-append">
                                 <input type="text" id="DniPaciente" class="form-control" />
-                                <div class="input-group-text" id="PacientesTotales"><i class="fas fa-user-alt"></i></div>
+                                <div class="input-group-text" id="PacientesTotales">
+                                <i class="fas fa-user-alt"></i>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Psicologo</label>
                             <div class="input-group-append">
                                 <input type="text" id="DniPsicologo" class="form-control" />
-                                <div class="input-group-text"><i class="fas fa-user-alt"></i></div>
+                                <div class="input-group-text" id="PsicologosTotales">
+                                <i class="fas fa-user-alt"></i>
+                                </div>
                             </div>
                         </div>
 
@@ -171,10 +202,13 @@
 <script type="text/javascript">
 
     document.getElementById("Pacientes").style.zIndex = "1052";
+    document.getElementById("Psicologos").style.zIndex = "1052";
     document.getElementById("ModalSave").style.zIndex = "1051";
 
     $(function () {
-        $('#datetimepicker1').datetimepicker();
+        $('#datetimepicker1,#datetimepicker2').datetimepicker({
+            format:'DD/MM/YYYY HH:mm A'
+        });
 
     });
 
@@ -298,7 +332,7 @@
             },
 
             
-            selectMirror: false,
+            selectMirror: true,
             eventClick: function (info) {
                 selectedEvent = info.event;
                 info.jsEvent.preventDefault();
@@ -314,7 +348,9 @@
                 var usuario = "@HttpContext.Current.Session["TipoUsuario"]";
 
                 if (usuario == "administrador" || usuario == "Psicologo") {
-                    document.getElementById('opciones').style.visibility = 'visible';
+                    document.getElementById('opciones').style.visibility = 'visible';                    
+                    document.getElementById('PacientesTotales').style.visibility = 'visible';
+                    document.getElementById('PsicologosTotales').style.visibility = 'visible';
                 }
 
                 else if (dfff == dniPacientes && usuario == "Paciente") {
@@ -349,16 +385,16 @@
             eventDrop: function (info) {
 
                 var data = {
-                    id: info.event.id,
-                    start: info.event.start.toISOString().toLocaleString(),
-                    end: info.event.end.toISOString(),
-                    dniPsicogolo: selectedEvent.dniPsicogolo,
-                    dniPaciente: info.event.dniPaciente,
-                    description: info.event.description
+                    IdCita: info.id,
+                    Hora_inicial: info.event.start.toISOString().toLocaleString(),
+                    Hora_final: info.event.end.toISOString(),
+                    DniPsicogolo: info.event.dniPsicogolo,
+                    DniPaciente: info.event.dniPaciente,
+                    Descripcion: info.event.description
                 };
                 
                 
-                alert(data.dniPsicogolo);
+                
                 Guardar(data);
                 info.revert();
 
@@ -477,7 +513,7 @@
     $("#PacientesTotales").click(function () {
         $.ajax({
             type: "Get",
-            url: '@Url.Action("ListaDiagnosticos2", "Diagnostico")',
+            url: '@Url.Action("ListaPacientes", "Diagnostico")',
             cache: false,
             success: function (result) {
                 $('#Pacientes').modal('show');
@@ -485,6 +521,20 @@
             }
         })
     })
+
+    $("#PsicologosTotales").click(function () {
+        $.ajax({
+            type: "Get",
+            url: '@Url.Action("ListaPsicologos", "Diagnostico")',
+            cache: false,
+            success: function (result) {
+                $('#Psicologos').modal('show');
+                $('#ListaPsicologos').html(result);
+            }
+        })
+    })
+
+
 
     $('#btnEditar').click(function () {
         OpenAddEdit();

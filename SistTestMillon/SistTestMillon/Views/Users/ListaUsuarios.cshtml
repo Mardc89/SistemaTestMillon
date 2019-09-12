@@ -5,9 +5,9 @@
     <caption class="c-table__title">
         <div class="row">
             <div class="col-md-6">
-                Usuarios <small>20</small>
-                <button type="button" class="c-btn c-btn--info" data-toggle="modal" data-target="#modal8">
-                    Agregar Usuarios
+                Usuarios<small>20</small>
+                <button type="button" class="c-btn c-btn--info" data-toggle="modal" data-target="#modal8" id="nuevo" onclick="seleccion()">
+                    Agregar Usuario
                 </button>
             </div>
             <div class="col-md-6">
@@ -51,10 +51,10 @@
                     </td>
                     <td class="c-table__cell u-text-right">
                         <div>
-                            <a class="c-btn c-btn--success" href="#!" onclick="funProd(@item.IdUsuario, 'M', event);">
+                            <a class="c-btn c-btn--success" href="#!" onclick="funUsuario(@item.IdUsuario, 'M', event);">
                                 <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Editar
                             </a>
-                            <a class="c-btn c-btn--danger" href="#!" onclick="funProd(@item.IdUsuario, 'E', event);">
+                            <a class="c-btn c-btn--danger" href="#!" onclick="funUsuario(@item.IdUsuario, 'E', event);">
                                 <i class="fa fa-trash-o u-mr-xsmall"></i>Eliminar
                             </a>
                         </div>
@@ -102,8 +102,10 @@
             });
         });
     });
-
-
+    $("#nuevo").click(function () {
+        document.getElementById("TipoUsu").disabled = false;
+    });
+    
 
 </script>
 

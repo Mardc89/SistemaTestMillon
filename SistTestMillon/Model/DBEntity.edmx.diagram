@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0073d83dd01247a2944428f19ce47b6f" Name="Diagram1">
+      <Diagram DiagramId="cc93e3b0ae164fd3abf90732ef814779" Name="Diagram1">
         <EntityTypeShape EntityType="TestMillonModel.Administradores" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestMillonModel.Citas" Width="1.5" PointX="8.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Citas" Width="1.5" PointX="8.25" PointY="13.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TestMillonModel.Cuestionario" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestMillonModel.Diagnosticos" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestMillonModel.Historias" Width="1.5" PointX="7.5" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestMillonModel.Pacientes" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestMillonModel.Psicologos" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestMillonModel.Usuarios" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Diagnosticos" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Historias" Width="1.5" PointX="7.5" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Pacientes" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Psicologos" Width="1.5" PointX="3" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestMillonModel.Usuarios" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
         <AssociationConnector Association="TestMillonModel.FK_Administradores_Usuarios" ManuallyRouted="false" />
         <AssociationConnector Association="TestMillonModel.FK_Citas_Pacientes" ManuallyRouted="false" />
         <AssociationConnector Association="TestMillonModel.FK_Citas_Psicologos" ManuallyRouted="false" />

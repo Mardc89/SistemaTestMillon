@@ -22,7 +22,7 @@ namespace Model
         }
     
         public int IdPaciente { get; set; }
-        public string DniPaciente { get; set; }
+        public string Dni { get; set; }
         public string Nombres { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }

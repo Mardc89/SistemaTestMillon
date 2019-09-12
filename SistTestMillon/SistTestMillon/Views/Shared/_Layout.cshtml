@@ -42,11 +42,11 @@
                     </a>
                 </li>
                 <li class="c-sidebar__item">
-                    <a class="c-sidebar__link" href="~/Citas">
+                    <a class="c-sidebar__link" href="~/Citas" >
                         <i class="fa fa-product-hunt u-mr-xsmall"></i>Citas <span class="c-badge c-badge--success c-badge--xsmall u-ml-xsmall">New</span>
                     </a>
                 </li>
-                @if (HttpContext.Current.Session["TipoUsuario"].Equals("Paciente") || HttpContext.Current.Session["TipoUsuario"].Equals("administrador"))
+                @if (HttpContext.Current.Session["TipoUsuario"].Equals("Paciente") || HttpContext.Current.Session["TipoUsuario"].Equals("Administrador"))
                 {
                 <li class="c-sidebar__item">
                     <a class="c-sidebar__link" href="~/TestMillon">
@@ -55,9 +55,9 @@
                 </li>
                 }
 
-                @if (HttpContext.Current.Session["TipoUsuario"].Equals("Psicologo")|| HttpContext.Current.Session["TipoUsuario"].Equals("administrador")) {
+                @if (HttpContext.Current.Session["TipoUsuario"].Equals("Psicologo")|| HttpContext.Current.Session["TipoUsuario"].Equals("Administrador")) {
                 <li class="c-sidebar__item">
-                    <a class="c-sidebar__link " href="~/Pacientes">
+                    <a class="c-sidebar__link " href="~/Pacientes" >
                         <i class="fa fa-balance-scale u-mr-xsmall"></i>Pacientes
                     </a>
                 </li>
@@ -73,7 +73,7 @@
                 </li>
                 }
             </ul>
-            @if (HttpContext.Current.Session["TipoUsuario"].Equals("administrador"))
+            @if (HttpContext.Current.Session["TipoUsuario"].Equals("Administrador"))
             {
             <h4 class="c-sidebar__title">Apps</h4>
             <ul class="c-sidebar__list">
@@ -182,9 +182,15 @@
     </main>
     <script>
         var urlGeneral = '@Url.Content("~/")'
+
+
+
+
+
     </script>
     <script src="~/Content/js/main.js"></script>
     <script src="~/Content/js/jquery.plugins.js"></script>
+
     
 
     @RenderSection("scripts", false)

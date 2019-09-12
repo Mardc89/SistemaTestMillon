@@ -20,40 +20,112 @@
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
             <div class="c-modal__header u-bg-primary">
-                <h3 class="c-modal__title">Historia</h3>
+                <h3 class="c-modal__title">Usuarios</h3>
                 <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
             <div class="c-modal__body">
-                <form class="c-card__body formAjaxAdd" method="post" action="~/Historias/Add">
+                <form class="c-card__body formAjax" method="post" action="~/Users/Add">
                     <div class="row">
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Codigo Diagnostico</label>
-                            <input type="text" class="c-input" name="CodigoDiagnostico" id="CodigoDiagnostico" placeholder="Nombre del Producto" required="required">
+                        <div class="col-md-6">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Dni">Dni</label>
+                                <input class="c-input" type="text" id="Dni" required="required" name="Dni" placeholder="Dni">
+                            </div>
                         </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Dni Psicologo</label>
-                            <input type="text" class="c-input" name="DniPsicologo" id="DniPsicologo" placeholder="Descripción del Producto" required="required">
+                        <div class="col-md-6">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Nombres">Nombres</label>
+                                <input class="c-input" type="text" id="Nombres" required="required" name="Nombres" placeholder="Nombres">
+                            </div>
                         </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="textarea2">Motivo</label>
-                            <textarea class="c-input" id="textarea2" name="Motivo" placeholder="Tratamiento" required="required"></textarea>
-                        </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="textarea3">Tratamiento</label>
-                            <textarea type="text" class="c-input" name="Tratamiento" id="textarea3" placeholder="Tratamiento" required="required"></textarea>
-                        </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="textarea4">Observacion</label>
-                            <textarea type="text" class="c-input" name="Observacion" id="textarea4" placeholder="Modelo" required="required"></textarea>
-                        </div>
-                        <input type="hidden" name="IdHistoria" id="IdHistoria" />
                     </div>
-                    <div class="c-modal__footer u-justify-center">
-                        <button class="c-btn c-btn--success btnAjaxAdd" type="submit">
-                            Guardar
-                            <img src="~/Content/img/load.gif" class="loadingAjaxAdd" style="display:none" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Apaterno">Apellido Paterno</label>
+                                <input class="c-input" type="text" id="Apaterno" required="required" name="ApellidoPaterno" placeholder="ApellidoPaterno">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">Apellido Materno</label>
+                                <input class="c-input" type="text" id="Amaterno" required="required" name="ApellidoMaterno" placeholder="ApellidoMaterno">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Direccion">Direccion</label>
+                            <input class="c-input" type="text" id="Direccion" required="required" name="Direccion" placeholder="Direccion">
+                        </div>
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="NombreUsu">Nombre Usuario</label>
+                            <input class="c-input" type="text" id="NombreUsu" required="required" name="NombreUsuario" placeholder="Usuario">
+                        </div>
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="TipoUsu">Tipo de Usuario</label>
+                            <select name="TipoUsuario" class="c-input" id="TipoUsu">
+                                <!-- Opciones de la lista -->
+                                <option value="Paciente">Paciente</option>
+                                <option value="Psicologo">Psicologo</option>
+                                <option value="Administrador" selected>Administrador</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Edad">Edad</label>
+                            <input class="c-input" type="text" id="Edad" required="required" name="Edad" placeholder="Edad">
+                        </div>
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Sexo">Sexo</label>
+                            <select name="Sexo" class="c-input" id="Sexo">
+                                <!-- Opciones de la lista -->
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino" selected>Femenino</option>
+                            </select>
+                        </div>
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Profesion">Profesion</label>
+                            <input class="c-input" type="text" id="Profesion" required="required" name="Profesion" placeholder="Profesion">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Profesion">Fecha Nacimiento</label>
+                            <div class="c-field has-addon-left">
+                                <span class="c-field__addon"><i class="fa fa-calendar"></i></span>
+                                <label class="c-field__label u-hidden-visually" for="FechaNacimiento">Disabled Input</label>
+                                <input class="c-input" data-toggle="datepicker" id="FechaNacimiento" type="text" name="FechaNacimiento" placeholder="Focus to open caleendar">
+                            </div>
+                        </div>
+
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="Correo">Correo electrónico</label>
+                            <input class="c-input" type="text" id="Correo" required="required" name="Correo" placeholder="clark@dashboard.com">
+                        </div>
+                        <div class="c-field u-mb-small col-4">
+                            <label class="c-field__label" for="telefono">Telefono</label>
+                            <input class="c-input" type="text" id="telefono" required="required" name="Telefono" placeholder="Telefono">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="c-field u-mb-small col-6">
+                            <label class="c-field__label" for="input2">Contraseña</label>
+                            <input class="c-input" type="password" id="Contraseña" required="required" name="Contraseña" placeholder="*****">
+                        </div>
+                        <div class="c-field u-mb-small col-6">
+                            <label class="c-field__label" for="input2">Repetir Contraseña</label>
+                            <input class="c-input" type="password" id="re-Contraseña" required="required" EqualTo="#Contraseña" placeholder="*****">
+                        </div>
+                        <input type="hidden" name="IdPaciente" id="IdPaciente" />
+                    </div>
+                    <div class="u-text-right">
+                        <button class="c-btn c-btn--info c-btn btnAjax" type="submit">
+                            Registrar
+                            <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
                         </button>
                     </div>
                 </form>
@@ -68,7 +140,7 @@
         var strFiltro = "";
         var strValOrder = "";
         $(document).ready(function () {
-            cargaTabla("IdHistoria", "");
+            cargaTabla("IdUsuario", "");
         });
         function cargaTabla(val, valOrder) {
             if (val.length > 0) {
@@ -91,6 +163,10 @@
             $('#divProductos').load(urlGeneral + 'Users/ListaUsuarios' + val + valOrder, function (response, status, xhr) {
                 $("#msgCargando").hide()
             });
+
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[8].className += " is-active";
         }
     </script>
     <script src="~/Content/js/custom.js"></script>

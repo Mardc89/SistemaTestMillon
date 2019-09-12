@@ -7,10 +7,10 @@
       <Schema Namespace="TestMillonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Administradores">
           <Key>
-            <PropertyRef Name="DniAdministrador" />
+            <PropertyRef Name="Dni" />
           </Key>
           <Property Name="IdAdministrador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DniAdministrador" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Dni" Type="char" MaxLength="8" Nullable="false" />
           <Property Name="Nombres" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" Nullable="false" />
@@ -20,6 +20,8 @@
           <Property Name="IdUsuario" Type="int" Nullable="false" />
           <Property Name="Telefono" Type="char" MaxLength="9" Nullable="false" />
           <Property Name="Sexo" Type="varchar" MaxLength="20" />
+          <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="Profesion" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Citas">
           <Key>
@@ -92,10 +94,10 @@
         </EntityType>
         <EntityType Name="Pacientes">
           <Key>
-            <PropertyRef Name="DniPaciente" />
+            <PropertyRef Name="Dni" />
           </Key>
           <Property Name="IdPaciente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DniPaciente" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Dni" Type="char" MaxLength="8" Nullable="false" />
           <Property Name="Nombres" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" Nullable="false" />
@@ -111,10 +113,10 @@
         </EntityType>
         <EntityType Name="Psicologos">
           <Key>
-            <PropertyRef Name="DniPsicologo" />
+            <PropertyRef Name="Dni" />
           </Key>
           <Property Name="IdPsicologo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DniPsicologo" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="Dni" Type="char" MaxLength="8" Nullable="false" />
           <Property Name="Nombres" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" Nullable="false" />
@@ -153,7 +155,7 @@
           <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pacientes">
-              <PropertyRef Name="DniPaciente" />
+              <PropertyRef Name="Dni" />
             </Principal>
             <Dependent Role="Citas">
               <PropertyRef Name="DniPaciente" />
@@ -165,7 +167,7 @@
           <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Psicologos">
-              <PropertyRef Name="DniPsicologo" />
+              <PropertyRef Name="Dni" />
             </Principal>
             <Dependent Role="Citas">
               <PropertyRef Name="DniPsicologo" />
@@ -177,7 +179,7 @@
           <End Role="Diagnosticos" Type="Self.Diagnosticos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pacientes">
-              <PropertyRef Name="DniPaciente" />
+              <PropertyRef Name="Dni" />
             </Principal>
             <Dependent Role="Diagnosticos">
               <PropertyRef Name="DniPaciente" />
@@ -201,7 +203,7 @@
           <End Role="Historias" Type="Self.Historias" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Psicologos">
-              <PropertyRef Name="DniPsicologo" />
+              <PropertyRef Name="Dni" />
             </Principal>
             <Dependent Role="Historias">
               <PropertyRef Name="DniPsicologo" />
@@ -281,10 +283,10 @@
       <Schema Namespace="TestMillonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Administradores">
           <Key>
-            <PropertyRef Name="DniAdministrador" />
+            <PropertyRef Name="Dni" />
           </Key>
           <Property Name="IdAdministrador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DniAdministrador" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Dni" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -294,6 +296,8 @@
           <Property Name="IdUsuario" Type="Int32" Nullable="false" />
           <Property Name="Telefono" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Sexo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="Profesion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Administradores_Usuarios" FromRole="Administradores" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Citas">
@@ -373,10 +377,10 @@
         </EntityType>
         <EntityType Name="Pacientes">
           <Key>
-            <PropertyRef Name="DniPaciente" />
+            <PropertyRef Name="Dni" />
           </Key>
           <Property Name="IdPaciente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DniPaciente" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Dni" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -395,10 +399,10 @@
         </EntityType>
         <EntityType Name="Psicologos">
           <Key>
-            <PropertyRef Name="DniPsicologo" />
+            <PropertyRef Name="Dni" />
           </Key>
           <Property Name="IdPsicologo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DniPsicologo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Dni" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -443,7 +447,7 @@
           <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pacientes">
-              <PropertyRef Name="DniPaciente" />
+              <PropertyRef Name="Dni" />
             </Principal>
             <Dependent Role="Citas">
               <PropertyRef Name="DniPaciente" />
@@ -455,7 +459,7 @@
           <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Psicologos">
-              <PropertyRef Name="DniPsicologo" />
+              <PropertyRef Name="Dni" />
             </Principal>
             <Dependent Role="Citas">
               <PropertyRef Name="DniPsicologo" />
@@ -467,7 +471,7 @@
           <End Role="Diagnosticos" Type="Self.Diagnosticos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pacientes">
-              <PropertyRef Name="DniPaciente" />
+              <PropertyRef Name="Dni" />
             </Principal>
             <Dependent Role="Diagnosticos">
               <PropertyRef Name="DniPaciente" />
@@ -491,7 +495,7 @@
           <End Role="Historias" Type="Self.Historias" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Psicologos">
-              <PropertyRef Name="DniPsicologo" />
+              <PropertyRef Name="Dni" />
             </Principal>
             <Dependent Role="Historias">
               <PropertyRef Name="DniPsicologo" />
@@ -574,7 +578,7 @@
             <EntityTypeMapping TypeName="TestMillonModel.Administradores">
               <MappingFragment StoreEntitySet="Administradores">
                 <ScalarProperty Name="IdAdministrador" ColumnName="IdAdministrador" />
-                <ScalarProperty Name="DniAdministrador" ColumnName="DniAdministrador" />
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
                 <ScalarProperty Name="Nombres" ColumnName="Nombres" />
                 <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
                 <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
@@ -584,6 +588,8 @@
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Profesion" ColumnName="Profesion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -664,7 +670,7 @@
             <EntityTypeMapping TypeName="TestMillonModel.Pacientes">
               <MappingFragment StoreEntitySet="Pacientes">
                 <ScalarProperty Name="IdPaciente" ColumnName="IdPaciente" />
-                <ScalarProperty Name="DniPaciente" ColumnName="DniPaciente" />
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
                 <ScalarProperty Name="Nombres" ColumnName="Nombres" />
                 <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
                 <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
@@ -684,7 +690,7 @@
             <EntityTypeMapping TypeName="TestMillonModel.Psicologos">
               <MappingFragment StoreEntitySet="Psicologos">
                 <ScalarProperty Name="IdPsicologo" ColumnName="IdPsicologo" />
-                <ScalarProperty Name="DniPsicologo" ColumnName="DniPsicologo" />
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
                 <ScalarProperty Name="Nombres" ColumnName="Nombres" />
                 <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
                 <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />

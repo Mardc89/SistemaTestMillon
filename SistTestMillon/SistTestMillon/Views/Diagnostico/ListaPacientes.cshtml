@@ -1,0 +1,136 @@
+﻿@model PagedList.IPagedList<Model.Pacientes>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Productos";
+}
+
+<link href='~/Content/css/PagedList.css' rel='stylesheet' />
+
+    <table>
+        <tr>
+            <td>@Html.TextBox("buscando", ViewBag.CurrentSearch as string, new { @class = "form-control" }) </td>
+            <td>
+                @Html.ActionLink("buscar", "ListaPacientes", new { sort = ViewBag.CurrentSort, search = "xyz2" },
+             new { @class = "btn btn-primary", btnName = "FilterCustomer2" })
+            </td>
+
+        </tr>
+    </table>
+
+    <br />
+    <div id="ProductoTabla">
+        <table class="table table-bordered">
+            <tr class="btn-success">
+                <th style="text-align:center">
+                    N°
+                </th>
+                <th style="text-align:center">
+                    Dni
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Nombres)
+                </th>
+                <th style="text-align:center">
+                   Apellido Paterno
+                </th>
+                <th style="text-align:center">
+                   Apellido Materno
+                </th>
+                <th style="text-align:center">
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Sexo)
+                </th>
+                <th style="text-align:center">
+                   Fecha de Nacimiento
+                </th>
+            </tr>
+            @{int contador = -1;}
+            @foreach (var item in Model)
+            {
+                contador++;
+
+                <tr id="ProductoTabla" onclick="seleccion(@item.Dni)">
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.IdPaciente)
+                    </td>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.Dni)
+                    </td>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.Nombres)
+                    </td>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.ApellidoPaterno)
+                    </td>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.ApellidoMaterno)
+                    </td>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.Sexo)
+                    </td>
+                    <td style="text-align:center">
+                        @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+
+
+    <div id="myPager">
+        Página: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber), de: @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("ListaPacientes", new
+   {
+       page,
+       sortOrder =
+    ViewBag.CurrentSort,
+       currentFilter = ViewBag.CurrentFilter
+   }))
+    </div>
+
+    <script type="text/javascript">
+
+        function seleccion(a) {
+            var identificador = parseInt(a);
+
+            $('#DniPaciente').val(identificador);
+            $("#Pacientes").modal('hide');
+        }
+
+    $('#myPager').on('click', 'a', function (e) {
+        //prevent action link normal functionality
+        e.preventDefault();
+        var van = this.href; if (van != "" && van != null) {
+            //ajax call index controller action
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    //load returned data inside contentFrame DIV
+                    $('#ListaPacientes').html(result);
+                }
+            });
+            return false;
+        }
+    });
+
+    $("a[btnName=FilterCustomer2]").click(function (e) {
+            e.preventDefault();
+            var search = $('input[name=buscando]').val();
+            this.href = this.href.replace('xyz2', search);
+            $.ajax({
+                url: this.href,
+                type: 'POST',
+                cache: false,
+                success: function (result) {
+                    $('#ListaPacientes').html(result);
+                }
+            });
+        });
+
+    </script>
+
+

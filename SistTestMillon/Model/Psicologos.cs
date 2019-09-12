@@ -22,7 +22,7 @@ namespace Model
         }
     
         public int IdPsicologo { get; set; }
-        public string DniPsicologo { get; set; }
+        public string Dni { get; set; }
         public string Nombres { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }

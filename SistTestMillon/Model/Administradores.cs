@@ -15,7 +15,7 @@ namespace Model
     public partial class Administradores
     {
         public int IdAdministrador { get; set; }
-        public string DniAdministrador { get; set; }
+        public string Dni { get; set; }
         public string Nombres { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
@@ -25,6 +25,8 @@ namespace Model
         public int IdUsuario { get; set; }
         public string Telefono { get; set; }
         public string Sexo { get; set; }
+        public Nullable<System.DateTime> FechaNacimiento { get; set; }
+        public string Profesion { get; set; }
     
         public virtual Usuarios Usuarios { get; set; }
     }

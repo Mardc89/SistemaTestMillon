@@ -60,7 +60,7 @@ namespace SistTestMillon.Helpers
             HttpContext.Current.Session["NombreUsuario"] = Usuario.NombreUsuario;
             HttpContext.Current.Session["Contraseña"] = Usuario.Contraseña;
             HttpContext.Current.Session["Sexo"] = Paciente.Sexo;
-            HttpContext.Current.Session["Dni"] = Paciente.DniPaciente;
+            HttpContext.Current.Session["Dni"] = Paciente.Dni;
             HttpContext.Current.Session["Nombres"] = Paciente.Nombres;
             HttpContext.Current.Session["ApellidoPaterno"] = Paciente.ApellidoPaterno;
             HttpContext.Current.Session["ApellidoMaterno"] = Paciente.ApellidoMaterno;
@@ -73,7 +73,7 @@ namespace SistTestMillon.Helpers
             HttpContext.Current.Session["NombreUsuario"] = Usuario.NombreUsuario;
             HttpContext.Current.Session["Contraseña"] = Usuario.Contraseña;
             HttpContext.Current.Session["Sexo"] = admin.Sexo;
-            HttpContext.Current.Session["Dni"] = admin.DniAdministrador;
+            HttpContext.Current.Session["Dni"] = admin.Dni;
             HttpContext.Current.Session["Nombres"] = admin.Nombres;
             HttpContext.Current.Session["ApellidoPaterno"] = admin.ApellidoPaterno;
             HttpContext.Current.Session["ApellidoMaterno"] = admin.ApellidoMaterno;
@@ -86,7 +86,7 @@ namespace SistTestMillon.Helpers
             HttpContext.Current.Session["NombreUsuario"] = Usuario.NombreUsuario;
             HttpContext.Current.Session["Contraseña"] = Usuario.Contraseña;
             HttpContext.Current.Session["Sexo"] = admin.Sexo;
-            HttpContext.Current.Session["Dni"] = admin.DniPsicologo;
+            HttpContext.Current.Session["Dni"] = admin.Dni;
             HttpContext.Current.Session["Nombres"] = admin.Nombres;
             HttpContext.Current.Session["ApellidoPaterno"] = admin.ApellidoPaterno;
             HttpContext.Current.Session["ApellidoMaterno"] = admin.ApellidoMaterno;

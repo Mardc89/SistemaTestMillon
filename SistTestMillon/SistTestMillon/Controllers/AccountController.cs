@@ -63,7 +63,7 @@ namespace SistTestMillon.Controllers
                     }
                 }
 
-                if (TipoUsuario=="administrador")
+                if (TipoUsuario=="Administrador")
                 {
                     id = -1;
                     SessionHelper.AddUserToSession(objUsu.IdUsuario.ToString(), (bool)recordar);
@@ -115,7 +115,7 @@ namespace SistTestMillon.Controllers
                     {
                         objUsuNew = repository.Create(new Pacientes
                         {
-                            DniPaciente = Dni,
+                            Dni = Dni,
                             Nombres = Nombres,
                             ApellidoPaterno = APaterno,
                             ApellidoMaterno = AMaterno,
@@ -134,7 +134,7 @@ namespace SistTestMillon.Controllers
                     if (TipoUsu=="Psicologo") {
                         objUsuPsicolog = repository.Create(new Psicologos
                         {
-                            DniPsicologo = Dni,
+                            Dni = Dni,
                             Nombres = Nombres,
                             ApellidoPaterno = APaterno,
                             ApellidoMaterno = AMaterno,

@@ -16,44 +16,204 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="c-modal c-modal--large modal fade ocultarDespues" id="modal8" tabindex="-1" role="dialog" aria-labelledby="modal8" data-backdrop="static">
+<div class="c-modal c-modal--huge modal fade ocultarDespues" id="modal8" tabindex="-1" role="dialog" aria-labelledby="modal8" data-backdrop="static">
     <div class="c-modal__dialog modal-dialog" role="document">
         <div class="c-modal__content">
             <div class="c-modal__header u-bg-primary">
-                <h3 class="c-modal__title">Historia</h3>
+                <h3 class="c-modal__title">Actualizar Diagnostico</h3>
                 <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
             <div class="c-modal__body">
-                <form class="c-card__body formAjaxAdd" method="post" action="~/Historias/Add">
+                <form class="c-card__body formAjax" method="post" action="~/Diagnostico/Add">
                     <div class="row">
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Codigo Diagnostico</label>
-                            <input type="text" class="c-input" name="CodigoDiagnostico" id="CodigoDiagnostico" placeholder="Nombre del Producto" required="required">
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="DniPaciente">DniPaciente</label>
+                                <input class="c-input" type="text" id="DniPaciente" required="required" name="DniPaciente" placeholder="DniPaciente">
+                            </div>
                         </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="input-project">Dni Psicologo</label>
-                            <input type="text" class="c-input" name="DniPsicologo" id="DniPsicologo" placeholder="Descripción del Producto" required="required">
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Antisocial">Antisocial</label>
+                                <input class="c-input" type="text" id="Antisocial" required="required" name="Antisocial" placeholder="Antisocial">
+                            </div>
                         </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="textarea2">Motivo</label>
-                            <textarea class="c-input" id="textarea2" name="Motivo" placeholder="Tratamiento" required="required"></textarea>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Narcisista">Narcisista</label>
+                                <input class="c-input" type="text" id="Narcisista" required="required" name="Narcisista" placeholder="Narcisista">
+                            </div>
                         </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="textarea3">Tratamiento</label>
-                            <textarea type="text" class="c-input" name="Tratamiento" id="textarea3" placeholder="Tratamiento" required="required"></textarea>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Histriónico">Histriónico</label>
+                                <input class="c-input" type="text" id="Histriónico" required="required" name="Narcisista" placeholder="Narcisista">
+                            </div>
                         </div>
-                        <div class="c-field u-mb-xsmall">
-                            <label class="c-field__label" for="textarea4">Observacion</label>
-                            <textarea type="text" class="c-input" name="Observacion" id="textarea4" placeholder="Modelo" required="required"></textarea>
-                        </div>
-                        <input type="hidden" name="IdHistoria" id="IdHistoria" />
                     </div>
-                    <div class="c-modal__footer u-justify-center">
-                        <button class="c-btn c-btn--success btnAjaxAdd" type="submit">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Apaterno">Esquizoide</label>
+                                <input class="c-input" type="text" id="Esquizoide" required="required" name="Esquizoide" placeholder="Esquizoide">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">Evitativo</label>
+                                <input class="c-input" type="text" id="Evitativo" required="required" name="Evitativo" placeholder="Evitativo">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">Depresivo</label>
+                                <input class="c-input" type="text" id="Depresivo" required="required" name="Depresivo" placeholder="Depresivo">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">Dependiente</label>
+                                <input class="c-input" type="text" id="Dependiente" required="required" name="Dependiente" placeholder="Dependiente">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">Devaluación</label>
+                                <input class="c-input" type="text" id="Devaluación" required="required" name="Devaluación" placeholder="Devaluación">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">DeseabilidadSocial</label>
+                                <input class="c-input" type="text" id="DeseabilidadSocial" required="required" name="DeseabilidadSocial" placeholder="DeseabilidadSocial">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Apaterno">Sinceridad</label>
+                                <input class="c-input" type="text" id="Sinceridad" required="required" name="Sinceridad" placeholder="Sinceridad">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">D.Delusional</label>
+                                <input class="c-input" type="text" id="DesordenDelusional" required="required" name="DesordenDelusional" placeholder="DesordenDelusional">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">DepresiónMayor</label>
+                                <input class="c-input" type="text" id="DepresiónMayor" required="required" name="DepresiónMayor" placeholder="DepresiónMayor">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">D.Pensamiento</label>
+                                <input class="c-input" type="text" id="DesordenPensamiento" required="required" name="DesordenPensamiento" placeholder="DesordenPensamiento">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">E.Postraumático</label>
+                                <input class="c-input" type="text" id="EstrésPostraumático" required="required" name="EstrésPostraumático" placeholder="EstrésPostraumático">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">D.Sustancias</label>
+                                <input class="c-input" type="text" id="DependenciaSustancias" required="required" name="DependenciaSustancias" placeholder="DependenciaSustancias">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Apaterno">D.Alcohol</label>
+                                <input class="c-input" type="text" id="DependenciaAlcohol" required="required" name="DependenciaAlcohol" placeholder="DependenciaAlcohol">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">Distímico</label>
+                                <input class="c-input" type="text" id="Distímico" required="required" name="Distímico" placeholder="Distímico">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">Bipolar</label>
+                                <input class="c-input" type="text" id="Bipolar" required="required" name="Bipolar" placeholder="Bipolar">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">Somatoformo</label>
+                                <input class="c-input" type="text" id="Somatoformo" required="required" name="Somatoformo" placeholder="Somatoformo">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">Ansiedad</label>
+                                <input class="c-input" type="text" id="Ansiedad" required="required" name="Ansiedad" placeholder="Ansiedad">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">Paranoide</label>
+                                <input class="c-input" type="text" id="Paranoide" required="required" name="Paranoide" placeholder="Paranoide">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Apaterno">Límite</label>
+                                <input class="c-input" type="text" id="Límite" required="required" name="Límite" placeholder="Límite">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Amaterno">Esquizotípica</label>
+                                <input class="c-input" type="text" id="Esquizotípica" required="required" name="Esquizotípica" placeholder="Esquizotípica">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Autodestructiva">Autodestructiva</label>
+                                <input class="c-input" type="text" id="Autodestructiva" required="required" name="Autodestructiva" placeholder="Autodestructiva">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Negativista">Negativista</label>
+                                <input class="c-input" type="text" id="Negativista" required="required" name="Negativista" placeholder="Negativista">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="Compulsivo">Compulsivo</label>
+                                <input class="c-input" type="text" id="Compulsivo" required="required" name="Compulsivo" placeholder="Compulsivo">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="AgresivoSádico">AgresivoSádico</label>
+                                <input class="c-input" type="text" id="AgresivoSádico" required="required" name="AgresivoSádico" placeholder="AgresivoSádico">
+                            </div>
+                        </div>
+                        <input type="hidden" name="IdDiagnostico" id="IdDiagnostico" />
+
+                    </div>
+                    <div class="u-text-right">
+                        <button class="c-btn c-btn--info c-btn btnAjax" type="submit">
                             Guardar
-                            <img src="~/Content/img/load.gif" class="loadingAjaxAdd" style="display:none" />
+                            <img src="~/Content/img/load.gif" class="loadingAjax" style="display:none" />
                         </button>
                     </div>
                 </form>
@@ -91,6 +251,14 @@
             $('#divProductos').load(urlGeneral + 'Diagnostico/ListaDiagnosticos' + val + valOrder, function (response, status, xhr) {
                 $("#msgCargando").hide()
             });
+
+            var elemento = document.getElementsByClassName("c-sidebar__link");
+            elemento[0].classList.remove("is-active");
+            elemento[5].className += " is-active";
+
+
+            
+
         }
     </script>
     <script src="~/Content/js/custom.js"></script>

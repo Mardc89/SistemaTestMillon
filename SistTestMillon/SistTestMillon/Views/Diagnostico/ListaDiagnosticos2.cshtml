@@ -87,12 +87,14 @@
         function seleccion(a) {
             var identificador = parseInt(a);
 
-            $('#CodigoDiagnostico').val(identificador);
+            $('#Diagnostico').val(identificador);
+            $("#modal9").modal('hide');
         }
 
-        $(document).on('hidden.bs.modal', '.modal', function () {
-            $('.modal:visible').length && $(document.body).addClass('modal-open');
-        });
+        document.getElementById("modal9").style.zIndex = "1052";
+        document.getElementById("modal8").style.zIndex = "1051";
+
+
 
 
 

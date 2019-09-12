@@ -69,9 +69,9 @@ namespace SistTestMillon.Controllers
 
         public static string nombres(string dni) {
             IRepository repository = new Model.Repository();
-            var nombres = repository.FindEntity<Pacientes>(c => c.DniPaciente == dni).Nombres;
-            var apellidoPaterno = repository.FindEntity<Pacientes>(c => c.DniPaciente == dni).ApellidoPaterno;
-            var apellidoMaterno = repository.FindEntity<Pacientes>(c => c.DniPaciente == dni).ApellidoMaterno;
+            var nombres = repository.FindEntity<Pacientes>(c => c.Dni == dni).Nombres;
+            var apellidoPaterno = repository.FindEntity<Pacientes>(c => c.Dni == dni).ApellidoPaterno;
+            var apellidoMaterno = repository.FindEntity<Pacientes>(c => c.Dni == dni).ApellidoMaterno;
 
             return nombres + " " + apellidoPaterno + " " + apellidoMaterno;
         }
@@ -79,9 +79,9 @@ namespace SistTestMillon.Controllers
         public static string nombres_Psicologo(string dni)
         {
             IRepository repository = new Model.Repository();
-            var nombres = repository.FindEntity<Psicologos>(c => c.DniPsicologo ==dni).Nombres;
-            var apellidoPaterno = repository.FindEntity<Psicologos>(c => c.DniPsicologo == dni).ApellidoPaterno;
-            var apellidoMaterno = repository.FindEntity<Psicologos>(c => c.DniPsicologo == dni).ApellidoMaterno;
+            var nombres = repository.FindEntity<Psicologos>(c => c.Dni ==dni).Nombres;
+            var apellidoPaterno = repository.FindEntity<Psicologos>(c => c.Dni == dni).ApellidoPaterno;
+            var apellidoMaterno = repository.FindEntity<Psicologos>(c => c.Dni == dni).ApellidoMaterno;
 
             return nombres + " " + apellidoPaterno + " " + apellidoMaterno;
         }
@@ -93,7 +93,7 @@ namespace SistTestMillon.Controllers
             IRepository repository = new Model.Repository();
 
             var events2 = repository.FindEntity<Citas>(c =>c.IdCita==Convert.ToInt32(id)).DniPaciente;
-            var objProduct2 = repository.FindEntity<Pacientes>(c => c.DniPaciente == events2).Nombres;
+            var objProduct2 = repository.FindEntity<Pacientes>(c => c.Dni == events2).Nombres;
 
             return new JsonResult { Data = objProduct2, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
