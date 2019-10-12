@@ -56,59 +56,21 @@ namespace SistTestMillon.Controllers
             {
                 id = usuario.IdUsuario;
                 Usuarios UpdatePaciente = repository.FindEntity<Usuarios>(c => c.IdUsuario == usuario.IdUsuario);
-                string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
                 if (UpdatePaciente != null)
                 {
-                    UpdatePaciente.TipoUsuario = usuario.TipoUsuario;
-                    UpdatePaciente.NombreUsuario = usuario.NombreUsuario;
-                    UpdatePaciente.Contraseña = strPass;
-
-                }
-
-                var Tipo = UpdatePaciente.TipoUsuario;
-
-                if (Tipo == "Psicologo")
-                {
                     Psicologo actualizar = new Psicologo();
-                    actualizar.insertar(usuario, psicologo);
-                    repository.Update(UpdatePaciente);
-                    strMensaje = "Se actualizo el producto";
+                    strMensaje =actualizar.actualizar(usuario, psicologo);
                     okResult = true;
+
                 }
-
-
-
             }
             else
             {
-
-
-                string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
-                var objUsuarios = repository.Create(new Usuarios
-                {
-                    TipoUsuario = usuario.TipoUsuario,
-                    NombreUsuario = usuario.NombreUsuario,
-                    Contraseña = strPass
-
-                });
-                var Tipo = usuario.TipoUsuario;
-
-
-                if (Tipo == "Psicologo")
-                {
                     id = psicologo.IdPsicologo;
                     Psicologo actualizar = new Psicologo();
-                    actualizar.crear(usuario, psicologo);
+                    strMensaje = actualizar.crear(usuario, psicologo);
                     okResult = true;
-                    strMensaje = "Se agrego el producto correctamente";
-
-                }
-
-
-
-
-
-
+               
             }
             return Json(new Response { IsSuccess = okResult, Message = strMensaje, Id = id }, JsonRequestBehavior.AllowGet);
         }
@@ -117,38 +79,40 @@ namespace SistTestMillon.Controllers
         {
             string strMensaje = "No se encontro el producto que desea editar";
             IRepository repository = new Model.Repository();
-            var objPaciente = repository.FindEntity<Psicologos>(c => c.IdPsicologo == Id);
-            var objUsuario = repository.FindEntity<Usuarios>(c => c.IdUsuario == objPaciente.IdUsuario);
-            if (objPaciente != null)
+            var Psicolog = repository.FindEntity<Psicologos>(c => c.IdPsicologo == Id);
+            var objUsuario = repository.FindEntity<Usuarios>(c => c.IdUsuario == Psicolog.IdUsuario);
+            if (objUsuario != null)
             {
-                Psicologo Psicolog = new Psicologo
-                {
-                    IdPsicologo = objPaciente.IdPsicologo,
-                    Dni = objPaciente.Dni,
-                    Nombres = objPaciente.Nombres,
-                    ApellidoPaterno = objPaciente.ApellidoPaterno,
-                    ApellidoMaterno = objPaciente.ApellidoMaterno,
-                    Direccion = objPaciente.Direccion,
-                    Edad = objPaciente.Edad,
-                    Sexo = objPaciente.Sexo,
-                    Profesion = objPaciente.Profesion,
-                    FechaNacimiento = objPaciente.FechaNacimiento,
-                    Telefono = objPaciente.Telefono,
-                    Correo = objPaciente.Correo,
-                };
 
-                var fecha = Psicolog.FechaNacimiento;
-                Usuario usuario = new Usuario
-                {
-                    NombreUsuario = objUsuario.NombreUsuario,
-                    Contraseña = objUsuario.Contraseña,
-                    TipoUsuario = objUsuario.TipoUsuario
+                Psicologo actualizar = new Psicologo();
+                var lista = actualizar.Obtener(Psicolog, objUsuario);
+                return Json(new Response { IsSuccess = true, Id = Id, Result = lista.ElementAt(0), Result2 = lista.ElementAt(2), Result3 = lista.ElementAt(1).ToString() }, JsonRequestBehavior.AllowGet);
 
-                };
+           }
 
-                return Json(new Response { IsSuccess = true, Id = Id, Result = Psicolog, Result2 = usuario, Result3 = fecha.Value.ToString("dd/MM/yyyy") }, JsonRequestBehavior.AllowGet);
-            }
+            
             return Json(new Response { IsSuccess = false, Message = strMensaje, Id = Id }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Eliminar(int Id)
+        {
+            string strMensaje = "No se encontro el producto que desea eliminar";
+            bool okResult = false;
+            IRepository repository = new Model.Repository();
+            var objProd = repository.FindEntity<Psicologos>(c => c.IdPsicologo == Id);
+            if (objProd != null)
+            {
+
+                var objUsu2 = repository.FindEntity<Usuarios>(c => c.IdUsuario == objProd.IdUsuario);
+                repository.Delete(objProd);
+                repository.Delete(objUsu2);
+                strMensaje = "Se elimino el producto correctamente";
+                okResult = true;
+
+
+            }
+            return Json(new Response { IsSuccess = okResult, Message = strMensaje, Id = Id }, JsonRequestBehavior.AllowGet);
         }
     }
 }

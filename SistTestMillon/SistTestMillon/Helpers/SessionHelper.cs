@@ -59,6 +59,7 @@ namespace SistTestMillon.Helpers
             HttpContext.Current.Session["TipoUsuario"] = Usuario.TipoUsuario;
             HttpContext.Current.Session["NombreUsuario"] = Usuario.NombreUsuario;
             HttpContext.Current.Session["Contraseña"] = Usuario.Contraseña;
+            HttpContext.Current.Session["Id"] = Paciente.IdPaciente;
             HttpContext.Current.Session["Sexo"] = Paciente.Sexo;
             HttpContext.Current.Session["Dni"] = Paciente.Dni;
             HttpContext.Current.Session["Nombres"] = Paciente.Nombres;
@@ -72,6 +73,7 @@ namespace SistTestMillon.Helpers
             HttpContext.Current.Session["TipoUsuario"] = Usuario.TipoUsuario;
             HttpContext.Current.Session["NombreUsuario"] = Usuario.NombreUsuario;
             HttpContext.Current.Session["Contraseña"] = Usuario.Contraseña;
+            HttpContext.Current.Session["Id"] = admin.IdAdministrador;
             HttpContext.Current.Session["Sexo"] = admin.Sexo;
             HttpContext.Current.Session["Dni"] = admin.Dni;
             HttpContext.Current.Session["Nombres"] = admin.Nombres;
@@ -79,17 +81,18 @@ namespace SistTestMillon.Helpers
             HttpContext.Current.Session["ApellidoMaterno"] = admin.ApellidoMaterno;
         }
 
-        public static void ActualizarSessionPsicolog(Usuarios Usuario, Psicologos admin)
+        public static void ActualizarSessionPsicolog(Usuarios Usuario, Psicologos psicolo)
         {
             HttpContext.Current.Session["Usuario_Id"] = Usuario.IdUsuario;
             HttpContext.Current.Session["TipoUsuario"] = Usuario.TipoUsuario;
             HttpContext.Current.Session["NombreUsuario"] = Usuario.NombreUsuario;
             HttpContext.Current.Session["Contraseña"] = Usuario.Contraseña;
-            HttpContext.Current.Session["Sexo"] = admin.Sexo;
-            HttpContext.Current.Session["Dni"] = admin.Dni;
-            HttpContext.Current.Session["Nombres"] = admin.Nombres;
-            HttpContext.Current.Session["ApellidoPaterno"] = admin.ApellidoPaterno;
-            HttpContext.Current.Session["ApellidoMaterno"] = admin.ApellidoMaterno;
+            HttpContext.Current.Session["Id"] = psicolo.IdPsicologo;
+            HttpContext.Current.Session["Sexo"] = psicolo.Sexo;
+            HttpContext.Current.Session["Dni"] = psicolo.Dni;
+            HttpContext.Current.Session["Nombres"] = psicolo.Nombres;
+            HttpContext.Current.Session["ApellidoPaterno"] = psicolo.ApellidoPaterno;
+            HttpContext.Current.Session["ApellidoMaterno"] = psicolo.ApellidoMaterno;
         }
 
     }

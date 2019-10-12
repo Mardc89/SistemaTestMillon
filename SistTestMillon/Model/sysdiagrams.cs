@@ -12,17 +12,12 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Historias
+    public partial class sysdiagrams
     {
-        public int IdHistoria { get; set; }
-        public string Codigo { get; set; }
-        public int CodigoDiagnostico { get; set; }
-        public string DniPsicologo { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public string Motivo { get; set; }
-        public string Tratamiento { get; set; }
-        public string Observacion { get; set; }
-    
-        public virtual Diagnosticos Diagnosticos { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

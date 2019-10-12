@@ -2,10 +2,18 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_ViewMillon.cshtml";
-    string dni=HttpContext.Current.Session["Dni"].ToString();
-    string sexo = HttpContext.Current.Session["Sexo"].ToString();
-    string fecha = DateTime.Now.ToString("dd/MM/yyyy");
-    string horaInicio = DateTime.Now.ToString("hh:mm:ss tt");
+    string dni = "",sexo="",fecha="",horaInicio="";
+    if (HttpContext.Current.Session["TipoUsuario"] == null)
+    {
+        Response.Redirect("~/Account/Index");
+    }
+    else
+    {
+        dni = HttpContext.Current.Session["Dni"].ToString();
+        sexo = HttpContext.Current.Session["Sexo"].ToString();
+        fecha = DateTime.Now.ToString("dd/MM/yyyy");
+        horaInicio = DateTime.Now.ToString("hh:mm:ss tt");
+    }
 
 
 }
@@ -184,7 +192,7 @@
         }
 
         cadena = cadenaNueva;
-        alert(cadenaNueva);
+        //alert(cadenaNueva);
         $('input[type=radio]').prop('checked', false);
         b = document.getElementsByClassName("Numero")[0].textContent;
         c = document.getElementsByClassName("Numero")[4].textContent;

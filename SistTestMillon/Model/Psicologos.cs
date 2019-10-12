@@ -18,7 +18,6 @@ namespace Model
         public Psicologos()
         {
             this.Citas = new HashSet<Citas>();
-            this.Historias = new HashSet<Historias>();
         }
     
         public int IdPsicologo { get; set; }
@@ -28,7 +27,6 @@ namespace Model
         public string ApellidoMaterno { get; set; }
         public string Direccion { get; set; }
         public int Edad { get; set; }
-        public string Correo { get; set; }
         public int IdUsuario { get; set; }
         public string Telefono { get; set; }
         public string Sexo { get; set; }
@@ -37,8 +35,6 @@ namespace Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Citas> Citas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Historias> Historias { get; set; }
         public virtual Usuarios Usuarios { get; set; }
     }
 }

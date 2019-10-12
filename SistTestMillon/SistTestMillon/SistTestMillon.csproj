@@ -328,7 +328,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ContadorHelpers.cs" />
     <Compile Include="Helpers\CryproHelper.cs" />
+    <Compile Include="Helpers\FuncionController.cs" />
     <Compile Include="Helpers\PatronClinicoHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\ToolsHelper.cs" />
@@ -339,6 +341,7 @@
     <Compile Include="Models\Psicologo.cs" />
     <Compile Include="Models\Puntuacion.cs" />
     <Compile Include="Models\Response.cs" />
+    <Compile Include="Models\Response2.cs" />
     <Compile Include="Models\Update.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -413,6 +416,7 @@
     <Folder Include="Content\Calendar\rrule\" />
     <Folder Include="Content\fonts\" />
     <Folder Include="Content\webfonts\" />
+    <Folder Include="Views\Funcion\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

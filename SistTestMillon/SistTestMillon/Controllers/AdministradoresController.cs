@@ -20,6 +20,11 @@ namespace SistTestMillon.Controllers
             return View();
         }
 
+        public ActionResult Perfil()
+        {
+            return View();
+        }
+
         public ActionResult ListaAdministradores(string val, string valSearch, int? page)
         {
             ViewBag.CurrentSort = val;
@@ -46,7 +51,7 @@ namespace SistTestMillon.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Usuario usuario, Administrador admin)
+        public ActionResult Add(Administrador admin, Usuario usuario)
         {
             IRepository repository = new Model.Repository();
             int id = 0;
@@ -56,53 +61,21 @@ namespace SistTestMillon.Controllers
             {
                 id = usuario.IdUsuario;
                 Usuarios UpdatePaciente = repository.FindEntity<Usuarios>(c => c.IdUsuario == usuario.IdUsuario);
-                string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
                 if (UpdatePaciente != null)
                 {
-                    UpdatePaciente.TipoUsuario = usuario.TipoUsuario;
-                    UpdatePaciente.NombreUsuario = usuario.NombreUsuario;
-                    UpdatePaciente.Contraseña = strPass;
-
-                }
-
-                var Tipo = UpdatePaciente.TipoUsuario;
-                if (Tipo == "Administrador")
-                {
-                    Administrador actualizar = new Administrador();
-                    actualizar.insertar(usuario, admin);
-                    repository.Update(UpdatePaciente);
-                    strMensaje = "Se actualizo el producto";
+                    Administrador actualizar = new Administrador();                  
+                    strMensaje = actualizar.Actualizar(usuario, admin);
                     okResult = true;
 
-                }
-
-
-
+                }               
             }
             else
             {
+                 id = admin.IdAdministrador;
+                 Administrador actualizar = new Administrador();
+                 okResult = true;
+                 strMensaje = actualizar.crear(usuario, admin);
 
-
-                string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
-                var objUsuarios = repository.Create(new Usuarios
-                {
-                    TipoUsuario = usuario.TipoUsuario,
-                    NombreUsuario = usuario.NombreUsuario,
-                    Contraseña = strPass
-
-                });
-                var Tipo = usuario.TipoUsuario;
-
-
-                if (Tipo == "Administrador")
-                {
-                    id = admin.IdAdministrador;
-                    Administrador actualizar = new Administrador();
-                    actualizar.crear(usuario, admin);
-                    okResult = true;
-                    strMensaje = "Se agrego el producto correctamente";
-
-                }
 
             }
             return Json(new Response { IsSuccess = okResult, Message = strMensaje, Id = id }, JsonRequestBehavior.AllowGet);
@@ -110,16 +83,16 @@ namespace SistTestMillon.Controllers
 
         public ActionResult Get(int Id)
         {
-            string strMensaje = "No se encontro el producto que desea editar";
+            string strMensaje = "No se encontro el Administrador que desea editar";
             IRepository repository = new Model.Repository();
-            var objUsuario = repository.FindEntity<Usuarios>(c => c.IdUsuario == Id);
+            var admin = repository.FindEntity<Administradores>(c => c.IdAdministrador == Id);
+            var objUsuario = repository.FindEntity<Usuarios>(c => c.IdUsuario == admin.IdUsuario);
             if (objUsuario != null)
             {
 
                 if (objUsuario.TipoUsuario == "Administrador")
                 {
-                    var admin = repository.FindEntity<Administradores>(c => c.IdUsuario == Id);
-                    objUsuario = repository.FindEntity<Usuarios>(c => c.IdUsuario == admin.IdUsuario);
+
                     Administrador actualizar = new Administrador();
                     var lista = actualizar.Obtener(admin, objUsuario);
 
@@ -129,6 +102,28 @@ namespace SistTestMillon.Controllers
 
             }
             return Json(new Response { IsSuccess = false, Message = strMensaje, Id = Id }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public ActionResult Eliminar(int Id)
+        {
+            string strMensaje = "No se encontro el administrador que desea eliminar";
+            bool okResult = false;
+            IRepository repository = new Model.Repository();
+            var objProd = repository.FindEntity<Administradores>(c => c.IdAdministrador == Id);
+            if (objProd != null)
+            {
+                    
+                    var objUsu2 = repository.FindEntity<Usuarios>(c => c.IdUsuario == objProd.IdUsuario);
+                    repository.Delete(objProd);
+                    repository.Delete(objUsu2);
+                    strMensaje = "Se elimino el Administrador correctamente";
+                    okResult = true;
+
+                
+            }
+            return Json(new Response { IsSuccess = okResult, Message = strMensaje, Id = Id }, JsonRequestBehavior.AllowGet);
         }
 
     }

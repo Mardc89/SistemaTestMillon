@@ -20,12 +20,11 @@ namespace Model
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
         public string Direccion { get; set; }
-        public string Correo { get; set; }
         public int Edad { get; set; }
         public int IdUsuario { get; set; }
         public string Telefono { get; set; }
         public string Sexo { get; set; }
-        public Nullable<System.DateTime> FechaNacimiento { get; set; }
+        public System.DateTime FechaNacimiento { get; set; }
         public string Profesion { get; set; }
     
         public virtual Usuarios Usuarios { get; set; }

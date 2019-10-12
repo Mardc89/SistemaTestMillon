@@ -21,7 +21,8 @@ namespace SistTestMillon.Controllers
         public ActionResult Cerrar()
         {
             SessionHelper.DestroyUserSession();
-            return RedirectToAction("Users", "Users");
+            HttpContext.Session["TipoUsuario"] =null;
+            return RedirectToAction( "Index", "Account");
         }
 
 

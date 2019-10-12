@@ -1,4 +1,67 @@
 ﻿var validAjax;
+var formAjax2 = $('.formAjax2');
+$("button.btnAjax2").on('click', function (e) {
+    e.preventDefault();
+    validAjax = formAjax2.validate({
+        //== Validate only visible fields
+        ignore: ":hidden",
+        //== Display error  
+        invalidHandler: function (event, validAjax) {
+            swal({
+                "title": "",
+                "text": "Los datos capturados no son correctos.",
+                "type": "error",
+                "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+            });
+        },
+        //== Submit valid form
+        submitHandler: function (form) {
+        }
+    });
+    if (validAjax.form() == false) {
+        $("#userSubs-error").hide();
+        return;
+    }
+    $(".loadingAjax2").show();
+    formAjax2.ajaxSubmit({
+        success: function (response) {
+            if (response.IsSuccess == true) {
+                if (response.Id == -1) {
+                    window.location.href = response.Message;
+                } else {
+                    swal({
+                        "title": "",
+                        "text": response.Message,
+                        "type": "success",
+                        "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                    }).then(function () {
+                        //$(formAjax).find("input[type=text]").val("");
+                        //$(formAjax).find("select").val("");
+                        $(".ocultarDespues2").modal();
+                        //$("#IdMod").val(response.Id);
+                        //window.location = urlGeneral + "tramites";
+                    });
+                }
+            }
+            $(".loadingAjax2").hide();
+        },
+        error: function (request, status, error) {
+            swal({
+                "title": "",
+                "text": "No se puede conectar al servidor, intentelo más tarde!" + request.responseText,
+                "type": "error",
+                "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+            }).then(function () {
+                //window.location = urlGeneral + "tramites";
+            });
+            $(".loadingAjax2").hide();
+        }
+    });
+});
+
+
+
+var validAjax;
 var formAjax = $('.formAjax');
 $("button.btnAjax").on('click', function (e) {
     e.preventDefault();
@@ -35,8 +98,8 @@ $("button.btnAjax").on('click', function (e) {
                         "type": "success",
                         "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
                     }).then(function () {
-                        $(formAjax).find("input[type=text]").val("");
-                        $(formAjax).find("select").val("");
+                        //$(formAjax).find("input[type=text]").val("");
+                        //$(formAjax).find("select").val("");
                         $(".ocultarDespues").modal();
                         //$("#IdMod").val(response.Id);
                         //window.location = urlGeneral + "tramites";
@@ -58,7 +121,6 @@ $("button.btnAjax").on('click', function (e) {
         }
     });
 });
-
 
 
 //forms add
@@ -167,6 +229,8 @@ function funPsicolog(id, tipo, evt) {
         });
     } else {
         $("#modal8").modal("show");
+        $('#mensaje').text("Actualizar");
+        $('#botonMensaje').text("Actualizar");
         $.ajax({
             type: "POST",
             url: urlGeneral + "Psicologos/Get",
@@ -186,11 +250,10 @@ function funPsicolog(id, tipo, evt) {
                     $("#Sexo").val(response.Result.Sexo);
                     $("#telefono").val(response.Result.Telefono);
                     $("#FechaNacimiento").val(response.Result3.toLocaleString('en-GB'));
-                    $("#Correo").val(response.Result.Correo);
+                    $("#Correo").val(response.Result2.Correo);
+                    $("#IdUsuario").val(response.Result2.IdUsuario);
                     $("#NombreUsu").val(response.Result2.NombreUsuario);
                     $("#TipoUsu").val(response.Result2.TipoUsuario);
-                    $("#Contraseña").val(response.Result2.Contraseña);
-                    $("#re-Contraseña").val(response.Result2.Contraseña);
                     removeInfoForm(formAjaxAdd);
 
                 } else {
@@ -219,7 +282,92 @@ function funPsicolog(id, tipo, evt) {
     }
 }
 
+function funAdmin(id, tipo, evt) {
+    evt.preventDefault();
+    if (tipo == 'E') {
+        $.ajax({
+            type: "POST",
+            url: urlGeneral + "Administradores/Eliminar",
+            data: "{Id: " + id + "}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                swal({
+                    "title": "",
+                    "text": response.Message,
+                    "type": "success",
+                    "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                }).then(function () {
+                    $(".ocultarDespues").modal('hide');
+                    cargaTabla(strFiltro, strValOrder);
 
+                });
+                $(".loadingAjaxAdd").hide();
+            },
+            error: function (request, status, error) {
+                swal({
+                    "title": "",
+                    "text": "No se puede conectar al servidor, intentelo más tarde!" + request.responseText,
+                    "type": "error",
+                    "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                }).then(function () {
+                    //window.location = urlGeneral + "tramites";
+                });
+                $(".loadingAjaxAdd").hide();
+            }
+        });
+    } else {
+        $("#modal8").modal("show");
+        $.ajax({
+            type: "POST",
+            url: urlGeneral + "Administradores/Get",
+            data: "{Id: " + id + "}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.IsSuccess == true) {
+                    $("#IdAdministrador").val(response.Result.IdAdministrador);
+                    $("#Dni").val(response.Result.Dni);
+                    $("#Nombres").val(response.Result.Nombres);
+                    $("#Apaterno").val(response.Result.ApellidoPaterno);
+                    $("#Amaterno").val(response.Result.ApellidoMaterno);
+                    $("#Profesion").val(response.Result.Profesion);
+                    $("#Direccion").val(response.Result.Direccion);
+                    $("#Edad").val(response.Result.Edad);
+                    $("#Sexo").val(response.Result.Sexo);
+                    $("#telefono").val(response.Result.Telefono);
+                    $("#FechaNacimiento").val(response.Result3.toLocaleString('en-GB'));
+                    $("#Correo").val(response.Result2.Correo);
+                    $("#NombreUsu").val(response.Result2.NombreUsuario);
+                    $("#TipoUsu").val(response.Result2.TipoUsuario);
+                    $("#IdUsuario").val(response.Result2.IdUsuario);
+                    removeInfoForm(formAjaxAdd);
+
+                } else {
+                    swal({
+                        "title": "",
+                        "text": response.Message,
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                    }).then(function () {
+                        //window.location = urlGeneral + "tramites";
+                    });
+                }
+            },
+            error: function (request, status, error) {
+                swal({
+                    "title": "",
+                    "text": "No se puede conectar al servidor, intentelo más tarde!" + request.responseText,
+                    "type": "error",
+                    "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                }).then(function () {
+                    //window.location = urlGeneral + "tramites";
+                });
+                $(".loadingAjaxAdd").hide();
+            }
+        });
+    }
+}
 
 function funPacientes(id, tipo, evt) {
     evt.preventDefault();
@@ -276,11 +424,10 @@ function funPacientes(id, tipo, evt) {
                     $("#Sexo").val(response.Result.Sexo);                    
                     $("#telefono").val(response.Result.Telefono);
                     $("#FechaNacimiento").val(response.Result3.toLocaleString('en-GB'));
-                    $("#Correo").val(response.Result.Correo);
+                    $("#Correo").val(response.Result2.Correo);
                     $("#NombreUsu").val(response.Result2.NombreUsuario);
                     $("#TipoUsu").val(response.Result2.TipoUsuario);
-                    $("#Contraseña").val(response.Result2.Contraseña);
-                    $("#re-Contraseña").val(response.Result2.Contraseña);
+                    $("#IdUsuario").val(response.Result2.IdUsuario);
                     removeInfoForm(formAjaxAdd);
 
                 } else {
@@ -308,6 +455,95 @@ function funPacientes(id, tipo, evt) {
         });
     }
 }
+
+
+function funUsuario2(id, tipo, evt) {
+    evt.preventDefault();
+    if (tipo == 'E') {
+        $.ajax({
+            type: "POST",
+            url: urlGeneral + "Users/Eliminar",
+            data: "{Id: " + id + "}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                swal({
+                    "title": "",
+                    "text": response.Message,
+                    "type": "success",
+                    "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                }).then(function () {
+                    $(".ocultarDespues").modal('hide');
+                    cargaTabla(strFiltro, strValOrder);
+
+                });
+                $(".loadingAjaxAdd").hide();
+            },
+            error: function (request, status, error) {
+                swal({
+                    "title": "",
+                    "text": "No se puede conectar al servidor, intentelo más tarde!" + request.responseText,
+                    "type": "error",
+                    "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                }).then(function () {
+                    //window.location = urlGeneral + "tramites";
+                });
+                $(".loadingAjaxAdd").hide();
+            }
+        });
+    } else {
+        $("#modal32").modal("show");
+        document.getElementById("TipoUsuario").disabled = true;
+        $.ajax({
+            type: "POST",
+            url: urlGeneral + "Users/Get",
+            data: "{Id: " + id + "}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.IsSuccess == true) {
+                    $("#DniUsu").val(response.Result.Dni);
+                    $("#NombresUsu").val(response.Result.Nombres);
+                    $("#ApellidoPaterno").val(response.Result.ApellidoPaterno);
+                    $("#ApellidoMaterno").val(response.Result.ApellidoMaterno);
+                    $("#ProfesionUsu").val(response.Result.Profesion);
+                    $("#DireccionUsu").val(response.Result.Direccion);
+                    $("#EdadUsu").val(response.Result.Edad);
+                    $("#SexoUsu").val(response.Result.Sexo);
+                    $("#Telefono").val(response.Result.Telefono);
+                    $("#FechaNacimientoUsu").val(response.Result3.toLocaleString('en-GB'));
+                    $("#CorreoUsu").val(response.Result2.Correo);
+                    $("#IdUsuario2").val(response.Result2.IdUsuario);
+                    $("#NombreUsuario").val(response.Result2.NombreUsuario);
+                    $("#TipoUsuario").val(response.Result2.TipoUsuario);
+                    //removeInfoForm(formAjaxAdd);
+
+                } else {
+                    swal({
+                        "title": "",
+                        "text": response.Message,
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                    }).then(function () {
+                        //window.location = urlGeneral + "tramites";
+                    });
+                }
+            },
+            error: function (request, status, error) {
+                swal({
+                    "title": "",
+                    "text": "No se puede conectar al servidor, intentelo más tarde!" + request.responseText,
+                    "type": "error",
+                    "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                }).then(function () {
+                    //window.location = urlGeneral + "tramites";
+                });
+                $(".loadingAjaxAdd").hide();
+            }
+        });
+    }
+}
+
 
 
 function funUsuario(id, tipo, evt) {
@@ -346,7 +582,7 @@ function funUsuario(id, tipo, evt) {
         });
     } else {
         $("#modal8").modal("show");
-        document.getElementById("TipoUsu").disabled = true;
+        document.getElementById("TipoUsuarios").disabled = true;
         $.ajax({
             type: "POST",
             url: urlGeneral + "Users/Get",
@@ -355,22 +591,20 @@ function funUsuario(id, tipo, evt) {
             dataType: "json",
             success: function (response) {
                 if (response.IsSuccess == true) {
-                    $("#IdPaciente").val(response.Result.IdPaciente);
                     $("#Dni").val(response.Result.Dni);
                     $("#Nombres").val(response.Result.Nombres);
-                    $("#Apaterno").val(response.Result.ApellidoPaterno);
-                    $("#Amaterno").val(response.Result.ApellidoMaterno);
+                    $("#ApellidoPatern").val(response.Result.ApellidoPaterno);
+                    $("#ApellidoMatern").val(response.Result.ApellidoMaterno);
                     $("#Profesion").val(response.Result.Profesion);
                     $("#Direccion").val(response.Result.Direccion);
                     $("#Edad").val(response.Result.Edad);
                     $("#Sexo").val(response.Result.Sexo);
-                    $("#telefono").val(response.Result.Telefono);
+                    $("#Telefon").val(response.Result.Telefono);
                     $("#FechaNacimiento").val(response.Result3.toLocaleString('en-GB'));
-                    $("#Correo").val(response.Result.Correo);
+                    $("#Correo").val(response.Result2.Correo);
+                    $("#IdUsuario").val(response.Result2.IdUsuario);
                     $("#NombreUsu").val(response.Result2.NombreUsuario);
-                    $("#TipoUsu").val(response.Result2.TipoUsuario);
-                    $("#Contraseña").val(response.Result2.Contraseña);
-                    $("#re-Contraseña").val(response.Result2.Contraseña);
+                    $("#TipoUsuario").val(response.Result2.TipoUsuario);
                     removeInfoForm(formAjaxAdd);
 
                 } else {
@@ -474,7 +708,7 @@ function funDiag(id, tipo, evt) {
                     $("#Devaluación").val(response.Result.Devaluación);
                     $("#Validez").val(response.Result.Validez);
                     $("#Autodestructiva").val(response.Result.Autodestructiva);
-                    removeInfoForm(formAjaxAdd);
+                    
 
                 } else {
                     swal({

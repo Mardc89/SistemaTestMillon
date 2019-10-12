@@ -1,5 +1,6 @@
 ﻿using Model;
 using Repository;
+using SistTestMillon.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,21 @@ namespace SistTestMillon.Models
 {
     public class Administrador:Administradores
     {
-        public void insertar(Usuario usuario, Administrador admin)
+        public string Actualizar(Usuario usuario, Administrador admin)
         {
+            string strMensaje = "Error";
             IRepository repository = new Model.Repository();
             Usuarios UpdatePaciente = repository.FindEntity<Usuarios>(c => c.IdUsuario == usuario.IdUsuario);
+            string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
             Administradores objUsuID = repository.FindEntity<Administradores>(c => c.IdUsuario == UpdatePaciente.IdUsuario);
             if (objUsuID != null)
             {
+
+                UpdatePaciente.NombreUsuario = usuario.NombreUsuario;
+                UpdatePaciente.Contraseña = strPass;
+                UpdatePaciente.Correo = usuario.Correo;
+                repository.Update(UpdatePaciente);
+
                 objUsuID.Dni = admin.Dni;
                 objUsuID.Nombres = admin.Nombres;
                 objUsuID.ApellidoPaterno = admin.ApellidoPaterno;
@@ -26,32 +35,55 @@ namespace SistTestMillon.Models
                 objUsuID.Profesion = admin.Profesion;
                 objUsuID.FechaNacimiento = Convert.ToDateTime(admin.FechaNacimiento);
                 objUsuID.Telefono = admin.Telefono;
-                objUsuID.Correo = admin.Correo;
+                repository.Update(objUsuID);
+
+                strMensaje = "Se actualizo sus datos";
 
             }
-            repository.Update(objUsuID);
+            return strMensaje;
+            
         }
 
-        public void crear(Usuario usuario, Administrador admin)
+        public string crear(Usuario usuario, Administrador admin)
         {
-
+            string strMensaje = "Se agrego el administrador correctamente";
             IRepository repository = new Model.Repository();
-            var objUsuID = repository.FindEntity<Usuarios>(c => c.NombreUsuario == usuario.NombreUsuario).IdUsuario;
-            var objUsuNew = repository.Create(new Administradores
+            try
             {
-                Dni = admin.Dni,
-                Nombres = admin.Nombres,
-                ApellidoPaterno = admin.ApellidoPaterno,
-                ApellidoMaterno = admin.ApellidoMaterno,
-                Direccion = admin.Direccion,
-                Edad = admin.Edad,
-                Sexo = admin.Sexo,
-                Profesion = admin.Profesion,
-                FechaNacimiento = Convert.ToDateTime(admin.FechaNacimiento),
-                Telefono = admin.Telefono,
-                Correo = admin.Correo,
-                IdUsuario = objUsuID
-            });
+                string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
+                var objUsuarios = repository.Create(new Usuarios
+                {
+                    TipoUsuario = "Administrador",
+                    NombreUsuario = usuario.NombreUsuario,
+                    Contraseña = strPass,
+                    Correo = usuario.Correo
+
+                });
+                var objUsuID = repository.FindEntity<Usuarios>(c => c.NombreUsuario == objUsuarios.NombreUsuario).IdUsuario;
+                var objUsuNew = repository.Create(new Administradores
+                {
+                    Dni = admin.Dni,
+                    Nombres = admin.Nombres,
+                    ApellidoPaterno = admin.ApellidoPaterno,
+                    ApellidoMaterno = admin.ApellidoMaterno,
+                    Direccion = admin.Direccion,
+                    Edad = admin.Edad,
+                    Sexo = admin.Sexo,
+                    Profesion = admin.Profesion,
+                    FechaNacimiento = Convert.ToDateTime(admin.FechaNacimiento),
+                    Telefono = admin.Telefono,
+                    IdUsuario = objUsuID
+                });
+            }
+            catch (Exception e)
+            {
+
+                
+                strMensaje = e.Message;
+
+            }
+
+            return strMensaje;
 
         }
 
@@ -72,17 +104,18 @@ namespace SistTestMillon.Models
                 Profesion = admin.Profesion,
                 FechaNacimiento = admin.FechaNacimiento,
                 Telefono = admin.Telefono,
-                Correo = admin.Correo,
             };
 
             objetos.Add(adminst);
-            var fecha = adminst.FechaNacimiento;
+            var fecha = adminst.FechaNacimiento.ToString("dd/MM/yyyy");
             objetos.Add(fecha);
             Usuario usuario = new Usuario
             {
+                IdUsuario=objUsuario.IdUsuario,
                 NombreUsuario = objUsuario.NombreUsuario,
                 Contraseña = objUsuario.Contraseña,
-                TipoUsuario = objUsuario.TipoUsuario
+                TipoUsuario = objUsuario.TipoUsuario,
+                Correo=objUsuario.Correo
 
             };
             objetos.Add(usuario);

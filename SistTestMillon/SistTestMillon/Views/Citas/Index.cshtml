@@ -30,21 +30,48 @@
         #calendar {
             max-width: 900px;
             margin: 0 auto;
+            background-color:#ffffff
         }
     </style>
 </head>
-<body>
+<body style="background-color:#eff3f6">
 
-    <div class="text-center">
-        @if (HttpContext.Current.Session["Nombres"] == null || HttpContext.Current.Session["ApellidoPaterno"] == null)
-        {
-            Response.Redirect("~/Account/Index");
-        }
-        else
-        {
-            <h6  style="font-family:Cambria" >Bienvenido @HttpContext.Current.Session["Nombres"] @HttpContext.Current.Session["ApellidoPaterno"] @HttpContext.Current.Session["ApellidoMaterno"]</h6>
-        }
-    </div>
+    <nav class="navbar fixed-top navbar-light bg-light">
+        
+        <a class="navbar-brand"  onclick="location.href='@Url.Action("Index", "Citas")';return false;">@if (HttpContext.Current.Session["Nombres"] == null || HttpContext.Current.Session["ApellidoPaterno"] == null)
+            {
+                Response.Redirect("~/Account/Index");
+            }
+            else
+            {
+            <h6 style="font-family:Cambria">@HttpContext.Current.Session["Nombres"] @HttpContext.Current.Session["ApellidoPaterno"] @HttpContext.Current.Session["ApellidoMaterno"]</h6>
+        }</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link"  onclick="location.href='@Url.Action("Index", "Home")';return false;">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        opciones
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                        <a class="dropdown-item"  onclick="location.href='@Url.Action("Cerrar", "TestMillon")';return false;">Salir</a>
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <br /><br />
+
+
     <div id='calendar'></div>
 
     <!-- Modal -->
@@ -128,7 +155,7 @@
                             <div class="input-group-append">
                                 <input type="text" id="DniPaciente" class="form-control" />
                                 <div class="input-group-text" id="PacientesTotales">
-                                <i class="fas fa-user-alt"></i>
+                                <i class="fas fa-user-alt" id="PacientesNuevos"></i>
                                 </div>
                             </div>
                         </div>
@@ -322,14 +349,17 @@
                 }
             },
             
-            titleFormat: { // will produce something like "Tuesday, September 18, 2018"
-                month: 'numeric',
-                year: 'numeric',
-                day: 'numeric',
-                weekday: 'long',
+            locale: 'es',
 
-               
+            
+            eventTimeFormat:{
+                hour: 'numeric',
+            minute: '2-digit',
+            omitZeroMinute: true,
+            meridiem: 'short'
             },
+        
+
 
             
             selectMirror: true,
@@ -347,7 +377,7 @@
                 var dfff = "@HttpContext.Current.Session["Dni"]";
                 var usuario = "@HttpContext.Current.Session["TipoUsuario"]";
 
-                if (usuario == "administrador" || usuario == "Psicologo") {
+                if (usuario == "Administrador" || usuario == "Psicologo") {
                     document.getElementById('opciones').style.visibility = 'visible';                    
                     document.getElementById('PacientesTotales').style.visibility = 'visible';
                     document.getElementById('PsicologosTotales').style.visibility = 'visible';
@@ -355,6 +385,8 @@
 
                 else if (dfff == dniPacientes && usuario == "Paciente") {
                     document.getElementById('opciones').style.visibility = 'visible';
+                    document.getElementById('PacientesTotales').style.display = 'none';
+                    
                 }
                 else {
                     document.getElementById('opciones').style.visibility = 'hidden';

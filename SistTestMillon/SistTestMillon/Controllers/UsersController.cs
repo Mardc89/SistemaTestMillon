@@ -32,82 +32,54 @@ namespace SistTestMillon.Controllers
             {
                 id = usuario.IdUsuario;
                 Usuarios UpdatePaciente = repository.FindEntity<Usuarios>(c => c.IdUsuario == usuario.IdUsuario);
-                string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
-                if (UpdatePaciente != null)
-                {
-                    UpdatePaciente.TipoUsuario = usuario.TipoUsuario;
-                    UpdatePaciente.NombreUsuario = usuario.NombreUsuario;
-                    UpdatePaciente.Contraseña = strPass;
-
-                }
-
-                var Tipo=UpdatePaciente.TipoUsuario;
+                var Tipo = repository.FindEntity<Usuarios>(c => c.IdUsuario == usuario.IdUsuario).TipoUsuario;
                 if (Tipo == "Paciente")
                 {
-                    Paciente actualizar = new Paciente();
-                    actualizar.actualizar(usuario, paciente);
+                    Paciente actualizar = new Paciente();                  
+                    strMensaje = actualizar.actualizar(usuario, paciente);
+                    okResult = true;
 
                 }
-                else if (Tipo == "Psicologos")
+                else if (Tipo == "Psicologo")
                 {
-                    Psicologo actualizar = new Psicologo();
-                    actualizar.insertar(usuario, psicologo);
+                    Psicologo actualizar = new Psicologo();                    
+                    strMensaje = actualizar.actualizar(usuario, psicologo);
+                    okResult = true;
                 }
-                else {
+                else if(Tipo == "Administrador") {
                     Administrador actualizar = new Administrador();
-                    actualizar.insertar(usuario, admin);
+                    strMensaje = actualizar.Actualizar(usuario, admin);
+                    okResult = true;
                 }
 
-                repository.Update(UpdatePaciente);
-                
-                //Productos objUpdateProd = (Productos)objProd;
 
-                strMensaje = "Se actualizo el producto";
-                okResult = true;
             }
             else
             {
 
 
-                string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
-                var objUsuarios = repository.Create(new Usuarios
-                {
-                    TipoUsuario = usuario.TipoUsuario,
-                    NombreUsuario = usuario.NombreUsuario,
-                    Contraseña = strPass
-
-                });
-                var Tipo = usuario.TipoUsuario;
-
-
-                if (Tipo=="Paciente") {
-                id = paciente.IdPaciente;
+                if (usuario.TipoUsuario == "Paciente") {
+                    id = paciente.IdPaciente;
                     Paciente actualizar = new Paciente();
-                    actualizar.crear(usuario, paciente);
                     okResult = true;
-                    strMensaje = "Se agrego el producto correctamente";
-
-                
-
+                    strMensaje = actualizar.crear(usuario, paciente);
                 }
 
-                else if (Tipo == "Psicologo")
+                else if (usuario.TipoUsuario == "Psicologo")
                 {
                     id = psicologo.IdPsicologo;
-                    Psicologo actualizar = new Psicologo();
-                    actualizar.crear(usuario, psicologo);
+                    Psicologo actualizar = new Psicologo();                    
                     okResult = true;
-                    strMensaje = "Se agrego el producto correctamente";
+                    strMensaje = actualizar.crear(usuario, psicologo);
 
                 }
 
-                else
+                else if (usuario.TipoUsuario == "Administrador")
                 {
                     id = admin.IdAdministrador;
-                    Administrador actualizar = new Administrador();
-                    actualizar.crear(usuario,admin);
+                    Administrador actualizar = new Administrador();                  
                     okResult = true;
-                    strMensaje = "Se agrego el producto correctamente";
+                    strMensaje = actualizar.crear(usuario, admin);
 
 
 
@@ -129,11 +101,11 @@ namespace SistTestMillon.Controllers
             {
 
                 if (objUsuario.TipoUsuario == "Paciente")
-                {
-                    var objPaciente = repository.FindEntity<Pacientes>(c => c.IdUsuario == Id);
-                    var objUsuario2 = repository.FindEntity<Usuarios>(c => c.IdUsuario == objPaciente.IdUsuario);
+                {                   
+                   
+                    var objPaciente = repository.FindEntity<Pacientes>(c => c.IdUsuario ==objUsuario.IdUsuario);
                     Paciente actualizar = new Paciente();
-                    var lista = actualizar.Obtener(objPaciente, objUsuario2);
+                    var lista = actualizar.Obtener(objPaciente, objUsuario);
 
                     return Json(new Response { IsSuccess = true, Id = Id, Result = lista.ElementAt(0), Result2 = lista.ElementAt(2), Result3 = lista.ElementAt(1).ToString() }, JsonRequestBehavior.AllowGet);
 
@@ -141,8 +113,7 @@ namespace SistTestMillon.Controllers
 
                 else if (objUsuario.TipoUsuario == "Administrador")
                 {
-                    var admin = repository.FindEntity<Administradores>(c => c.IdUsuario == Id);
-                    objUsuario = repository.FindEntity<Usuarios>(c => c.IdUsuario == admin.IdUsuario);
+                    var admin = repository.FindEntity<Administradores>(c => c.IdUsuario == objUsuario.IdUsuario);
                     Administrador actualizar = new Administrador();
                     var lista = actualizar.Obtener(admin, objUsuario);
 
@@ -150,12 +121,12 @@ namespace SistTestMillon.Controllers
 
                 }
 
-                else {
+                else if (objUsuario.TipoUsuario == "Psicologo")
+                {
 
-                     var psicologo = repository.FindEntity<Psicologos>(c => c.IdUsuario == Id);
-                     var objUsuario3 = repository.FindEntity<Usuarios>(c => c.IdUsuario == psicologo.IdUsuario);
+                     var psicologo = repository.FindEntity<Psicologos>(c => c.IdUsuario == objUsuario.IdUsuario);
                      Psicologo actualizar = new Psicologo();
-                     var lista = actualizar.Obtener(psicologo, objUsuario3);
+                     var lista = actualizar.Obtener(psicologo, objUsuario);
 
                      return Json(new Response { IsSuccess = true, Id = Id, Result = lista.ElementAt(0), Result2 = lista.ElementAt(2), Result3 = lista.ElementAt(1).ToString() }, JsonRequestBehavior.AllowGet);
 
@@ -241,7 +212,8 @@ namespace SistTestMillon.Controllers
 
                 }
 
-                else {
+                else if (objUsu.TipoUsuario == "Administrador")
+                {
                     var objProd = repository.FindEntity<Administradores>(c => c.IdUsuario == Id);
                     var objUsu2 = repository.FindEntity<Usuarios>(c => c.IdUsuario == objProd.IdUsuario);
                     repository.Delete(objProd);

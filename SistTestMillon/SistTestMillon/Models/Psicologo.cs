@@ -1,5 +1,6 @@
 ﻿using Model;
 using Repository;
+using SistTestMillon.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,20 @@ namespace SistTestMillon.Models
 {
     public class Psicologo : Psicologos
     {
-        public void insertar(Usuario usuario, Psicologo psicologo)
+        public string actualizar(Usuario usuario, Psicologo psicologo)
         {
-
+            string strMensaje = "Error";
             IRepository repository = new Model.Repository();
             Usuarios UpdatePaciente = repository.FindEntity<Usuarios>(c => c.IdUsuario == usuario.IdUsuario);
+            string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
             Psicologos objUsuID = repository.FindEntity<Psicologos>(c => c.IdUsuario == UpdatePaciente.IdUsuario);
             if (objUsuID != null)
             {
+                UpdatePaciente.NombreUsuario = usuario.NombreUsuario;
+                UpdatePaciente.Contraseña = strPass;
+                UpdatePaciente.Correo = usuario.Correo;
+                repository.Update(UpdatePaciente);
+
                 objUsuID.Dni = psicologo.Dni;
                 objUsuID.Nombres = psicologo.Nombres;
                 objUsuID.ApellidoPaterno = psicologo.ApellidoPaterno;
@@ -27,32 +34,54 @@ namespace SistTestMillon.Models
                 objUsuID.Profesion = psicologo.Profesion;
                 objUsuID.FechaNacimiento = Convert.ToDateTime(psicologo.FechaNacimiento);
                 objUsuID.Telefono = psicologo.Telefono;
-                objUsuID.Correo = psicologo.Correo;
+                repository.Update(objUsuID);
 
+                strMensaje = "Se actualizaron sus datos";
             }
-            repository.Update(objUsuID);
+
+            return strMensaje;
+            
         }
 
-        public void crear(Usuario usuario, Psicologo psicologo)
+        public string crear(Usuario usuario, Psicologo psicologo)
         {
-
-            IRepository repository = new Model.Repository();
-            var objUsuID = repository.FindEntity<Usuarios>(c => c.NombreUsuario == usuario.NombreUsuario).IdUsuario;
-            var objUsuNew = repository.Create(new Psicologos
+            string strMensaje = "Se agrego el psicologo correctamente";
+            IRepository repository = new Model.Repository();           
+            try
             {
-                Dni = psicologo.Dni,
-                Nombres = psicologo.Nombres,
-                ApellidoPaterno = psicologo.ApellidoPaterno,
-                ApellidoMaterno = psicologo.ApellidoMaterno,
-                Direccion = psicologo.Direccion,
-                Edad = psicologo.Edad,
-                Sexo = psicologo.Sexo,
-                Profesion = psicologo.Profesion,
-                FechaNacimiento = Convert.ToDateTime(psicologo.FechaNacimiento),
-                Telefono = psicologo.Telefono,
-                Correo = psicologo.Correo,
-                IdUsuario = objUsuID
-            });
+                string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
+                var objUsuarios = repository.Create(new Usuarios
+                {
+                    TipoUsuario = "Psicologo",
+                    NombreUsuario = usuario.NombreUsuario,
+                    Contraseña = strPass,
+                    Correo = usuario.Correo
+
+                });
+
+                var objUsuID = repository.FindEntity<Usuarios>(c => c.NombreUsuario == objUsuarios.NombreUsuario).IdUsuario;
+
+                var objUsuNew = repository.Create(new Psicologos
+                {
+                    Dni = psicologo.Dni,
+                    Nombres = psicologo.Nombres,
+                    ApellidoPaterno = psicologo.ApellidoPaterno,
+                    ApellidoMaterno = psicologo.ApellidoMaterno,
+                    Direccion = psicologo.Direccion,
+                    Edad = psicologo.Edad,
+                    Sexo = psicologo.Sexo,
+                    Profesion = psicologo.Profesion,
+                    FechaNacimiento = Convert.ToDateTime(psicologo.FechaNacimiento),
+                    Telefono = psicologo.Telefono,
+                    IdUsuario = objUsuID
+                });
+            }
+            catch (Exception e)
+            {
+
+                strMensaje = e.Message;
+            }
+            return strMensaje;
 
         }
 
@@ -71,19 +100,20 @@ namespace SistTestMillon.Models
                 Edad = psicologo.Edad,
                 Sexo = psicologo.Sexo,
                 Profesion = psicologo.Profesion,
-                FechaNacimiento = psicologo.FechaNacimiento,
+                FechaNacimiento = Convert.ToDateTime(psicologo.FechaNacimiento),
                 Telefono = psicologo.Telefono,
-                Correo = psicologo.Correo,
             };
 
             objetos.Add(Psico);
-            var fecha = Psico.FechaNacimiento;
+            string fecha = Psico.FechaNacimiento.Value.ToString("dd/MM/yyyy");
             objetos.Add(fecha);
             Usuario usuario = new Usuario
             {
+                IdUsuario=objUsuario.IdUsuario,
                 NombreUsuario = objUsuario.NombreUsuario,
                 Contraseña = objUsuario.Contraseña,
-                TipoUsuario = objUsuario.TipoUsuario
+                TipoUsuario = objUsuario.TipoUsuario,
+                Correo=objUsuario.Correo
 
             };
             objetos.Add(usuario);

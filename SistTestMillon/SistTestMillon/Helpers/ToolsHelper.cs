@@ -16,14 +16,14 @@ namespace SistTestMillon.Helpers
             {
                 MailMessage mail = new MailMessage();
                 mail.To.Add(correo);
-                mail.From = new MailAddress("freelancerdev1820@gmail.com");
+                mail.From = new MailAddress("eimdc90@gmail.com");
                 mail.Subject = titulo;
                 mail.Body = mensaje;
                 mail.IsBodyHtml = true;
 
                 var smtp = new SmtpClient()
                 {
-                    Credentials = new System.Net.NetworkCredential("freelancerdev1820@gmail.com", "Freelan2018"),
+                    Credentials = new System.Net.NetworkCredential("eimdc90@gmail.com", "algoritmos"),
                     Host= "smtp.gmail.com",
                     Port = 587,
                     EnableSsl = true

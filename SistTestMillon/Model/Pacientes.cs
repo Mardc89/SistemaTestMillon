@@ -31,10 +31,8 @@ namespace Model
         public string Sexo { get; set; }
         public string Profesion { get; set; }
         public System.DateTime FechaNacimiento { get; set; }
-        public string Correo { get; set; }
         public int IdUsuario { get; set; }
         public string Telefono { get; set; }
-        public string Token { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Citas> Citas { get; set; }

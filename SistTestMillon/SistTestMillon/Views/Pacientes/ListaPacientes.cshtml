@@ -12,11 +12,12 @@
             </div>
             <div class="col-md-6">
                 <div class="c-field has-addon-right">
-                    <input class="c-input" id="txtBuscar" type="text" placeholder="Buscar..." value="@ViewBag.Buscar">
+                    <input class="c-input" id="txtBuscar" type="text" placeholder="Buscar...">
                     <button id="btnBuscar" type="button" class="c-btn c-btn--info c-field__addon">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
+
             </div>
         </div>
 
@@ -30,14 +31,13 @@
             <th class="c-table__cell c-table__cell--head">Apellido Materno</th>
             <th class="c-table__cell c-table__cell--head">Edad</th>
             <th class="c-table__cell c-table__cell--head">Telefono</th>
-            <th class="c-table__cell c-table__cell--head">Correo</th>
             <th class="c-table__cell c-table__cell--head">
                 <span class="u-hidden-visually">Tools</span>
             </th>
         </tr>
 
     </thead>
-    <tbody>
+    <tbody id="PacientesBuscados">
         @if (Model.Count() > 0)
         {
             foreach (var item in Model)
@@ -62,10 +62,6 @@
                     </td>
                     <td class="c-table__cell">
                         @item.Telefono
-
-                    </td>
-                    <td class="c-table__cell">
-                        @item.Correo
 
                     </td>
                     <td class="c-table__cell u-text-right">
@@ -98,13 +94,18 @@
     @Html.PagedListPager(Model, page => Url.Action("ListaPacientes", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
 </div>
 <script>
+
+
+
+
+
     var permiteOrdenar = '';
     $(document).ready(function () {
         $(".permiteOrdenar").on("click", function () {
             permiteOrdenar = $(this).data("order");
             cargaTabla($(this).data("order"), $("#txtBuscar").val());
         });
-        $("#btnBuscar").click(function () {
+        $(document).on('keyup', "#txtBuscar", function () {
             cargaTabla(permiteOrdenar, $("#txtBuscar").val());
         });
         $("#datatable_paginate").on("click", 'a', function (e) {

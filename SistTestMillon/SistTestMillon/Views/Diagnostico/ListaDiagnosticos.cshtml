@@ -1,6 +1,10 @@
 ﻿@model PagedList.IPagedList<Model.Diagnosticos>
 @using PagedList.Mvc
-@{ string strOrden = ""; string strImgOrder = "";}
+@using SistTestMillon.Helpers;
+@{ string strOrden = ""; string strImgOrder = "";
+    
+    
+}
 <table class="c-table c-table--highlight u-mb-small">
     <caption class="c-table__title">
         <div class="row">
@@ -42,14 +46,20 @@
                         @item.IdDiagnostico
                     </td>
                     <td class="c-table__cell">
-                        @item.Fecha
+                        @item.Fecha.Value.ToString("dd/MM/yyyy")
 
                     </td>
                     <td class="c-table__cell">
-                        @item.HoraInicio
+                        @{
+                            var horas = ContadorHelpers.horaIni(item.HoraInicio);
+                        }
+                        @horas
                     </td>
                     <td class="c-table__cell">
-                        @item.HoraFinal
+                        @{
+                            var horasFinal = ContadorHelpers.horaFinal(item.HoraFinal);
+                        }
+                        @horasFinal
                     </td>
                     <td class="c-table__cell u-text-right">
                         <div>

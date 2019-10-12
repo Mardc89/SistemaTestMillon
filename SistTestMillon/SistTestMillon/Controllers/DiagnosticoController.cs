@@ -175,7 +175,7 @@ namespace SistTestMillon.Controllers
                          Diagnosticos.Paranoide, Diagnosticos.Límite, dbo.Diagnosticos.Esquizotípica, Diagnosticos.Autodestructiva, Diagnosticos.Negativista, 
                          Diagnosticos.Compulsivo, Diagnosticos.AgresivoSádico, Diagnosticos.Antisocial, Diagnosticos.Narcisista, Diagnosticos.Histriónico, 
                          Pacientes.Nombres, Pacientes.ApellidoPaterno, dbo.Pacientes.ApellidoMaterno, Pacientes.Direccion, Pacientes.Edad, Pacientes.Sexo, 
-                         Pacientes.Telefono, Pacientes.Correo, Pacientes.FechaNacimiento, Pacientes.Profesion
+                         Pacientes.Telefono, Pacientes.FechaNacimiento, Pacientes.Profesion
                                 FROM   Pacientes INNER JOIN
                          Diagnosticos ON Pacientes.Dni = Diagnosticos.DniPaciente
 

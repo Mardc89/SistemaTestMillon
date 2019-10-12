@@ -1,5 +1,6 @@
 ﻿using Model;
 using Repository;
+using SistTestMillon.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,21 @@ namespace SistTestMillon.Models
     public class Paciente : Pacientes
     {
 
-        public void actualizar(Usuario usuario, Paciente paciente)
+        public string actualizar(Usuario usuario, Paciente paciente)
         {
-
+            string strMensaje = "Error";
             IRepository repository = new Model.Repository();
             Usuarios UpdatePaciente = repository.FindEntity<Usuarios>(c => c.IdUsuario == usuario.IdUsuario);
+            string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
             Pacientes objUsuID = repository.FindEntity<Pacientes>(c => c.IdUsuario == UpdatePaciente.IdUsuario);
 
             if (objUsuID != null)
             {
+                UpdatePaciente.NombreUsuario = usuario.NombreUsuario;
+                UpdatePaciente.Contraseña = strPass;
+                UpdatePaciente.Correo = usuario.Correo;
+                repository.Update(UpdatePaciente);
+
                 objUsuID.Dni = paciente.Dni;
                 objUsuID.Nombres = paciente.Nombres;
                 objUsuID.ApellidoPaterno = paciente.ApellidoPaterno;
@@ -29,31 +36,58 @@ namespace SistTestMillon.Models
                 objUsuID.Profesion = paciente.Profesion;
                 objUsuID.FechaNacimiento = Convert.ToDateTime(paciente.FechaNacimiento);
                 objUsuID.Telefono = paciente.Telefono;
-                objUsuID.Correo = paciente.Correo;
+
+                repository.Update(objUsuID);
+                strMensaje = "Se actualizaron sus datos";
 
             }
-            repository.Update(objUsuID);
+
+            return strMensaje;
+
         }
 
-        public void crear(Usuario usuario, Paciente paciente) {
+        public string crear(Usuario usuario, Paciente paciente)
+        {
 
+            string strMensaje = "Se agrego el paciente correctamente";
             IRepository repository = new Model.Repository();
-            var objUsuID = repository.FindEntity<Usuarios>(c => c.NombreUsuario == usuario.NombreUsuario).IdUsuario;
-            var objUsuNew = repository.Create(new Pacientes
+            
+            try
             {
-                Dni = paciente.Dni,
-                Nombres = paciente.Nombres,
-                ApellidoPaterno = paciente.ApellidoPaterno,
-                ApellidoMaterno = paciente.ApellidoMaterno,
-                Direccion = paciente.Direccion,
-                Edad = paciente.Edad,
-                Sexo = paciente.Sexo,
-                Profesion = paciente.Profesion,
-                FechaNacimiento = Convert.ToDateTime(paciente.FechaNacimiento),
-                Telefono = paciente.Telefono,
-                Correo = paciente.Correo,
-                IdUsuario = objUsuID
-            });
+                string strPass = CryproHelper.ComputeHash(usuario.Contraseña, CryproHelper.Supported_HA.SHA512, null);
+                var objUsuarios = repository.Create(new Usuarios
+                {
+                    TipoUsuario = "Paciente",
+                    NombreUsuario = usuario.NombreUsuario,
+                    Contraseña = strPass,
+                    Correo = usuario.Correo
+
+                });
+
+
+                var objUsuID = repository.FindEntity<Usuarios>(c => c.NombreUsuario == objUsuarios.NombreUsuario).IdUsuario;
+                var objUsuNew = repository.Create(new Pacientes
+                {
+                    Dni = paciente.Dni,
+                    Nombres = paciente.Nombres,
+                    ApellidoPaterno = paciente.ApellidoPaterno,
+                    ApellidoMaterno = paciente.ApellidoMaterno,
+                    Direccion = paciente.Direccion,
+                    Edad = paciente.Edad,
+                    Sexo = paciente.Sexo,
+                    Profesion = paciente.Profesion,
+                    FechaNacimiento = Convert.ToDateTime(paciente.FechaNacimiento),
+                    Telefono = paciente.Telefono,
+                    IdUsuario = objUsuID
+                });
+            }
+            catch (Exception e)
+            {
+
+                strMensaje = e.Message;
+            }
+
+            return strMensaje;
 
         }
 
@@ -73,7 +107,6 @@ namespace SistTestMillon.Models
                 Profesion = objPaciente.Profesion,
                 FechaNacimiento = objPaciente.FechaNacimiento,
                 Telefono = objPaciente.Telefono,
-                Correo = objPaciente.Correo,
             };
 
             objetos.Add(Paciente);
@@ -81,9 +114,11 @@ namespace SistTestMillon.Models
             objetos.Add(fecha);
             Usuario usuario = new Usuario
             {
+                IdUsuario= objUsuario.IdUsuario,
                 NombreUsuario = objUsuario.NombreUsuario,
                 Contraseña = objUsuario.Contraseña,
-                TipoUsuario = objUsuario.TipoUsuario
+                TipoUsuario = objUsuario.TipoUsuario,
+                Correo=objUsuario.Correo
 
             };
             objetos.Add(usuario);
