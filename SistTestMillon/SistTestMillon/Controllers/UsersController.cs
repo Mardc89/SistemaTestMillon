@@ -94,7 +94,7 @@ namespace SistTestMillon.Controllers
 
         public ActionResult Get(int Id)
         {
-            string strMensaje = "No se encontro el producto que desea editar";
+            string strMensaje = "No se encontro el usuario que desea editar";
             IRepository repository = new Model.Repository();
             var objUsuario = repository.FindEntity<Usuarios>(c => c.IdUsuario ==Id);
             if (objUsuario != null)
@@ -187,7 +187,7 @@ namespace SistTestMillon.Controllers
         [HttpPost]
         public ActionResult Eliminar(int Id)
         {
-            string strMensaje = "No se encontro el producto que desea eliminar";
+            string strMensaje = "No se encontro el usuario que desea eliminar";
             bool okResult = false;
             IRepository repository = new Model.Repository();
             var objUsu = repository.FindEntity<Usuarios>(c => c.IdUsuario ==Id);
@@ -199,7 +199,7 @@ namespace SistTestMillon.Controllers
                     var objUsu2 = repository.FindEntity<Usuarios>(c => c.IdUsuario == objProd.IdUsuario);
                     repository.Delete(objProd);
                     repository.Delete(objUsu2);
-                    strMensaje = "Se elimino el producto correctamente";
+                    strMensaje = "Se elimino el usuario correctamente";
                     okResult = true;
                 }
                 else if (objUsu.TipoUsuario == "Psicologo") {
@@ -207,7 +207,7 @@ namespace SistTestMillon.Controllers
                     var objUsu2 = repository.FindEntity<Usuarios>(c => c.IdUsuario == objProd.IdUsuario);
                     repository.Delete(objProd);
                     repository.Delete(objUsu2);
-                    strMensaje = "Se elimino el producto correctamente";
+                    strMensaje = "Se elimino el usuario correctamente";
                     okResult = true;
 
                 }
@@ -218,7 +218,7 @@ namespace SistTestMillon.Controllers
                     var objUsu2 = repository.FindEntity<Usuarios>(c => c.IdUsuario == objProd.IdUsuario);
                     repository.Delete(objProd);
                     repository.Delete(objUsu2);
-                    strMensaje = "Se elimino el producto correctamente";
+                    strMensaje = "Se elimino el usuario correctamente";
                     okResult = true;
 
                 }

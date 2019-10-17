@@ -97,7 +97,7 @@ namespace SistTestMillon.Controllers
 
         public ActionResult Get(int Id)
         {
-            string strMensaje = "No se encontro el producto que desea editar";
+            string strMensaje = "No se encontro el paciente que desea editar";
             IRepository repository = new Model.Repository();
             var paciente = repository.FindEntity<Pacientes>(c => c.IdPaciente == Id);
             var objUsuario = repository.FindEntity<Usuarios>(c => c.IdUsuario ==paciente.IdUsuario);
@@ -117,7 +117,7 @@ namespace SistTestMillon.Controllers
         [HttpPost]
         public ActionResult Eliminar(int Id)
         {
-            string strMensaje = "No se encontro el producto que desea eliminar";
+            string strMensaje = "No se encontro el paciente que desea eliminar";
             bool okResult = false;
             IRepository repository = new Model.Repository();
             var objProd = repository.FindEntity<Pacientes>(c => c.IdPaciente == Id);
@@ -126,7 +126,7 @@ namespace SistTestMillon.Controllers
             {
                 repository.Delete(objProd);
                 repository.Delete(objUsu);
-                strMensaje = "Se elimino el producto correctamente";
+                strMensaje = "Se elimino el paciente correctamente";
                 okResult = true;
             }
             return Json(new Response { IsSuccess = okResult, Message = strMensaje, Id = Id }, JsonRequestBehavior.AllowGet);

@@ -71,7 +71,7 @@ else {
                     </a>
                 </li>
                 }
-                @if (HttpContext.Current.Session["TipoUsuario"].Equals("Paciente") || HttpContext.Current.Session["TipoUsuario"].Equals("Administrador"))
+                @if (HttpContext.Current.Session["TipoUsuario"].Equals("Paciente"))
                 {
                     <li class="c-sidebar__item">
                         <a class="c-sidebar__link" href="~/TestMillon">
