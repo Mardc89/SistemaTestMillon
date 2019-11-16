@@ -68,7 +68,7 @@ namespace SistTestMillon.Controllers
                 }
                 //Productos objUpdateProd = (Productos)objProd;
                 repository.Update(objUpdateProd);
-                strMensaje = "Se actualizo el producto";
+                strMensaje = "Se actualizo la Historia";
                 okResult = true;
             }
             else
@@ -92,7 +92,7 @@ namespace SistTestMillon.Controllers
                 if (objResultado != null)
                 {
                     okResult = true;
-                    strMensaje = "Se agrego el producto correctamente";
+                    strMensaje = "Se agrego la historia correctamente";
                     
                 }
 
@@ -104,7 +104,7 @@ namespace SistTestMillon.Controllers
 
         public ActionResult Get(int Id)
         {
-            string strMensaje = "No se encontro el producto que desea editar";
+            string strMensaje = "No se encontro la Historia que desea editar";
             IRepository repository = new Model.Repository();
             var objProd = repository.FindEntity<Historias>(c => c.IdHistoria == Id);
             if (objProd != null)
@@ -129,14 +129,14 @@ namespace SistTestMillon.Controllers
         [HttpPost]
         public ActionResult Eliminar(int Id)
         {
-            string strMensaje = "No se encontro el producto que desea eliminar";
+            string strMensaje = "No se encontro la historia que desea eliminar";
             bool okResult = false;
             IRepository repository = new Model.Repository();
             var objProd = repository.FindEntity<Historias>(c => c.IdHistoria == Id);
             if (objProd != null)
             {
                 repository.Delete(objProd);
-                strMensaje = "Se elimino el producto correctamente";
+                strMensaje = "Se elimino la historia correctamente";
                 okResult = true;
             }
             return Json(new Response { IsSuccess = okResult, Message = strMensaje, Id = Id }, JsonRequestBehavior.AllowGet);

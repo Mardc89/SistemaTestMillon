@@ -244,7 +244,7 @@ namespace SistTestMillon.Controllers
                 }
                 //Productos objUpdateProd = (Productos)objProd;
                 repository.Update(diagnostico);
-                strMensaje = "Se actualizo el producto";
+                strMensaje = "Se actualizo el diagnostico";
                 okResult = true;
             }
 
@@ -304,7 +304,7 @@ namespace SistTestMillon.Controllers
         [HttpPost]
         public ActionResult Eliminar(int Id)
         {
-            string strMensaje = "No se encontro el producto que desea eliminar";
+            string strMensaje = "No se encontro el diagnostico que desea eliminar";
             bool okResult = false;
             IRepository repository = new Model.Repository();
             var objProd = repository.FindEntity<Diagnosticos>(c => c.IdDiagnostico == Id);

@@ -402,8 +402,8 @@
                 selectedEvent = {
                     id: 0,
                     title: '',
-                    start: info.start.toLocaleString('en-GB'),
-                    end: info.end.toLocaleString('en-GB'),
+                    start:moment(info.start).format('MM/DD/YYYY HH:mm A'),
+                    end: moment(info.end).format('MM/DD/YYYY HH:mm A'),
                     dniPsicogolo: "",
                     dniPaciente: "",
                     description: ""
@@ -440,6 +440,14 @@
     }
 
     $('#btnSave').click(function () {
+        var horastart = $('#HoraInicio').val();
+        var horasend = $('#HoraFinal').val();
+        var primera = $('#HoraInicio').val().substring(0, 2);
+        var segunda = $('#HoraFinal').val().substring(0, 2);
+        var a = parseInt(primera, 10);
+        var b = parseInt(segunda, 10);
+        var horaprimer = horastart[12] + horastart[13];
+        var horasegund = horasend[12] + horasend[13];
         if ($('#DniPaciente').val().trim() == "") {
             alert('Es requerido el Dni del paciente');
             return;
@@ -448,6 +456,21 @@
             alert('Es requerido el Dni del paciente');
             return;
         }
+        if ($('#HoraInicio').val().trim() == "") {
+            alert('Es requerido hora de inicio');
+            return;
+        }
+        if ($('#HoraFinal').val().trim() == "") {
+            alert('Es requerido hora final');
+            return;
+        }
+
+        if ($('#HoraFinal').val().substring(0, 16) == $('#HoraInicio').val().substring(0, 16) || a > b || horaprimer > horasegund) {
+            alert('Error');
+            return;
+        }
+
+
 
         var data = {
             IdCita: $('#IdCita').val(),
@@ -596,8 +619,8 @@
                 $('#DniPsicologo').val(dnis);
                 $('#Descripcion').val(selectedEvent.extendedProps.description);
             }
-            $('#HoraInicio').val(selectedEvent.start.toLocaleString('en-GB'));
-            $('#HoraFinal').val(selectedEvent.end.toLocaleString('en-GB'));
+            $('#HoraInicio').val(moment(selectedEvent.start).format('DD/MM/YYYY HH:mm A'));
+            $('#HoraFinal').val(moment(selectedEvent.end).format('DD/MM/YYYY HH:mm A'));
             alert(selectedEvent.end);
 
         }

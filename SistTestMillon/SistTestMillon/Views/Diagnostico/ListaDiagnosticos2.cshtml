@@ -20,6 +20,7 @@
         <thead class="c-table__head c-table__head--slim">
 
             <tr class="c-table__row">
+                <th class="c-table__cell c-table__cell--head">Codigo</th>
                 <th class="c-table__cell c-table__cell--head">Dni</th>
                 <th class="c-table__cell c-table__cell--head">Paciente</th>
                 <th class="c-table__cell c-table__cell--head">Fecha</th>
@@ -36,10 +37,14 @@
             {
                 foreach (var item in Model)
                 {
-                    <tr class="c-table__row CodElegido">
+                    <tr class="c-table__row CodElegido"  onclick="seleccion(@item.IdDiagnostico)">
+                        <td class="c-table__cell">
+                            @item.IdDiagnostico
+                        </td>
                         <td class="c-table__cell">
                             @item.DniPaciente
                         </td>
+
                         <td class="c-table__cell">
                             @{var dd=PatronClinicoHelper.nombres(item.DniPaciente);
 
@@ -57,10 +62,7 @@
                         </td>
                         <td class="c-table__cell u-text-right">
                             <div>
-                                <a class="c-btn c-btn--success" onclick="seleccion(@item.IdDiagnostico)">
-                                    <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Elegir
-                                </a>
-                                @Html.ActionLink("Detalle", "ImprimirDetalle", new { id = item.IdDiagnostico }, new { @class = "c-btn c-btn--info", target = "_blank" })
+                                @Html.ActionLink("Detalle", "ImprimirDetalle", new { id = item.IdDiagnostico }, new { @class = "c-btn c-btn--success", target = "_blank" })
                             </div>
                         </td>
                     </tr>

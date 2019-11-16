@@ -77,7 +77,7 @@ namespace SistTestMillon.Controllers
 
         public ActionResult Get(int Id)
         {
-            string strMensaje = "No se encontro el producto que desea editar";
+            string strMensaje = "No se encontro el psicologo que desea editar";
             IRepository repository = new Model.Repository();
             var Psicolog = repository.FindEntity<Psicologos>(c => c.IdPsicologo == Id);
             var objUsuario = repository.FindEntity<Usuarios>(c => c.IdUsuario == Psicolog.IdUsuario);
@@ -97,7 +97,7 @@ namespace SistTestMillon.Controllers
         [HttpPost]
         public ActionResult Eliminar(int Id)
         {
-            string strMensaje = "No se encontro el producto que desea eliminar";
+            string strMensaje = "No se encontro el psicologo que desea eliminar";
             bool okResult = false;
             IRepository repository = new Model.Repository();
             var objProd = repository.FindEntity<Psicologos>(c => c.IdPsicologo == Id);
@@ -107,7 +107,7 @@ namespace SistTestMillon.Controllers
                 var objUsu2 = repository.FindEntity<Usuarios>(c => c.IdUsuario == objProd.IdUsuario);
                 repository.Delete(objProd);
                 repository.Delete(objUsu2);
-                strMensaje = "Se elimino el producto correctamente";
+                strMensaje = "Se elimino el psicologo correctamente";
                 okResult = true;
 
 

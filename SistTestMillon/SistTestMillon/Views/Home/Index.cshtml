@@ -6,10 +6,25 @@
     string Nombre = ViewBag.Usuario;
 }
 
-@{  var pacientes=ContadorHelpers.PacientesTotales();
+@{ var pacientes = ContadorHelpers.PacientesTotales();
     var citas = ContadorHelpers.CitasTotales();
     var diagnosticos = ContadorHelpers.DiagnosticosTotales();
     var historias = ContadorHelpers.HistoriasTotales();
+    var enero = ContadorHelpers.DiagnosticosTotalesMes(1);
+    var febrero = ContadorHelpers.DiagnosticosTotalesMes(2);
+    var marzo = ContadorHelpers.DiagnosticosTotalesMes(3);
+    var abril = ContadorHelpers.DiagnosticosTotalesMes(4);
+    var mayo = ContadorHelpers.DiagnosticosTotalesMes(5);
+    var junio = ContadorHelpers.DiagnosticosTotalesMes(6);
+    var julio = ContadorHelpers.DiagnosticosTotalesMes(7);
+    var agosto = ContadorHelpers.DiagnosticosTotalesMes(8);
+    var setiembre = ContadorHelpers.DiagnosticosTotalesMes(9);
+    var octubre = ContadorHelpers.DiagnosticosTotalesMes(10);
+    var noviembre = ContadorHelpers.DiagnosticosTotalesMes(11);
+    var diciembre = ContadorHelpers.DiagnosticosTotalesMes(12);
+    var citashoy = ContadorHelpers.CitasHoy();
+    var hombres = ContadorHelpers.PacientesTotalesSexo("Masculino");
+    var mujeres = ContadorHelpers.PacientesTotalesSexo("Femenino");
 }
 <div class="row">
     <div class="col-sm-12 col-lg-6 col-xl-3">
@@ -78,6 +93,47 @@
     </div><!-- // .col-md-3 -->
 </div><!-- // .row -->
 <!-- // .row -->
+<div class="row">
+    <div class="col-xl-8">
+        <div class="c-card u-p-medium u-mb-medium">
+            <div class="u-flex u-justify-between u-align-items-center">
+                <h3 class="c-card__title">Diagnosticos</h3>
+                <span class="u-text-small u-text-uppercase u-text-mute">@DateTime.Now.Year</span>
+            </div>
+            <canvas id="Grafica" width="300" height="155"></canvas>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <!-- Cards below rely on utilities (u-) as they are highly customizable -->
+        <div class="c-card u-p-medium u-mb-small">
+            <h4 class="u-h5">Citas</h4>
+            <p class="u-text-small u-text-mute u-mb-small">Programadas para el dia de Hoy</p>
+            <div class="o-line u-mb-small">
+                <p class="u-text-small u-mr-small">@DateTime.Now.ToString("dd/MM/yyyy")</p>
+                <div class="c-progress c-progress--success c-progress--small u-mb-zero">
+                    <div class="c-progress__bar" style="width:72%;"></div>
+                </div>
+                <div class="u-text-small u-text-mute u-ml-small">@citashoy</div>
+            </div>
+        </div>
+        <div class="c-card u-p-medium u-mb-small">
+            <h4 class="u-h5">Pacientes</h4>
+            <div class="o-line u-mb-xsmall">
+                <p class="u-text-small">Hombres</p>
+                <span class="u-text-small u-text-mute">@hombres</span>
+            </div>
+            <div class="o-line u-mb-xsmall">
+                <p class="u-text-small">Mujeres</p>
+                <span class="u-text-small u-text-mute">@mujeres</span>
+            </div>
+            <div class="c-divider u-mt-xsmall u-mb-xsmall"></div>
+            <div class="o-line">
+                <p class="u-text-small u-mr-small">Total</p>
+                <div class="u-text-small u-text-mute u-ml-small">@pacientes</div>
+            </div>
+        </div>
+    </div>
+</div><!-- // .row -->
 
 <div class="c-modal c-modal--large modal fade ocultarDespues2" id="modal32" tabindex="-1" role="dialog" aria-labelledby="modal32" data-backdrop="static">
     <div class="c-modal__dialog modal-dialog" role="document">
@@ -200,11 +256,27 @@
 
 
 @section scripts{
+    <script src='~/Content/Calendar/js/utils.js'></script>
+    <script src='~/Content/Calendar/js/Chart.min.js'></script>
     <script>
-        $.ajaxSetup({ cache: false })
-        $('#divProductos').load(urlGeneral + 'Home/Index' + val + valOrder, function (response, status, xhr) {
-                $("#msgCargando").hide()
-        });
+
+        let canvas = document.getElementById("Grafica").getContext("2d");
+
+        var grafica = new Chart(canvas, {
+            type: "line",
+            data: {
+                labels: ["Enero", "Febrero", "Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"],
+                datasets: [
+                    {
+                        label: "Diagnosticos",
+                        backgroundColor: window.chartColors.white,
+                        borderColor: window.chartColors.red,
+                        data:[@enero,@febrero,@marzo,@abril,@mayo,@junio,@julio,@agosto,@setiembre,@octubre,@noviembre,@diciembre],
+                    }
+                ]
+            }
+        })
     </script>
     <script src="~/Content/js/custom.js"></script>
+
 }

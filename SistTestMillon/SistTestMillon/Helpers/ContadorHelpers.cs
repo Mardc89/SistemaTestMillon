@@ -21,11 +21,58 @@ namespace SistTestMillon.Helpers
 
         }
 
+        public static int DiagnosticosTotalesMes(int mes)
+        {
+            IRepository repository = new Model.Repository();
+            var fechayear = DateTime.Now.Year;
+            var fechafinal ="";
+            var fechames = "0";
+            if (mes >= 1 && mes <= 9) {
+
+                fechames = "0" + mes;
+                fechafinal = fechayear+"-"+fechames;
+
+            }
+
+            else if (mes>=10 && mes<=12) {
+                fechames = mes.ToString();
+                fechafinal = fechayear + "-" + fechames;
+            }
+
+            
+            var objProduct = repository.FindEntitySet<Diagnosticos>(c =>c.Fecha.Value.ToString().Substring(0,7).Equals(fechafinal)).Count();
+
+            return objProduct;
+
+        }
+
+
+
         public static int CitasTotales()
         {
             IRepository repository = new Model.Repository();
 
             var objProduct = repository.FindEntitySet<Citas>(c => true).Count();
+
+            return objProduct;
+
+        }
+
+        public static int PacientesTotalesSexo(string sexo)
+        {
+            IRepository repository = new Model.Repository();
+
+            var objProduct = repository.FindEntitySet<Pacientes>(c =>c.Sexo.Equals(sexo)).Count();
+
+            return objProduct;
+
+        }
+
+        public static int CitasHoy()
+        {
+            IRepository repository = new Model.Repository();
+            var fecha = DateTime.Now.ToString("dd/MM/yyyy");
+            var objProduct = repository.FindEntitySet<Citas>(c=>c.IdCita>0).Where(c => c.Hora_inicial.Value.ToString("dd/MM/yyyy").Substring(0, 10).Equals(fecha)).Count();
 
             return objProduct;
 
