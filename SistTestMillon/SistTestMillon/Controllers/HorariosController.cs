@@ -12,7 +12,7 @@ using System.Web.Mvc;
 namespace SistTestMillon.Controllers
 {
     [Authorize]
-    public class CitasController : Controller
+    public class HorariosController : Controller
     {
         // GET: Citas
         public ActionResult Index()
@@ -46,38 +46,21 @@ namespace SistTestMillon.Controllers
         }
 
 
-        public ActionResult GetEvents()
-        {
-            IRepository repository = new Model.Repository();
-            var events= repository.FindEntitySet<Citas>(c => true).ToList();
-
-            return Json(events.AsEnumerable().Select(e => new
-            {
-                Id=e.IdCita.ToString(),
-                title = nombres(e.DniPaciente),
-                start =e.Hora_inicial.Value.ToString("yyyy-MM-ddTHH:mm"),
-                end=e.Hora_final.Value.ToString("yyyy-MM-ddTHH:mm"),
-                description=e.Descripcion,
-                dniPsicologo=e.DniPsicologo.ToString(),
-                dniPaciente=e.DniPaciente.ToString(),
-                Psicologo= nombres_Psicologo(e.DniPsicologo)
-            }).ToList(), JsonRequestBehavior.AllowGet);
-
-            
-
-        }
-
         public ActionResult GetHorarios()
         {
             IRepository repository = new Model.Repository();
-            var events = repository.FindEntitySet<Citas>(c => true).ToList();
+            var events = repository.FindEntitySet<Horarios>(c => true).ToList();
 
-            return Json(events.AsEnumerable().Select(e => new
+            return Json(events.AsEnumerable().Select(e =>new
             {
-                Id = e.IdCita.ToString(),
-                title = nombres(e.DniPaciente),
-                start = e.Hora_inicial.Value.ToString("yyyy-MM-ddTHH:mm"),
-                end = e.Hora_final.Value.ToString("yyyy-MM-ddTHH:mm")
+                Id = e.Id.ToString(),
+                title = e.Descripcion,
+                start = e.FechaInicio.Value.ToString("yyyy-MM-ddTHH:mm"),
+                end = e.FechaFinal.Value.ToString("yyyy-MM-ddTHH:mm"),
+                dniPsicologo = e.DniPsicologo.ToString(),
+                Psicologo = nombres_Psicologo(e.DniPsicologo)
+
+
             }).ToList(), JsonRequestBehavior.AllowGet);
 
 
@@ -85,7 +68,10 @@ namespace SistTestMillon.Controllers
         }
 
 
-        public static string nombres(string dni) {
+
+
+        public static string nombres(string dni)
+        {
             IRepository repository = new Model.Repository();
             var nombres = repository.FindEntity<Pacientes>(c => c.Dni == dni).Nombres;
             var apellidoPaterno = repository.FindEntity<Pacientes>(c => c.Dni == dni).ApellidoPaterno;
@@ -97,7 +83,7 @@ namespace SistTestMillon.Controllers
         public static string nombres_Psicologo(string dni)
         {
             IRepository repository = new Model.Repository();
-            var nombres = repository.FindEntity<Psicologos>(c => c.Dni ==dni).Nombres;
+            var nombres = repository.FindEntity<Psicologos>(c => c.Dni == dni).Nombres;
             var apellidoPaterno = repository.FindEntity<Psicologos>(c => c.Dni == dni).ApellidoPaterno;
             var apellidoMaterno = repository.FindEntity<Psicologos>(c => c.Dni == dni).ApellidoMaterno;
 
@@ -110,7 +96,7 @@ namespace SistTestMillon.Controllers
         {
             IRepository repository = new Model.Repository();
 
-            var events2 = repository.FindEntity<Citas>(c =>c.IdCita==Convert.ToInt32(id)).DniPaciente;
+            var events2 = repository.FindEntity<Citas>(c => c.IdCita == Convert.ToInt32(id)).DniPaciente;
             var objProduct2 = repository.FindEntity<Pacientes>(c => c.Dni == events2).Nombres;
 
             return new JsonResult { Data = objProduct2, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -118,50 +104,46 @@ namespace SistTestMillon.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveEvent(Citas e)
+        public JsonResult SaveEvent(Horarios e)
         {
             var status = true;
             IRepository repository = new Model.Repository();
-            var objUsuNew=new Citas();
-            var nombrePaciente = nombres(e.DniPaciente);
-            var nombrePsicologo = nombres_Psicologo(e.DniPsicologo);
-
-            if (e.IdCita > 0)
+            var objUsuNew = new Horarios();
+            
+            if (e.Id > 0)
             {
-                    
-                    var v = repository.FindEntity<Citas>(c => c.IdCita ==e.IdCita);
-                    status = false;
-                    if (v!=null)
-                    {
-                        v.DniPaciente = e.DniPaciente;
-                        v.DniPsicologo = e.DniPsicologo;
-                        v.Descripcion = e.Descripcion;
-                        v.Hora_inicial = e.Hora_inicial;
-                        v.Hora_final = e.Hora_final;
 
-                    }
-                    repository.Update(v);
-                    
-                return new JsonResult { Data = new { status = status, v=v , nombrePaciente = nombrePaciente, nombrePsicologo= nombrePsicologo } };
+                var v = repository.FindEntity<Horarios>(c => c.Id == e.Id);
+                status = false;
+                if (v != null)
+                {
+                    v.DniPsicologo = e.DniPsicologo;
+                    v.Descripcion = e.Descripcion;
+                    v.FechaInicio = e.FechaInicio;
+                    v.FechaFinal = e.FechaFinal;
+
+                }
+                repository.Update(v);
+
+                return new JsonResult { Data = new { status = status, v = v} };
 
             }
-                else
-                {
+            else
+            {
 
-                objUsuNew = repository.Create(new Citas
+                objUsuNew = repository.Create(new Horarios
                 {
-                    DniPaciente = e.DniPaciente,
                     DniPsicologo = e.DniPsicologo,
-                    Descripcion = e.Descripcion,
-                    Hora_inicial = e.Hora_inicial,
-                    Hora_final = e.Hora_final
-                });
-                
-                    return new JsonResult { Data = new { status = status, objUsuNew=objUsuNew, nombrePaciente = nombrePaciente, nombrePsicologo= nombrePsicologo } };
-                }
-            
+                    FechaInicio = e.FechaInicio,
+                    FechaFinal = e.FechaFinal,
+                    Descripcion = e.Descripcion
+            });
 
-           
+                return new JsonResult { Data = new { status = status, objUsuNew = objUsuNew} };
+            }
+
+
+
 
         }
 
@@ -172,13 +154,13 @@ namespace SistTestMillon.Controllers
             using (Entidades dc = new Entidades())
             {
 
-                var v = dc.Citas.Where(a => a.IdCita == EventId).FirstOrDefault();
-                
+                var v = dc.Horarios.Where(a => a.Id == EventId).FirstOrDefault();
+
                 if (v != null)
                 {
-                  dc.Citas.Remove(v);
-                  dc.SaveChanges();
-                  status = true;
+                    dc.Horarios.Remove(v);
+                    dc.SaveChanges();
+                    status = true;
                 }
             }
 

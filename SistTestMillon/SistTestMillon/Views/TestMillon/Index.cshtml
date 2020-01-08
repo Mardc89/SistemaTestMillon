@@ -3,6 +3,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_ViewMillon.cshtml";
     string dni = "",sexo="",fecha="",horaInicio="";
+
+    //moment().format('LTS');
     if (HttpContext.Current.Session["TipoUsuario"] == null)
     {
         Response.Redirect("~/Account/Index");

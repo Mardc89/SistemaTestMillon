@@ -20,6 +20,8 @@
         <AssociationConnector Association="TestMillonModel.FK_Historias_Diagnosticos1" ManuallyRouted="false" />
         <AssociationConnector Association="TestMillonModel.FK_Pacientes_Usuarios" ManuallyRouted="false" />
         <AssociationConnector Association="TestMillonModel.FK_Psicologos_Usuarios" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TestMillonModel.Horarios" Width="1.5" PointX="5.25" PointY="20.125" />
+        <AssociationConnector Association="TestMillonModel.FK_Horarios_Psicologos" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

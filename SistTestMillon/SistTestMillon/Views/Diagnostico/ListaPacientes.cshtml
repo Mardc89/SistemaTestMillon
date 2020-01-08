@@ -1,96 +1,85 @@
 ﻿@model PagedList.IPagedList<Model.Pacientes>
-@using PagedList.Mvc;
+@using PagedList.Mvc
+@{ string strOrden = ""; string strImgOrder = "";}
+@using SistTestMillon.Helpers;
 
-@{
-    ViewBag.Title = "Productos";
-}
+<table class="c-table c-table--highlight u-mb-small">
+    <caption class="c-table__title">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="c-field has-addon-right">
+                    @Html.TextBox("buscando", ViewBag.CurrentSearch as string, new { @class = "c-input" })
+                    @Html.ActionLink("..", "ListaPacientes", new { sort = ViewBag.CurrentSort, search = "xyz2" },
+             new { @class = "c-btn c-btn--info", btnName = "FilterCustomer2" })
+                </div>
+            </div>
+        </div>
+    </caption>
 
-<link href='~/Content/css/PagedList.css' rel='stylesheet' />
 
-    <table>
-        <tr>
-            <td>@Html.TextBox("buscando", ViewBag.CurrentSearch as string, new { @class = "form-control" }) </td>
-            <td>
-                @Html.ActionLink("buscar", "ListaPacientes", new { sort = ViewBag.CurrentSort, search = "xyz2" },
-             new { @class = "btn btn-primary", btnName = "FilterCustomer2" })
-            </td>
+    <thead class="c-table__head c-table__head--slim">
 
+        <tr class="c-table__row">
+            <th class="c-table__cell c-table__cell--head">N°</th>
+            <th class="c-table__cell c-table__cell--head">Dni</th>
+            <th class="c-table__cell c-table__cell--head">Nombres</th>
+            <th class="c-table__cell c-table__cell--head">Apellido Paterno</th>
+            <th class="c-table__cell c-table__cell--head">Apellido Materno</th>
+            <th class="c-table__cell c-table__cell--head">Telefono</th>
+            <th class="c-table__cell c-table__cell--head">Direccion
+                <span class="u-hidden-visually">Tools</span>
+            </th>
         </tr>
-    </table>
 
-    <br />
-    <div id="ProductoTabla">
-        <table class="table table-bordered">
-            <tr class="btn-success">
-                <th style="text-align:center">
-                    N°
-                </th>
-                <th style="text-align:center">
-                    Dni
-                </th>
-                <th style="text-align:center">
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Nombres)
-                </th>
-                <th style="text-align:center">
-                   Apellido Paterno
-                </th>
-                <th style="text-align:center">
-                   Apellido Materno
-                </th>
-                <th style="text-align:center">
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Sexo)
-                </th>
-                <th style="text-align:center">
-                   Fecha de Nacimiento
-                </th>
-            </tr>
-            @{int contador = -1;}
-            @foreach (var item in Model)
+    </thead>
+    <tbody>
+        @if (Model.Count() > 0)
             {
-                contador++;
+                foreach (var item in Model)
+                {
+                <tr class="c-table__row CodElegido" onclick="seleccion(@item.Dni)">
+                    <td class="c-table__cell">
+                        @item.IdPaciente
+                    </td>
+                    <td class="c-table__cell">
+                        @item.Dni
+                    </td>
 
-                <tr id="ProductoTabla" onclick="seleccion(@item.Dni)">
-                    <td style="text-align:center">
-                        @Html.DisplayFor(modelItem => item.IdPaciente)
+                    <td class="c-table__cell">
+                        @item.Nombres
                     </td>
-                    <td style="text-align:center">
-                        @Html.DisplayFor(modelItem => item.Dni)
+                    <td class="c-table__cell">
+                        @item.ApellidoPaterno
                     </td>
-                    <td style="text-align:center">
-                        @Html.DisplayFor(modelItem => item.Nombres)
+                    <td class="c-table__cell">
+                        @item.ApellidoMaterno
                     </td>
-                    <td style="text-align:center">
-                        @Html.DisplayFor(modelItem => item.ApellidoPaterno)
+                    <td class="c-table__cell">
+                        @item.Telefono
                     </td>
-                    <td style="text-align:center">
-                        @Html.DisplayFor(modelItem => item.ApellidoMaterno)
-                    </td>
-                    <td style="text-align:center">
-                        @Html.DisplayFor(modelItem => item.Sexo)
-                    </td>
-                    <td style="text-align:center">
-                        @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                    <td class="c-table__cell">
+                        @item.Direccion
                     </td>
                 </tr>
-            }
-
-        </table>
-    </div>
-
-
-
-    <div id="myPager">
-        Página: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber), de: @Model.PageCount
-        @Html.PagedListPager(Model, page => Url.Action("ListaPacientes", new
-   {
-       page,
-       sortOrder =
-    ViewBag.CurrentSort,
-       currentFilter = ViewBag.CurrentFilter
-   }))
-    </div>
-
-    <script type="text/javascript">
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td class="c-table__cell" colspan="10">
+                                        No tienes productos registrados
+                                    </td>
+                                </tr>
+                            }
+    </tbody>
+</table>
+<div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+</div>
+<div class="dataTables_paginate paging_simple_numbers" id="myPager">
+    @Html.PagedListPager(Model, page => Url.Action("ListaPacientes", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
+</div>
+<script>
 
         function seleccion(a) {
             var identificador = parseInt(a);
@@ -99,25 +88,34 @@
             $("#Pacientes").modal('hide');
         }
 
-    $('#myPager').on('click', 'a', function (e) {
-        //prevent action link normal functionality
-        e.preventDefault();
-        var van = this.href; if (van != "" && van != null) {
-            //ajax call index controller action
-            $.ajax({
-                url: this.href,
-                type: 'GET',
-                cache: false,
-                success: function (result) {
-                    //load returned data inside contentFrame DIV
-                    $('#ListaPacientes').html(result);
-                }
-            });
-            return false;
-        }
-    });
+        document.getElementById("modal9").style.zIndex = "1052";
+        document.getElementById("modal8").style.zIndex = "1051";
 
-    $("a[btnName=FilterCustomer2]").click(function (e) {
+
+
+
+
+
+        $('#myPager').on('click', 'a', function (e) {
+            //prevent action link normal functionality
+            e.preventDefault();
+            var van = this.href; if (van != "" && van != null) {
+                //ajax call index controller action
+                $.ajax({
+                    url: this.href,
+                    type: 'GET',
+                    cache: false,
+                    success: function (result) {
+                        //load returned data inside contentFrame DIV
+                        $('#divProductos2').html(result);
+                    }
+                });
+                return false;
+            }
+        });
+
+
+        $("a[btnName=FilterCustomer2]").click(function (e) {
             e.preventDefault();
             var search = $('input[name=buscando]').val();
             this.href = this.href.replace('xyz2', search);
@@ -126,11 +124,38 @@
                 type: 'POST',
                 cache: false,
                 success: function (result) {
-                    $('#ListaPacientes').html(result);
+                    $('#divProductos2').html(result);
                 }
             });
         });
 
-    </script>
 
 
+        var permiteOrdenar = '';
+        $(document).ready(function () {
+            $(".permiteOrdenar").on("click", function () {
+                permiteOrdenar = $(this).data("order");
+                cargaTabla($(this).data("order"), $("#txtBuscar").val());
+            });
+            $("#btnBuscar").click(function () {
+                cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+            });
+            $("#datatable_paginate").on("click", 'a', function (e) {
+                e.preventDefault();
+                $("#msgCargando").show();
+                $.ajax({
+                    url: this.href,
+                    type: 'GET',
+                    cache: false,
+                    success: function (result) {
+                        $("#msgCargando").hide();
+                        $('#divProductos2').html(result);
+                    }
+                });
+            });
+        });
+
+
+
+
+</script>

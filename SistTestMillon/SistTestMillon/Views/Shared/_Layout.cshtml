@@ -70,6 +70,11 @@ else {
                         <i class="fa fa-balance-scale u-mr-xsmall"></i>Diagnosticos
                     </a>
                 </li>
+                <li class="c-sidebar__item">
+                    <a class="c-sidebar__link" href="~/Horarios">
+                        <i class="fa fa-balance-scale u-mr-xsmall"></i>Horarios
+                    </a>
+                </li>
                 }
                 @if (HttpContext.Current.Session["TipoUsuario"].Equals("Paciente"))
                 {
@@ -117,7 +122,6 @@ else {
                 <span class="c-sidebar-toggle__bar"></span>
                 <span class="c-sidebar-toggle__bar"></span>
             </button>
-
             <h2 class="c-navbar__title u-mr-auto">Bienvenido</h2>
 
             <div class="c-dropdown dropdown u-mr-medium u-ml-small u-hidden-down@mobile">
@@ -173,7 +177,8 @@ else {
                      }
                      else
                      {
-                      <h6>@HttpContext.Current.Session["Nombres"] @HttpContext.Current.Session["ApellidoPaterno"] @HttpContext.Current.Session["ApellidoMaterno"]</h6>                
+
+                      <h6><strong>@HttpContext.Current.Session["TipoUsuario"]:</strong> @HttpContext.Current.Session["Nombres"] @HttpContext.Current.Session["ApellidoPaterno"] @HttpContext.Current.Session["ApellidoMaterno"]</h6>                
                      }
                 </div>
 

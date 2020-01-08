@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TestMillonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TestMillonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Administradores">
           <Key>
             <PropertyRef Name="Dni" />
@@ -90,6 +90,16 @@
           <Property Name="Motivo" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="Tratamiento" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="Observacion" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Horarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DniPsicologo" Type="char" MaxLength="8" />
+          <Property Name="FechaInicio" Type="datetime" />
+          <Property Name="FechaFinal" Type="datetime" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Pacientes">
           <Key>
@@ -196,6 +206,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Horarios_Psicologos">
+          <End Role="Psicologos" Type="Self.Psicologos" Multiplicity="0..1" />
+          <End Role="Horarios" Type="Self.Horarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Psicologos">
+              <PropertyRef Name="Dni" />
+            </Principal>
+            <Dependent Role="Horarios">
+              <PropertyRef Name="DniPsicologo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Pacientes_Usuarios">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="*" />
@@ -226,6 +248,7 @@
           <EntitySet Name="Cuestionario" EntityType="Self.Cuestionario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Diagnosticos" EntityType="Self.Diagnosticos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Historias" EntityType="Self.Historias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Horarios" EntityType="Self.Horarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pacientes" EntityType="Self.Pacientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Psicologos" EntityType="Self.Psicologos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
@@ -249,6 +272,10 @@
             <End Role="Diagnosticos" EntitySet="Diagnosticos" />
             <End Role="Historias" EntitySet="Historias" />
           </AssociationSet>
+          <AssociationSet Name="FK_Horarios_Psicologos" Association="Self.FK_Horarios_Psicologos">
+            <End Role="Psicologos" EntitySet="Psicologos" />
+            <End Role="Horarios" EntitySet="Horarios" />
+          </AssociationSet>
           <AssociationSet Name="FK_Pacientes_Usuarios" Association="Self.FK_Pacientes_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Pacientes" EntitySet="Pacientes" />
@@ -258,8 +285,7 @@
             <End Role="Psicologos" EntitySet="Psicologos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TestMillonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -393,6 +419,7 @@
           <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Citas" Relationship="Self.FK_Citas_Psicologos" FromRole="Psicologos" ToRole="Citas" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Psicologos_Usuarios" FromRole="Psicologos" ToRole="Usuarios" />
+          <NavigationProperty Name="Horarios" Relationship="TestMillonModel.FK_Horarios_Psicologos" FromRole="Psicologos" ToRole="Horarios" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -529,7 +556,35 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Psicologos" EntitySet="Psicologos" />
           </AssociationSet>
+          <EntitySet Name="Horarios" EntityType="TestMillonModel.Horarios" />
+          <AssociationSet Name="FK_Horarios_Psicologos" Association="TestMillonModel.FK_Horarios_Psicologos">
+            <End Role="Psicologos" EntitySet="Psicologos" />
+            <End Role="Horarios" EntitySet="Horarios" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Horarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DniPsicologo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="FechaInicio" Type="DateTime" Precision="3" />
+          <Property Name="FechaFinal" Type="DateTime" Precision="3" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Psicologos" Relationship="TestMillonModel.FK_Horarios_Psicologos" FromRole="Horarios" ToRole="Psicologos" />
+        </EntityType>
+        <Association Name="FK_Horarios_Psicologos">
+          <End Type="TestMillonModel.Psicologos" Role="Psicologos" Multiplicity="0..1" />
+          <End Type="TestMillonModel.Horarios" Role="Horarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Psicologos">
+              <PropertyRef Name="Dni" />
+            </Principal>
+            <Dependent Role="Horarios">
+              <PropertyRef Name="DniPsicologo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -672,6 +727,17 @@
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
                 <ScalarProperty Name="Token" ColumnName="Token" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Horarios">
+            <EntityTypeMapping TypeName="TestMillonModel.Horarios">
+              <MappingFragment StoreEntitySet="Horarios">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="FechaFinal" ColumnName="FechaFinal" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="DniPsicologo" ColumnName="DniPsicologo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -152,6 +152,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Calendar\Date\bootstrap-datetimepicker.js" />
+    <Content Include="Content\Calendar\fullcalendar_3.8\fullcalendar.min.css" />
+    <Content Include="Content\Calendar\fullcalendar_3.8\fullcalendar.min.js" />
+    <Content Include="Content\Calendar\fullcalendar_3.8\fullcalendar.print.min.css" />
+    <Content Include="Content\Calendar\fullcalendar_3.8\jquery.min.js" />
+    <Content Include="Content\Calendar\fullcalendar_3.8\locale-all.js" />
+    <Content Include="Content\Calendar\fullcalendar_3.8\moment.min.js" />
     <Content Include="Content\Calendar\js\bootstrap.js" />
     <Content Include="Content\Calendar\js\bootstrap.min.js" />
     <Content Include="Content\Calendar\js\Chart.min.js" />
@@ -160,6 +166,10 @@
     <Content Include="Content\Calendar\js\tempusdominus-bootstrap-4.js" />
     <Content Include="Content\Calendar\js\tempusdominus-bootstrap-4.min.js" />
     <Content Include="Content\Calendar\js\utils.js" />
+    <Content Include="Content\Calendar\Materialize\main.css" />
+    <Content Include="Content\Calendar\Materialize\main.js" />
+    <Content Include="Content\Calendar\Materialize\materializedatetimepicker.js" />
+    <Content Include="Content\Calendar\Materialize\prism.css" />
     <Content Include="Content\css\all.css" />
     <Content Include="Content\Calendar\bootstrap\bootstrap-datetimepicker.css" />
     <Content Include="Content\Calendar\bootstrap\bootstrap-datetimepicker.min.css" />
@@ -276,6 +286,7 @@
     <Content Include="Content\css\main.min.css" />
     <Content Include="Content\css\main2.min.css" />
     <Content Include="Content\css\tempusdominus-bootstrap-4.min.css" />
+    <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\millon.png" />
     <Content Include="Content\img\millonT.png" />
     <Content Include="Content\img\millonTest.png" />
@@ -319,6 +330,7 @@
     <Compile Include="Controllers\DiagnosticoController.cs" />
     <Compile Include="Controllers\HistoriasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HorariosController.cs" />
     <Compile Include="Controllers\PacientesController.cs" />
     <Compile Include="Controllers\PsicologosController.cs" />
     <Compile Include="Controllers\TestMillonController.cs" />
@@ -403,6 +415,8 @@
     <Content Include="Views\Diagnostico\ListaDiagnosticos2.cshtml" />
     <Content Include="Views\Diagnostico\ListaPacientes.cshtml" />
     <Content Include="Views\Diagnostico\ListaPsicologos.cshtml" />
+    <None Include="Properties\PublishProfiles\somee.pubxml" />
+    <Content Include="Views\Horarios\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

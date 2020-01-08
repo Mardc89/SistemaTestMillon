@@ -33,5 +33,6 @@ namespace Model
         public virtual DbSet<Pacientes> Pacientes { get; set; }
         public virtual DbSet<Psicologos> Psicologos { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Horarios> Horarios { get; set; }
     }
 }

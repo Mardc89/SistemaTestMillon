@@ -21,6 +21,73 @@ namespace SistTestMillon.Helpers
 
         }
 
+        public static string ConsultarFechaIni(DateTime fechaIni)
+        {
+            IRepository repository = new Model.Repository();
+
+            int cantidadcitas = repository.FindEntitySet<Citas>(c => true).Last().IdCita;
+            Citas objProduct = repository.FindEntitySet<Citas>(c =>c.IdCita==cantidadcitas).First();
+
+            if (objProduct.Hora_final<=fechaIni) {
+
+                return fechaIni.ToString();
+            
+            } else {
+
+                return "error";
+            }
+
+        }
+
+        public static DateTime FechaIni()
+        {
+            IRepository repository = new Model.Repository();
+
+            Citas cantidadcitas = repository.FindEntitySet<Citas>(c =>c.IdCita>0).Last();
+
+            return Convert.ToDateTime(cantidadcitas.Hora_inicial);
+
+
+
+        }
+
+        public static DateTime FechaFinal()
+        {
+            IRepository repository = new Model.Repository();
+
+            Citas cantidadcitas = repository.FindEntitySet<Citas>(c => c.IdCita > 0).Last();
+
+            return Convert.ToDateTime(cantidadcitas.Hora_final);
+
+
+
+        }
+
+
+        public static string ConsultarFechafin(DateTime fechafinal)
+        {
+            IRepository repository = new Model.Repository();
+
+            int cantidadcitas = repository.FindEntitySet<Citas>(c => true).Last().IdCita;
+            Citas objProduct = repository.FindEntitySet<Citas>(c => c.IdCita == cantidadcitas).First();
+
+            if (objProduct.Hora_final<fechafinal)
+            {
+
+                return fechafinal.ToString();
+
+            }
+            else
+            {
+
+                return "error";
+            }
+
+
+
+        }
+
+
         public static int DiagnosticosTotalesMes(int mes)
         {
             IRepository repository = new Model.Repository();

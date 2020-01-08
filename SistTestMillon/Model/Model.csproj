@@ -89,6 +89,9 @@
     <Compile Include="Historias.cs">
       <DependentUpon>DBEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Horarios.cs">
+      <DependentUpon>DBEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pacientes.cs">
       <DependentUpon>DBEntity.tt</DependentUpon>
     </Compile>

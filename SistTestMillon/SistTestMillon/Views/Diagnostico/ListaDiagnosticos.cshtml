@@ -27,6 +27,7 @@
 
         <tr class="c-table__row">
             <th class="c-table__cell c-table__cell--head">N°</th>
+            <th class="c-table__cell c-table__cell--head">Dni°</th>
             <th class="c-table__cell c-table__cell--head">Fecha</th>
             <th class="c-table__cell c-table__cell--head">Hora de Inicio</th>
             <th class="c-table__cell c-table__cell--head">Hora final</th>
@@ -44,6 +45,9 @@
                 <tr class="c-table__row">
                     <td class="c-table__cell">
                         @item.IdDiagnostico
+                    </td>
+                    <td class="c-table__cell">
+                        @item.DniPaciente
                     </td>
                     <td class="c-table__cell">
                         @item.Fecha.Value.ToString("dd/MM/yyyy")
