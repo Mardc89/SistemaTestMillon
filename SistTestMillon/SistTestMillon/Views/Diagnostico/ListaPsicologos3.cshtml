@@ -9,7 +9,7 @@
             <div class="col-md-6">
                 <div class="c-field has-addon-right">
                     @Html.TextBox("buscando", ViewBag.CurrentSearch as string, new { @class = "c-input" })
-                    @Html.ActionLink("..", "ListaPsicologos", new { sort = ViewBag.CurrentSort, search = "xyz2" },
+                    @Html.ActionLink("..", "ListaPsicologos3", new { sort = ViewBag.CurrentSort, search = "xyz2" },
              new { @class = "c-btn c-btn--info", btnName = "FilterCustomer2" })
                 </div>
             </div>
@@ -26,7 +26,8 @@
             <th class="c-table__cell c-table__cell--head">Apellido Paterno</th>
             <th class="c-table__cell c-table__cell--head">Apellido Materno</th>
             <th class="c-table__cell c-table__cell--head">Direccion</th>
-            <th class="c-table__cell c-table__cell--head">Telefono
+            <th class="c-table__cell c-table__cell--head">
+                Telefono
                 <span class="u-hidden-visually">Tools</span>
             </th>
         </tr>
@@ -60,30 +61,28 @@
                         @item.Telefono
                     </td>
                 </tr>
-                                }
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td class="c-table__cell" colspan="10">
-                                        No tienes productos registrados
-                                    </td>
-                                </tr>
-                            }
+            }
+        }
+        else
+        {
+            <tr>
+                <td class="c-table__cell" colspan="10">
+                    No tienes productos registrados
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 </div>
 <div class="dataTables_paginate paging_simple_numbers" id="myPager3">
-    @Html.PagedListPager(Model, page => Url.Action("ListaPsicologos", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
+    @Html.PagedListPager(Model, page => Url.Action("ListaPsicologos3", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
 </div>
 <script>
 
         function seleccion(a) {
             var identificador = parseInt(a);
-
-            $('#DniPsicologo').val(identificador);
             $('#DniPsicologohora').val(identificador);
             $("#Psicologos").modal('hide');
         }
@@ -159,4 +158,3 @@
 
 
 </script>
-

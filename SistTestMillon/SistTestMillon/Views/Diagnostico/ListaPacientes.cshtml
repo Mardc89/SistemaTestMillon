@@ -88,8 +88,8 @@
             $("#Pacientes").modal('hide');
         }
 
-        document.getElementById("modal9").style.zIndex = "1052";
-        document.getElementById("modal8").style.zIndex = "1051";
+        //document.getElementById("modal9").style.zIndex = "1052";
+        //document.getElementById("modal8").style.zIndex = "1051";
 
 
 
@@ -107,7 +107,7 @@
                     cache: false,
                     success: function (result) {
                         //load returned data inside contentFrame DIV
-                        $('#divProductos2').html(result);
+                        $('#ListaPacientes').html(result);
                     }
                 });
                 return false;
@@ -124,7 +124,7 @@
                 type: 'POST',
                 cache: false,
                 success: function (result) {
-                    $('#divProductos2').html(result);
+                    $('#ListaPacientes').html(result);
                 }
             });
         });
@@ -149,7 +149,7 @@
                     cache: false,
                     success: function (result) {
                         $("#msgCargando").hide();
-                        $('#divProductos2').html(result);
+                        $('#ListaPacientes').html(result);
                     }
                 });
             });

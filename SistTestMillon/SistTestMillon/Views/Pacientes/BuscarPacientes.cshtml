@@ -1,43 +1,7 @@
 ﻿@model PagedList.IPagedList<Model.Pacientes>
 @using PagedList.Mvc
 @{ string strOrden = ""; string strImgOrder = "";}
-<table class="c-table c-table--highlight u-mb-small">
-    <caption class="c-table__title">
-        <div class="row">
-            <div class="col-md-6">
-                Pacientes <small>20</small>
-                <button type="button" class="c-btn c-btn--info" data-toggle="modal" data-target="#modal8">
-                    Agregar Paciente
-                </button>
-            </div>
-            <div class="col-md-6">
-                <div class="c-field has-addon-right">
-                    <input class="c-input" id="txtBuscar" type="text" placeholder="Buscar..." value="@ViewBag.Buscar">
-                    <button id="btnBuscar" type="button" class="c-btn c-btn--info c-field__addon">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
 
-            </div>
-        </div>
-
-    </caption>
-    <thead class="c-table__head c-table__head--slim" id="datosbusqueda">
-
-        <tr class="c-table__row">
-            <th class="c-table__cell c-table__cell--head">N°</th>
-            <th class="c-table__cell c-table__cell--head">Nombres</th>
-            <th class="c-table__cell c-table__cell--head">Apellido Paterno</th>
-            <th class="c-table__cell c-table__cell--head">Apellido Materno</th>
-            <th class="c-table__cell c-table__cell--head">Edad</th>
-            <th class="c-table__cell c-table__cell--head">Telefono</th>
-            <th class="c-table__cell c-table__cell--head">
-                <span class="u-hidden-visually">Tools</span>
-            </th>
-        </tr>
-
-    </thead>
-    <tbody id="PacientesBuscados">
         @if (Model.Count() > 0)
         {
             foreach (var item in Model)
@@ -85,18 +49,16 @@
                 </td>
             </tr>
         }
-    </tbody>
-</table>
 <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 </div>
 <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-    @Html.PagedListPager(Model, page => Url.Action("ListaPacientes", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
+    @Html.PagedListPager(Model, page => Url.Action("BuscarPacientes", new { page, sort = ViewBag.CurrentSort, search = ViewBag.Buscar }))
 </div>
 <script>
 
-   
-    function buscarPaciente(consulta){
+
+    @*function buscarPaciente(consulta){
         $.ajax({
             url: "@Url.Action("BuscarPacientes", "Pacientes")",
             type: 'POST',
@@ -110,7 +72,7 @@
         console.log("error");
     })
 
-    }
+    }*@
 
 
     var permiteOrdenar = '';
@@ -124,23 +86,23 @@
             permiteOrdenar = $(this).data("order");
             cargaTabla($(this).data("order"), $("#txtBuscar").val());
         });
-        //$("#btnBuscar").click(function () {
-        //    cargaTabla(permiteOrdenar, $("#txtBuscar").val());
-        //});
-        $(document).on('keyup', "#txtBuscar", function () {
-            //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
-            var valor = $("#txtBuscar").val();
-            if(valor!=""){
-                buscarPaciente(valor);
-
-            }
-            else{
-                buscarPaciente();
-
-            }
-
-
+        $("#btnBuscar").click(function () {
+            cargaTabla(permiteOrdenar, $("#txtBuscar").val());
         });
+        //$(document).on('keyup', "#txtBuscar", function () {
+        //    //cargaTabla(permiteOrdenar, $("#txtBuscar").val());
+        //    var valor =$(this).val();
+        //    if(valor!=""){
+        //        buscarPaciente(valor);
+
+        //    }
+        //    else{
+        //        buscarPaciente();
+
+        //    }
+
+
+        //});
         $("#datatable_paginate").on("click", 'a', function (e) {
             e.preventDefault();
             $("#msgCargando").show();

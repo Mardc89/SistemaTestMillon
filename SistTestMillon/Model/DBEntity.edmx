@@ -100,6 +100,7 @@
           <Property Name="FechaInicio" Type="datetime" />
           <Property Name="FechaFinal" Type="datetime" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Pacientes">
           <Key>
@@ -572,6 +573,7 @@
           <Property Name="FechaFinal" Type="DateTime" Precision="3" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Psicologos" Relationship="TestMillonModel.FK_Horarios_Psicologos" FromRole="Horarios" ToRole="Psicologos" />
+          <Property Name="Estado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Horarios_Psicologos">
           <End Type="TestMillonModel.Psicologos" Role="Psicologos" Multiplicity="0..1" />
@@ -733,6 +735,7 @@
           <EntitySetMapping Name="Horarios">
             <EntityTypeMapping TypeName="TestMillonModel.Horarios">
               <MappingFragment StoreEntitySet="Horarios">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="FechaFinal" ColumnName="FechaFinal" />
                 <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />

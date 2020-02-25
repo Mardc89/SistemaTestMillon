@@ -49,9 +49,52 @@ namespace SistTestMillon.Controllers
         public ActionResult GetHorarios()
         {
             IRepository repository = new Model.Repository();
-            var events = repository.FindEntitySet<Horarios>(c => true).ToList();
+            var events = repository.FindEntitySet<Horarios>(c =>c.Estado=="1").ToList();
 
             return Json(events.AsEnumerable().Select(e =>new
+            {
+                Id = e.Id.ToString(),
+                title = e.Descripcion,
+                start = e.FechaInicio.Value.ToString("yyyy-MM-ddTHH:mm"),
+                end = e.FechaFinal.Value.ToString("yyyy-MM-ddTHH:mm"),
+                dniPsicologo = e.DniPsicologo.ToString(),
+                Psicologo = nombres_Psicologo(e.DniPsicologo)
+
+
+            }).ToList(), JsonRequestBehavior.AllowGet);
+
+
+
+        }
+
+        public ActionResult GetHorariosPsicolog(string dni)
+        {
+            IRepository repository = new Model.Repository();
+            var events = repository.FindEntitySet<Horarios>(c => c.DniPsicologo==dni&&c.Estado=="1").ToList();
+
+            return Json(events.AsEnumerable().Select(e => new
+            {
+                Id = e.Id.ToString(),
+                title = e.Descripcion,
+                start = e.FechaInicio.Value.ToString("yyyy-MM-ddTHH:mm"),
+                end = e.FechaFinal.Value.ToString("yyyy-MM-ddTHH:mm"),
+                dniPsicologo = e.DniPsicologo.ToString(),
+                Psicologo = nombres_Psicologo(e.DniPsicologo)
+
+
+            }).ToList(), JsonRequestBehavior.AllowGet);
+
+
+
+        }
+
+
+        public ActionResult GetAllHorarios()
+        {
+            IRepository repository = new Model.Repository();
+            var events = repository.FindEntitySet<Horarios>(c =>true).ToList();
+
+            return Json(events.AsEnumerable().Select(e => new
             {
                 Id = e.Id.ToString(),
                 title = e.Descripcion,
@@ -136,8 +179,9 @@ namespace SistTestMillon.Controllers
                     DniPsicologo = e.DniPsicologo,
                     FechaInicio = e.FechaInicio,
                     FechaFinal = e.FechaFinal,
-                    Descripcion = e.Descripcion
-            });
+                    Descripcion = e.Descripcion,
+                    Estado ="1",
+                });
 
                 return new JsonResult { Data = new { status = status, objUsuNew = objUsuNew} };
             }
@@ -146,6 +190,63 @@ namespace SistTestMillon.Controllers
 
 
         }
+
+        [HttpPost]
+        public JsonResult Estado(int EventId)
+        {
+
+            var status = false;
+            using (Entidades dc = new Entidades())
+            {
+
+                var v = dc.Horarios.Where(a => a.Id == EventId).FirstOrDefault();
+
+                if (v != null)
+                {
+                    v.Estado = "0";
+                    v.Descripcion = "Ocupado";
+                    status = true;
+                    dc.SaveChanges();
+
+                }
+            }
+
+            return new JsonResult { Data = new { status = status } };
+
+
+
+        }
+
+        [HttpPost]
+        public JsonResult Estado2(string dni,DateTime inicio,DateTime final)
+        {
+
+            var status = false;
+            using (Entidades dc = new Entidades())
+            {
+
+                var v = dc.Horarios.Where(a => a.DniPsicologo ==dni&&a.FechaInicio==inicio&&a.FechaFinal==final).FirstOrDefault();
+
+                if (v != null)
+                {
+                    v.Estado = "1";
+                    v.DniPsicologo = dni;
+                    v.Descripcion = "Disponible";
+                    v.FechaInicio = inicio;
+                    v.FechaFinal = final;
+                    status = true;
+                    dc.SaveChanges();
+
+                }
+            }
+
+            return new JsonResult { Data = new { status = status } };
+
+
+
+        }
+
+
 
         [HttpPost]
         public JsonResult DeleEvent(int EventId)

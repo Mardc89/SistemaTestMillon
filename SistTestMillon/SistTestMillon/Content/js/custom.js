@@ -667,9 +667,135 @@ function funDiag(id, tipo, evt) {
                 $(".loadingAjaxAdd").hide();
             }
         });
-    } else {
+    }
+    else if (tipo == 'F') {
+        $("#modal21").modal("show");
+        document.getElementById("DniPaciente").disabled = true;
+        document.getElementById("NombresP").disabled = true;
+        document.getElementById("ApellidoP").disabled = true;
+        document.getElementById("ApellidoM").disabled = true;
+    $.ajax({
+        type: "POST",
+        url: urlGeneral + "Diagnostico/Get",
+        data: "{Id: " + id + "}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.IsSuccess == true) {
+                $("#IdDiagnostico1").val(response.Result.IdDiagnostico);
+                $("#NombresP").val(response.Result2);
+                $("#ApellidoP").val(response.Result3);
+                $("#ApellidoM").val(response.Result4);
+                $("#Evitativo").val(response.Result.Evitativo);
+                
+                
+                var canvas = document.getElementById("Grafica").getContext("2d");
+                var esqui = document.getElementById("Esquizoide").value;
+
+                if (window.grafica) {
+                    window.grafica.clear();
+                    window.grafica.destroy();
+                }
+               
+                window.grafica = new Chart(canvas, {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: ["Esquizoide",
+                                "Evitativo",
+                                "Depresivo",
+                                "Dependiente",
+                                "Histriónico",
+                                "Narcisista",
+                                "Esquizotípica",
+                                "Límite",
+                                "Paranoide",
+                                "Ansiedad",
+                                "Somatoformo",
+                                "Bipolar",
+                                "Distímico",
+                                "DependenciaAlcohol",
+                                "DependenciaSustancias",
+                                "EstrésPostraumático",
+                                "DesordenPensamiento",
+                                "DepresiónMayor",
+                                "DesordenDelusional",
+                                "Sinceridad",
+                                "DeseabilidadSocial",
+                                "Devaluación",
+                                "Validez",
+                                "Autodestructiva"
+
+
+                               ],
+                        datasets: [
+                            {
+                                label: "Diagnosticos",
+                                backgroundColor: ['rgb(255, 99, 132)', 'rgb(0, 255, 0)', 'rgb(255, 99, 132)', 'rgb(128, 255, 0)', 'rgb(145,60, 255)', 'rgb(255, 255,80 )', 'rgb(255, 255, 128)', 'rgb(255, 99, 200)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(20,179, 255)', 'rgb(180,255,200)', 'rgb(180,255, 200)','rgb(180,255, 200)', ],
+                                borderColor: window.chartColors.red,
+                                data: [response.Result.Esquizoide,
+                                    response.Result.Evitativo,
+                                    response.Result.Depresivo,
+                                    response.Result.Dependiente,
+                                    response.Result.Histriónico,
+                                    response.Result.Narcisista,
+                                    response.Result.Esquizotípica,
+                                    response.Result.Límite,
+                                    response.Result.Paranoide,
+                                    response.Result.Ansiedad,
+                                    response.Result.Somatoformo,
+                                    response.Result.Bipolar,
+                                    response.Result.Distímico,
+                                    response.Result.DependenciaAlcohol,
+                                    response.Result.DependenciaSustancias,
+                                    response.Result.EstrésPostraumático,
+                                    response.Result.DesordenPensamiento,
+                                    response.Result.DepresiónMayor,
+                                    response.Result.DesordenDelusional,
+                                    response.Result.Sinceridad,
+                                    response.Result.DeseabilidadSocial,
+                                    response.Result.Devaluación,
+                                    response.Result.Validez,
+                                    response.Result.Autodestructiva
+
+                                ],
+                            }
+                        ]
+                    }
+                })
+                
+
+            } else {
+                swal({
+                    "title": "",
+                    "text": response.Message,
+                    "type": "error",
+                    "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                }).then(function () {
+                    //window.location = urlGeneral + "tramites";
+                });
+            }
+        },
+        error: function (request, status, error) {
+            swal({
+                "title": "",
+                "text": "No se puede conectar al servidor, intentelo más tarde!" + request.responseText,
+                "type": "error",
+                "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+            }).then(function () {
+                //window.location = urlGeneral + "tramites";
+            });
+            $(".loadingAjaxAdd").hide();
+        }
+    });
+}
+
+
+    else {
         $("#modal8").modal("show");
         document.getElementById("DniPaciente").disabled = true;
+        document.getElementById("NombresPa").disabled = true;
+        document.getElementById("ApellidoPa").disabled = true;
+        document.getElementById("ApellidoMa").disabled = true;
         $.ajax({
             type: "POST",
             url: urlGeneral + "Diagnostico/Get",
@@ -679,6 +805,9 @@ function funDiag(id, tipo, evt) {
             success: function (response) {
                 if (response.IsSuccess == true) {
                     $("#IdDiagnostico").val(response.Result.IdDiagnostico);
+                    $("#NombresPa").val(response.Result2);
+                    $("#ApellidoPa").val(response.Result3);
+                    $("#ApellidoMa").val(response.Result4);
                     $("#DniPaciente").val(response.Result.DniPaciente);
                     $("#Esquizoide").val(response.Result.Esquizoide);
                     $("#Evitativo").val(response.Result.Evitativo);
@@ -823,5 +952,10 @@ function eliminarImagen(val, divEliminar) {
 $('#modal8').on('hidden.bs.modal', function () {
     $("input").val("");
     $("#anexosUpload").empty();
+});
+
+$('#modal21').on('hidden.bs.modal', function () {
+    $("input").val("");
+    
 });
 

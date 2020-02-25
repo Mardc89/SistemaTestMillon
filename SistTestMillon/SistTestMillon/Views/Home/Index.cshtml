@@ -26,24 +26,78 @@
     var hombres = ContadorHelpers.PacientesTotalesSexo("Masculino");
     var mujeres = ContadorHelpers.PacientesTotalesSexo("Femenino");
 }
+@if (HttpContext.Current.Session["TipoUsuario"].Equals("Administrador") || HttpContext.Current.Session["TipoUsuario"].Equals("Psicologo"))
+{
+    <div class="row">
+        <div class="col-sm-12 col-lg-6 col-xl-3">
+            <div class="c-state-card" data-mh="state-cards">
+                <div class="c-state-card__icon c-state-card__icon--info">
+                    <i class="fa fa-line-chart"></i>
+                </div>
+                <div class="c-state-card__content">
+                    <h5 class="c-state-card__number">
+                        @diagnosticos
+                        <span class="c-state-card__status u-bg-green">
+                            <i class="fa fa-caret-up"></i>
+                        </span>
+                    </h5>
+                    <p><a href="~/Diagnostico" class="c-state-card__meta">Diagnosticos</a></p>
+                </div>
+            </div>
+        </div><!-- // .col-md-3 -->
+        <div class="col-sm-12 col-lg-6 col-xl-3">
+            <div class="c-state-card" data-mh="state-cards">
+                <div class="c-state-card__icon c-state-card__icon--fancy">
+                    <i class="fa fa-pie-chart"></i>
+                </div>
+                <div class="c-state-card__content">
+                    <h5 class="c-state-card__number">
+                        @citas
+                        <span class="c-state-card__status u-bg-green">
+                            <i class="fa fa-caret-up"></i>
+                        </span>
+                    </h5>
+                    <p><a href="~/Citas" class="c-state-card__meta">Citas</a></p>
+                </div>
+            </div>
+        </div><!-- // .col-md-3 -->
+        <div class="col-sm-12 col-lg-6 col-xl-3">
+            <div class="c-state-card" data-mh="state-cards">
+                <div class="c-state-card__icon c-state-card__icon--warning">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="c-state-card__content">
+                    <h5 class="c-state-card__number">
+                        @pacientes
+                        <span class="c-state-card__status u-bg-red">
+                            <i class="fa fa-caret-down"></i>
+                        </span>
+                    </h5>
+                    <p><a href="~/Pacientes" class="c-state-card__meta">Pacientes</a></p>
+                </div>
+            </div>
+        </div><!-- // .col-md-3 -->
+        <div class="col-sm-12 col-lg-6 col-xl-3">
+            <div class="c-state-card" data-mh="state-cards">
+                <div class="c-state-card__icon c-state-card__icon--success">
+                    <i class="fa fa-bar-chart"></i>
+                </div>
+                <div class="c-state-card__content">
+                    <h5 class="c-state-card__number">
+                        @historias
+                        <span class="c-state-card__status u-bg-green">
+                            <i class="fa fa-caret-up"></i>
+                        </span>
+                    </h5>
+                    <p><a href="~/Historias" class="c-state-card__meta">Historias</a></p>
+                </div>
+            </div>
+        </div><!-- // .col-md-3 -->
+    </div><!-- // .row -->
+}
+@if (HttpContext.Current.Session["TipoUsuario"].Equals("Paciente")){ 
 <div class="row">
-    <div class="col-sm-12 col-lg-6 col-xl-3">
-        <div class="c-state-card" data-mh="state-cards">
-            <div class="c-state-card__icon c-state-card__icon--info">
-                <i class="fa fa-line-chart"></i>
-            </div>
-            <div class="c-state-card__content">
-                <h5 class="c-state-card__number">
-                    @diagnosticos
-                    <span class="c-state-card__status u-bg-green">
-                        <i class="fa fa-caret-up"></i>
-                    </span>
-                </h5>
-                <p><a href="~/Diagnostico" class="c-state-card__meta">Diagnosticos</a></p>
-            </div>
-        </div>
-    </div><!-- // .col-md-3 -->
-    <div class="col-sm-12 col-lg-6 col-xl-3">
+    <div class="col-sm-12 col-lg-6 col-xl-6">
         <div class="c-state-card" data-mh="state-cards">
             <div class="c-state-card__icon c-state-card__icon--fancy">
                 <i class="fa fa-pie-chart"></i>
@@ -59,40 +113,25 @@
             </div>
         </div>
     </div><!-- // .col-md-3 -->
-    <div class="col-sm-12 col-lg-6 col-xl-3">
-        <div class="c-state-card" data-mh="state-cards">
-            <div class="c-state-card__icon c-state-card__icon--warning">
-                <i class="fa fa-user"></i>
-            </div>
-            <div class="c-state-card__content">
-                <h5 class="c-state-card__number">
-                    @pacientes
-                    <span class="c-state-card__status u-bg-red">
-                        <i class="fa fa-caret-down"></i>
-                    </span>
-                </h5>
-                <p><a href="~/Pacientes" class="c-state-card__meta">Pacientes</a></p>
-            </div>
-        </div>
-    </div><!-- // .col-md-3 -->
-    <div class="col-sm-12 col-lg-6 col-xl-3">
+    <div class="col-sm-12 col-lg-6 col-xl-6">
         <div class="c-state-card" data-mh="state-cards">
             <div class="c-state-card__icon c-state-card__icon--success">
                 <i class="fa fa-bar-chart"></i>
             </div>
             <div class="c-state-card__content">
                 <h5 class="c-state-card__number">
-                    @historias
+                    Test
                     <span class="c-state-card__status u-bg-green">
                         <i class="fa fa-caret-up"></i>
                     </span>
                 </h5>
-                <p><a href="~/Historias" class="c-state-card__meta">Historias</a></p>
+                <p><a href="~/TestMillon" class="c-state-card__meta">Test</a></p>
             </div>
         </div>
     </div><!-- // .col-md-3 -->
 </div><!-- // .row -->
 <!-- // .row -->
+}
 <div class="row">
     <div class="col-xl-8">
         <div class="c-card u-p-medium u-mb-medium">

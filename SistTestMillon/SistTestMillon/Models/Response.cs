@@ -13,5 +13,7 @@ namespace SistTestMillon.Models
         public object Result2 { get; set; }
         public int Id { get; set; }
         public string Result3 { get; set; }
+        public string Result4 { get; set; }
+
     }
 }

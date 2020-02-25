@@ -20,6 +20,10 @@ namespace SistTestMillon.Controllers
             return View();
         }
 
+
+
+
+
         public ActionResult Listacitas(string val, string valSearch, int? page)
         {
             ViewBag.CurrentSort = val;
@@ -46,6 +50,7 @@ namespace SistTestMillon.Controllers
         }
 
 
+
         public ActionResult GetEvents()
         {
             IRepository repository = new Model.Repository();
@@ -66,6 +71,28 @@ namespace SistTestMillon.Controllers
             
 
         }
+
+        public ActionResult GetEventsPsicolog(string dni)
+        {
+            IRepository repository = new Model.Repository();
+            var events = repository.FindEntitySet<Citas>(c =>c.DniPsicologo==dni).ToList();
+
+            return Json(events.AsEnumerable().Select(e => new
+            {
+                Id = e.IdCita.ToString(),
+                title = nombres(e.DniPaciente),
+                start = e.Hora_inicial.Value.ToString("yyyy-MM-ddTHH:mm"),
+                end = e.Hora_final.Value.ToString("yyyy-MM-ddTHH:mm"),
+                description = e.Descripcion,
+                dniPsicologo = e.DniPsicologo.ToString(),
+                dniPaciente = e.DniPaciente.ToString(),
+                Psicologo = nombres_Psicologo(e.DniPsicologo)
+            }).ToList(), JsonRequestBehavior.AllowGet);
+
+
+
+        }
+
 
         public ActionResult GetHorarios()
         {

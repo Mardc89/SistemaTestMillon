@@ -43,9 +43,18 @@ namespace SistTestMillon.Helpers
         {
             IRepository repository = new Model.Repository();
 
-            Citas cantidadcitas = repository.FindEntitySet<Citas>(c =>c.IdCita>0).Last();
+            try
+            {
+                Citas cantidadcitas = repository.FindEntitySet<Citas>(c => c.IdCita > 0).Last();
+                return Convert.ToDateTime(cantidadcitas.Hora_inicial);
+            }
+            catch (Exception)
+            {
 
-            return Convert.ToDateTime(cantidadcitas.Hora_inicial);
+                throw;
+            }
+
+            
 
 
 

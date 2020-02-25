@@ -73,7 +73,9 @@
                             <a class="c-btn c-btn--danger" href="#!" onclick="funDiag(@item.IdDiagnostico, 'E', event);">
                                 <i class="fa fa-trash-o u-mr-xsmall"></i>Eliminar
                             </a>
-                            @Html.ActionLink("Diagnostico", "ImprimirDetalle", new { id = item.IdDiagnostico }, new { @class = "c-btn c-btn--info", target = "_blank" })
+                            <a class="c-btn c-btn--info" href="#!" onclick="funDiag(@item.IdDiagnostico, 'F', event);">
+                                <i class="fa fa-file-pdf-o u-mr-xsmall"></i>Grafico
+                            </a>
                         </div>
                     </td>
                 </tr>

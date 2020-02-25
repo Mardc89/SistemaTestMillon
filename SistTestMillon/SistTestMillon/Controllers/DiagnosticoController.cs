@@ -58,6 +58,19 @@ namespace SistTestMillon.Controllers
             return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
         }
 
+        public ActionResult ListaPsicologos3(int? page)
+        {
+            IRepository repository = new Model.Repository();
+            List<Psicologos> objProduct = new List<Psicologos>();
+
+            objProduct = repository.FindEntitySet<Psicologos>(c => true).OrderBy(c => c.IdPsicologo).ToList();
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
+        }
+
 
         [HttpPost]
         public ActionResult ListaPacientes(int? page, string search = null)
@@ -256,6 +269,7 @@ namespace SistTestMillon.Controllers
             string strMensaje = "No se encontro el diagnostico que desea editar";
             IRepository repository = new Model.Repository();
             var diagnostico = repository.FindEntity<Diagnosticos>(c => c.IdDiagnostico == Id);
+            var diag2 = repository.FindEntity<Pacientes>(c => c.Dni ==diagnostico.DniPaciente);
             if (diagnostico != null)
             {
                 Diagnostico diag = new Diagnostico
@@ -295,7 +309,7 @@ namespace SistTestMillon.Controllers
                 };
 
 
-                return Json(new Response { IsSuccess = true, Id = Id, Result =diag}, JsonRequestBehavior.AllowGet);
+                return Json(new Response { IsSuccess = true, Id = Id, Result =diag,Result2=diag2.Nombres,Result3=diag2.ApellidoPaterno,Result4=diag2.ApellidoMaterno}, JsonRequestBehavior.AllowGet);
             }
             return Json(new Response { IsSuccess = false, Message = strMensaje, Id = Id }, JsonRequestBehavior.AllowGet);
         }

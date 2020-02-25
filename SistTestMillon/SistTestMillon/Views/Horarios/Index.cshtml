@@ -82,7 +82,7 @@
             <div class="c-dropdown__menu dropdown-menu dropdown-menu-right" aria-labelledby="dropdwonMenuAvatar" x-placement="bottom-end" style="position: absolute; transform: translate3d(-94px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
                 <a class="c-dropdown__item dropdown-item" onclick="location.href='@Url.Action("Index", "Home")';return false;">Inicio</a>
                 <a class="c-dropdown__item dropdown-item" onclick="location.href='@Url.Action("Cerrar", "TestMillon")';return false;">Cerrar Sesion</a>
-
+                <a class="c-dropdown__item dropdown-item" onclick="cambio()">Cambiar horario</a>
             </div>
 
 
@@ -216,6 +216,41 @@
         </div><!-- // .c-modal__dialog -->
     </div>
 
+    <div class="c-modal c-modal--large modal fade" id="ModalSave2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
+        <div class="c-modal__dialog modal-dialog" role="document">
+            <div class="c-modal__content">
+                <div class="c-modal__header u-bg-primary">
+                    <h3 class="c-modal__title">Horarios</h3>
+                    <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-close"></i>
+                    </span>
+                </div>
+                <div class="c-modal__body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="c-field__label" for="Profesion">Psicologo</label>
+                                <div class="c-field has-addon-right" style="margin-bottom:10px">
+                                    <input type="text" class="c-input" name="CodigoDiagnosticohora" id="DniPsicologohora" placeholder="Seleccionar Diagnostico" required="required">
+                                    <button type="button" class="c-btn c-btn--info" id="PsicologosTotaleshorario">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="u-text-right">
+                            <button type="button" class="c-btn c-btn-primary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" id="btnSave2" class="c-btn c-btn-success">Buscar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div><!-- // .c-modal__content -->
+        </div>
+    </div>
+
+
     <div class="c-modal c-modal--large modal fade" id="ModalSave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
         <div class="c-modal__dialog modal-dialog" role="document">
             <div class="c-modal__content">
@@ -304,7 +339,12 @@
     document.getElementById("ModalSave").style.zIndex = "1051";
     document.getElementById("error").style.zIndex = "1052";
 
-
+    function cambio(){
+    
+        $("#ModalSave2").modal("show");
+        
+    
+    }
 
 
     $(document).ready(function () {
@@ -324,7 +364,7 @@
         events = [];
         $.ajax({
             type: "Get",
-            url: "/Horarios/GetHorarios",
+            url: "/Horarios/GetAllHorarios",
             success: function (data) {
                 $.each(data, function (i, v) {
                     events.push({
@@ -354,7 +394,41 @@
 
     }
 
+    function GenerarPsicolog() {
 
+        events = [];
+        $.ajax({
+            type: "Get",
+            url: "/Horarios/GetHorariosPsicolog",
+            data: { 'dni': $('#DniPsicologohora').val() },
+            success: function (data) {
+                $.each(data, function (i, v) {
+                    events.push({
+                        id: v.Id,
+                        title: v.title,
+                        start: v.start,
+                        end: v.end,
+                        dniPsicologo:v.dniPsicologo,
+                        Psicologo: v.Psicologo
+
+                    });
+
+                })
+                Calendario2(events);
+
+
+            },
+            error: function (error) {
+                alert('failed');
+
+            }
+
+
+        })
+
+
+
+    }
 
 
 
@@ -444,9 +518,9 @@
         var primera = $('#HoraInicio').val().substring(0, 2);
         var segunda = $('#HoraFinal').val().substring(0, 2);
 
-        @{var fechainicial = ContadorHelpers.FechaIni();
+        @*@{var fechainicial = ContadorHelpers.FechaIni();
         var fecha = ContadorHelpers.ConsultarFechafin(fechainicial);
-        }
+        }*@
         var mes1 = $('#HoraInicio').val().substring(3,5);
         var mes2 = $('#HoraFinal').val().substring(3, 5);
         var c = parseInt(mes1, 10);
@@ -461,7 +535,7 @@
             alert('Es requerido el Dni del paciente');
             return;
         }
-        if ($('#HoraInicio').val().trim() == ""||@fecha<=horastart) {
+        if ($('#HoraInicio').val().trim() == "" || horasend <= horastart) {
             alert('Es requerido hora de inicio');
             return;
         }
@@ -486,6 +560,12 @@
 
         }
         Guardar(data);
+
+    })
+
+    $('#btnSave2').click(function () {
+
+        GenerarPsicolog();
 
     })
 
@@ -573,6 +653,18 @@
         $.ajax({
             type: "Get",
             url: '@Url.Action("ListaPsicologos", "Diagnostico")',
+            cache: false,
+            success: function (result) {
+                $('#Psicologos').modal('show');
+                $('#ListaPsicologos').html(result);
+            }
+        })
+    })
+
+    $("#PsicologosTotaleshorario").click(function () {
+        $.ajax({
+            type: "Get",
+            url: '@Url.Action("ListaPsicologos3", "Diagnostico")',
             cache: false,
             success: function (result) {
                 $('#Psicologos').modal('show');

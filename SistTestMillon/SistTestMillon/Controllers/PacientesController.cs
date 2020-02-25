@@ -20,6 +20,25 @@ namespace SistTestMillon.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult ListaPacientes(string valSearch, int? page)
+        {
+            
+            ViewBag.Buscar = valSearch;
+            IRepository repository = new Model.Repository();
+            List<Pacientes> objProduct = new List<Pacientes>();
+            if (string.IsNullOrEmpty(valSearch))
+                objProduct = repository.FindEntitySet<Pacientes>(c => true).OrderBy(c => c.IdPaciente).ToList();
+            else
+                objProduct = repository.FindEntitySet<Pacientes>(c => true && (c.ApellidoPaterno.Contains(valSearch) || c.ApellidoMaterno.Contains(valSearch))).OrderBy(c => c.Dni).ToList();
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
+        }
+
         public ActionResult ListaPacientes(string val, string valSearch, int? page)
         {
             ViewBag.CurrentSort = val;
@@ -54,7 +73,7 @@ namespace SistTestMillon.Controllers
             if (string.IsNullOrEmpty(consulta))
                 objProduct = repository.FindEntitySet<Pacientes>(c => true).OrderBy(c => c.IdPaciente).ToList();
             else
-                objProduct = repository.FindEntitySet<Pacientes>(c => true && (c.ApellidoPaterno.Contains(consulta) || c.ApellidoMaterno.Contains(consulta))).OrderBy(c => c.Dni).ToList();
+                objProduct = repository.FindEntitySet<Pacientes>(c => true && (c.ApellidoPaterno.Contains(consulta) ||c.Nombres.Contains(consulta) || c.ApellidoMaterno.Contains(consulta))).OrderBy(c => c.Dni).ToList();
 
 
             int pageSize = 5;

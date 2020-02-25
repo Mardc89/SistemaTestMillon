@@ -19,6 +19,7 @@ namespace Model
         public Nullable<System.DateTime> FechaInicio { get; set; }
         public Nullable<System.DateTime> FechaFinal { get; set; }
         public string Descripcion { get; set; }
+        public string Estado { get; set; }
     
         public virtual Psicologos Psicologos { get; set; }
     }

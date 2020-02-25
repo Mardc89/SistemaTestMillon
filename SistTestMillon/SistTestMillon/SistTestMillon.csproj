@@ -417,6 +417,8 @@
     <Content Include="Views\Diagnostico\ListaPsicologos.cshtml" />
     <None Include="Properties\PublishProfiles\somee.pubxml" />
     <Content Include="Views\Horarios\Index.cshtml" />
+    <Content Include="Views\Pacientes\BuscarPacientes.cshtml" />
+    <Content Include="Views\Diagnostico\ListaPsicologos3.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

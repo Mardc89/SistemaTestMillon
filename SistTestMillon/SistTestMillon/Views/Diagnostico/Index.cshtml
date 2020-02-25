@@ -150,6 +150,26 @@
             <div class="c-modal__body">
                 <form class="c-card__body formAjax" method="post" action="~/Diagnostico/Add">
                     <div class="row">
+                        <div class="col-md-4">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="NombresPa">Nombres</label>
+                                <input class="c-input" type="text" id="NombresPa" required="required" name="NombresPa" placeholder="Nombres">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="ApaternoPa">Apellido Paterno</label>
+                                <input class="c-input" type="text" id="ApellidoPa" required="required" name="ApellidoPa" placeholder="ApellidoPaterno">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="ApellidoMa">Apellido Materno</label>
+                                <input class="c-input" type="text" id="ApellidoMa" required="required" name="ApellidoMa" placeholder="ApellidoMaterno">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-2">
                             <div class="c-field u-mb-small">
                                 <label class="c-field__label" for="DniPaciente">DniPaciente</label>
@@ -171,7 +191,7 @@
                         <div class="col-md-2">
                             <div class="c-field u-mb-small">
                                 <label class="c-field__label" for="Histriónico">Histriónico</label>
-                                <input class="c-input" type="text" id="Histriónico" required="required" name="Narcisista" placeholder="Narcisista">
+                                <input class="c-input" type="text" id="Histriónico" required="required" name="Histriónico" placeholder="Narcisista">
                             </div>
                         </div>
                     </div>
@@ -330,7 +350,7 @@
                             </div>
                         </div>
                         <input type="hidden" name="IdDiagnostico" id="IdDiagnostico" />
-
+                        
                     </div>
                     <div class="u-text-right">
                         <button class="c-btn c-btn--info c-btn btnAjax" type="submit">
@@ -344,8 +364,57 @@
         </div><!-- // .c-modal__content -->
     </div><!-- // .c-modal__dialog -->
 </div><!-- // .c-modal -->
+
+
+<div class="c-modal c-modal--huge modal fade ocultarDespues2" id="modal21" tabindex="-1" role="dialog" aria-labelledby="modal21" data-backdrop="static">
+    <div class="c-modal__dialog modal-dialog" role="document">
+        <div class="c-modal__content">
+            <div class="c-modal__header u-bg-primary">
+                <h3 class="c-modal__title">Grafico Millon</h3>
+                <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-close"></i>
+                </span>
+            </div>
+            <div class="c-modal__body">
+                <form class="c-card__body formAjax2" method="post" action="~/Diagnostico/Add">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="NombresP">Nombres</label>
+                                <input class="c-input" type="text" id="NombresP" required="required" name="NombresP" placeholder="Nombres">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="ApaternoP">Apellido Paterno</label>
+                                <input class="c-input" type="text" id="ApellidoP" required="required" name="ApellidoP" placeholder="ApellidoPaterno">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="c-field u-mb-small">
+                                <label class="c-field__label" for="ApellidoM">Apellido Materno</label>
+                                <input class="c-input" type="text" id="ApellidoM" required="required" name="ApellidoM" placeholder="ApellidoMaterno">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="hidden" name="IdDiagnostico1" id="IdDiagnostico1" />
+                        <canvas id="Grafica" width="300" height="155"></canvas>
+                    </div>
+                </form>
+
+            </div>
+        </div><!-- // .c-modal__content -->
+    </div><!-- // .c-modal__dialog -->
+</div><!-- // .c-modal -->
+
+
 @section scripts
 {
+    <script src='~/Content/Calendar/js/utils.js'></script>
+    <script src='~/Content/Calendar/js/Chart.min.js'></script>
+
+
     <script>
         var strFiltro = "";
         var strValOrder = "";
