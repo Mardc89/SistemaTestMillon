@@ -8,9 +8,9 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="c-field has-addon-right">
-                    @Html.TextBox("buscando", ViewBag.CurrentSearch as string, new { @class = "c-input" })
-                    @Html.ActionLink("..", "ListaPsicologos3", new { sort = ViewBag.CurrentSort, search = "xyz2" },
-             new { @class = "c-btn c-btn--info", btnName = "FilterCustomer2" })
+                    @Html.TextBox("buscandog", ViewBag.CurrentSearch as string, new { @class = "c-input" })
+                    @Html.ActionLink("..", "ListaPsicologos3", new { sort = ViewBag.CurrentSort, search = "xyz5" },
+             new { @class = "c-btn c-btn--info", btnName = "FilterCustomer5" })
                 </div>
             </div>
         </div>
@@ -114,10 +114,10 @@
         });
 
 
-        $("a[btnName=FilterCustomer2]").click(function (e) {
+        $("a[btnName=FilterCustomer5]").click(function (e) {
             e.preventDefault();
-            var search = $('input[name=buscando]').val();
-            this.href = this.href.replace('xyz2', search);
+            var search = $('input[name=buscandog]').val();
+            this.href = this.href.replace('xyz5', search);
             $.ajax({
                 url: this.href,
                 type: 'POST',

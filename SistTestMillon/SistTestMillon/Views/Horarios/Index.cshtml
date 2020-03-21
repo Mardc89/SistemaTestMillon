@@ -24,7 +24,6 @@
 
     <style>
         .js-calendar2 {
-            
         }
     </style>
 </head>
@@ -339,11 +338,11 @@
     document.getElementById("ModalSave").style.zIndex = "1051";
     document.getElementById("error").style.zIndex = "1052";
 
-    function cambio(){
-    
+    function cambio() {
+
         $("#ModalSave2").modal("show");
-        
-    
+
+
     }
 
 
@@ -372,7 +371,7 @@
                         title: v.title,
                         start: v.start,
                         end: v.end,
-                        dniPsicologo:v.dniPsicologo,
+                        dniPsicologo: v.dniPsicologo,
                         Psicologo: v.Psicologo
 
                     });
@@ -408,7 +407,7 @@
                         title: v.title,
                         start: v.start,
                         end: v.end,
-                        dniPsicologo:v.dniPsicologo,
+                        dniPsicologo: v.dniPsicologo,
                         Psicologo: v.Psicologo
 
                     });
@@ -450,11 +449,11 @@
 
                     $descripcion.append($('<h4/>').html('<b>Paciente:</b><br>' + calEvent.title));
                     $descripcion.append($('<h4/>').html('<b>Psicologo:</b><br>' + calEvent.Psicologo));
-                    dnis = calEvent.dniPsicologo;
+                    dniPsicologos= calEvent.dniPsicologo;
                     dniPacientes = calEvent.dniPaciente;
                     titulo = calEvent.title;
 
-                    var dfff = "@HttpContext.Current.Session["Dni"]";
+                    var dniUsuario = "@HttpContext.Current.Session["Dni"]";
                     var usuario = "@HttpContext.Current.Session["TipoUsuario"]";
 
                     if (usuario == "Administrador") {
@@ -463,7 +462,7 @@
                         //document.getElementById('PsicologosTotales').style.visibility = 'visible';
                     }
 
-                    else if (dfff == dniPacientes && usuario == "Paciente") {
+                    else if (dniUsuario == dniPacientes && usuario == "Paciente") {
                         document.getElementById('opciones').style.visibility = 'visible';
                         document.getElementById('PacientesTotales').style.display = 'none';
 
@@ -479,7 +478,7 @@
                 },
                 selectable: true,
                 overlap: false,
-                select: function (start,end) {
+                select: function (start, end) {
                     selectedEvent = {
                         id: 0,
                         title: '',
@@ -506,7 +505,7 @@
                 defaultView: 'agendaWeek',
 
                 // Events
-                events:events,
+                events: events,
             })
         }
     }
@@ -521,14 +520,14 @@
         @*@{var fechainicial = ContadorHelpers.FechaIni();
         var fecha = ContadorHelpers.ConsultarFechafin(fechainicial);
         }*@
-        var mes1 = $('#HoraInicio').val().substring(3,5);
+        var mes1 = $('#HoraInicio').val().substring(3, 5);
         var mes2 = $('#HoraFinal').val().substring(3, 5);
         var c = parseInt(mes1, 10);
         var d = parseInt(mes2, 10);
         var a = parseInt(primera, 10);
         var b = parseInt(segunda, 10);
         var horaprimer = horastart[11] + horastart[12];
-        alert(horaprimer);
+        //alert(horaprimer);
         var horasegund = horasend[11] + horasend[12];
 
         if ($('#DniPsicologo').val().trim() == "") {
@@ -544,7 +543,7 @@
             return;
         }
 
-        if ($('#HoraFinal').val().substring(0, 16) == $('#HoraInicio').val().substring(0, 16) || (a > b && c==d)  || horaprimer > horasegund) {
+        if ($('#HoraFinal').val().substring(0, 16) == $('#HoraInicio').val().substring(0, 16) || (a > b && c == d) || horaprimer > horasegund) {
             $("#error").modal("show");
             return;
         }
@@ -664,7 +663,7 @@
     $("#PsicologosTotaleshorario").click(function () {
         $.ajax({
             type: "Get",
-            url: '@Url.Action("ListaPsicologos3", "Diagnostico")',
+            url: '@Url.Action("ListaPsicologos", "Diagnostico")',
             cache: false,
             success: function (result) {
                 $('#Psicologos').modal('show');
@@ -703,7 +702,7 @@
             }
             $('#HoraInicio').val(moment(selectedEvent.start).format('DD/MM/YYYY HH:mm A'));
             $('#HoraFinal').val(moment(selectedEvent.end).format('DD/MM/YYYY HH:mm A'));
-            alert(selectedEvent.title);
+            //alert(selectedEvent.title);
 
         }
         $("#standard-modal3").modal("hide");

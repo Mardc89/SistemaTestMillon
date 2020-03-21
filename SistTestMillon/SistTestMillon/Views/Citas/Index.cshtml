@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset='utf-8' />
-    
+
     <link href='~/Content/css/fontawesome.css' rel='stylesheet' />
     <link href='~/Content/css/all.css' rel='stylesheet' />
     <link href='~/Content/css/tempusdominus-bootstrap-4.min.css' rel='stylesheet' />
@@ -23,13 +23,11 @@
 
 
     <style>
-         .js-calendar2 {
-    
-  }
-
+        .js-calendar2 {
+        }
     </style>
 </head>
-<body >
+<body>
 
 
 
@@ -81,7 +79,7 @@
             </a>
 
             <div class="c-dropdown__menu dropdown-menu dropdown-menu-right" aria-labelledby="dropdwonMenuAvatar" x-placement="bottom-end" style="position: absolute; transform: translate3d(-94px, 36px, 0px); top: 0px; left: 0px; will-change: transform;">
-                <a class="c-dropdown__item dropdown-item"onclick="location.href='@Url.Action("Index", "Home")';return false;">Inicio</a>
+                <a class="c-dropdown__item dropdown-item" onclick="location.href='@Url.Action("Index", "Home")';return false;">Inicio</a>
                 <a class="c-dropdown__item dropdown-item" onclick="location.href='@Url.Action("Cerrar", "TestMillon")';return false;">Cerrar Sesion</a>
                 <a class="c-dropdown__item dropdown-item" onclick="cambio()">Cambiar horario</a>
             </div>
@@ -96,7 +94,7 @@
             <span class="c-nav-toggle__bar"></span>
         </button><!-- // .c-nav-toggle -->
     </header>
-   
+
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -104,12 +102,12 @@
                 <div class="fc-header">
                     <h2 class="fc-header-title">All Events</h2>
                 </div>
-                
-                    <div class="js-calendar2 u-mb-large">
 
-                    </div>
-               
-                
+                <div class="js-calendar2 u-mb-large">
+
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -136,10 +134,10 @@
                 <div class="c-modal__footer" id="opciones">
                     <div class="row">
                         <div class="text-center">
-                            <button class="c-btn c-btn--success"  id="btnEditar">
+                            <button class="c-btn c-btn--success" id="btnEditar">
                                 <i class="fa fa-pencil-square-o u-mr-xsmall"></i>Editar
                             </button>
-                            <button class="c-btn c-btn--danger"  id="btnDelete">
+                            <button class="c-btn c-btn--danger" id="btnDelete">
                                 <i class="fa fa-trash-o u-mr-xsmall"></i>Eliminar
                             </button>
                         </div>
@@ -252,75 +250,75 @@
     </div>
 
     <div class="c-modal c-modal--large modal fade" id="ModalSave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
-            <div class="c-modal__dialog modal-dialog" role="document">
-                <div class="c-modal__content">
-                    <div class="c-modal__header u-bg-primary">
-                        <h3 class="c-modal__title">Citas</h3>
-                        <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
-                            <i class="fa fa-close"></i>
-                        </span>
-                    </div>
-                    <div class="c-modal__body">
-                        <form>
-                            <input type="hidden" id="IdCita" value="0" />
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label class="c-field__label" for="Profesion">Paciente</label>
-                                    <div class="c-field has-addon-right" style="margin-bottom:10px">
-                                        <input type="text" class="c-input" name="CodigoDiagnostico" id="DniPaciente" placeholder="Seleccionar Diagnostico" required="required">
-                                        <button type="button" class="c-btn c-btn--info" id="PacientesTotales">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </div>
+        <div class="c-modal__dialog modal-dialog" role="document">
+            <div class="c-modal__content">
+                <div class="c-modal__header u-bg-primary">
+                    <h3 class="c-modal__title">Citas</h3>
+                    <span class="c-modal__close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-close"></i>
+                    </span>
+                </div>
+                <div class="c-modal__body">
+                    <form>
+                        <input type="hidden" id="IdCita" value="0" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="c-field__label" for="Profesion">Paciente</label>
+                                <div class="c-field has-addon-right" style="margin-bottom:10px">
+                                    <input type="text" class="c-input" name="CodigoDiagnostico" id="DniPaciente" placeholder="Seleccionar Diagnostico" required="required">
+                                    <button type="button" class="c-btn c-btn--info" id="PacientesTotales">
+                                        <i class="fa fa-search"></i>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label class="c-field__label" for="Profesion">Psicologo</label>
-                                    <div class="c-field has-addon-right" style="margin-bottom:10px">
-                                        <input type="text" class="c-input" name="CodigoDiagnostico"  id="DniPsicologo" placeholder="Seleccionar Diagnostico" required="required">
-                                        <button type="button" class="c-btn c-btn--info" id="PsicologosTotales">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="c-field__label" for="Profesion">Psicologo</label>
+                                <div class="c-field has-addon-right" style="margin-bottom:10px">
+                                    <input type="text" class="c-input" name="CodigoDiagnostico" id="DniPsicologo" placeholder="Seleccionar Diagnostico" required="required">
+                                    <button type="button" class="c-btn c-btn--info" id="PsicologosTotales">
+                                        <i class="fa fa-search"></i>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="c-field u-mb-small col-12">
-                                    <label class="c-field__label" for="Profesion">Inicio</label>
-                                    <div class="c-field has-addon-left" id="datetimepicker2" data-target-input="nearest">
-                                        <span class="c-field__addon" data-target="#datetimepicker2" data-toggle="datetimepicker"><i class="fa fa-calendar"></i></span>
-                                        <label class="c-field__label u-hidden-visually" for="Profesion">Disabled Input</label>
-                                        <input class="c-input" data-target="#datetimepicker2" id="HoraInicio" type="text" name="FechaNacimiento" placeholder="Focus to open caleendar">
-                                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="c-field u-mb-small col-12">
+                                <label class="c-field__label" for="Profesion">Inicio</label>
+                                <div class="c-field has-addon-left" id="datetimepicker2" data-target-input="nearest">
+                                    <span class="c-field__addon" data-target="#datetimepicker2" data-toggle="datetimepicker"><i class="fa fa-calendar"></i></span>
+                                    <label class="c-field__label u-hidden-visually" for="Profesion">Disabled Input</label>
+                                    <input class="c-input" data-target="#datetimepicker2" id="HoraInicio" type="text" name="FechaNacimiento" placeholder="Focus to open caleendar">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="c-field u-mb-small col-12">
-                                    <label class="c-field__label" for="Profesion">Final</label>
-                                    <div class="c-field has-addon-left" id="datetimepicker1" data-target-input="nearest">
-                                        <span class="c-field__addon" data-target="#datetimepicker1" data-toggle="datetimepicker"><i class="fa fa-calendar"></i></span>
-                                        <label class="c-field__label u-hidden-visually" for="Profesion">Disabled Input</label>
-                                        <input class="c-input" data-target="#datetimepicker1"  id="HoraFinal" type="text" name="FechaNacimiento" placeholder="Focus to open caleendar">
-                                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="c-field u-mb-small col-12">
+                                <label class="c-field__label" for="Profesion">Final</label>
+                                <div class="c-field has-addon-left" id="datetimepicker1" data-target-input="nearest">
+                                    <span class="c-field__addon" data-target="#datetimepicker1" data-toggle="datetimepicker"><i class="fa fa-calendar"></i></span>
+                                    <label class="c-field__label u-hidden-visually" for="Profesion">Disabled Input</label>
+                                    <input class="c-input" data-target="#datetimepicker1" id="HoraFinal" type="text" name="FechaNacimiento" placeholder="Focus to open caleendar">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="c-field u-mb-xsmall col-12">
-                                    <label class="c-field__label" for="textarea4">Descripcion</label>
-                                    <textarea type="text" class="c-input" name="Observacion" id="Descripcion" placeholder="Modelo" required="required"></textarea>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="c-field u-mb-xsmall col-12">
+                                <label class="c-field__label" for="textarea4">Descripcion</label>
+                                <textarea type="text" class="c-input" name="Observacion" id="Descripcion" placeholder="Modelo" required="required"></textarea>
                             </div>
-                            <div class="u-text-right">
-                                <button type="button" class="c-btn c-btn-primary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" id="btnSave" class="c-btn c-btn-success">Guardar</button>
-                            </div>
-                        </form>
+                        </div>
+                        <div class="u-text-right">
+                            <button type="button" class="c-btn c-btn-primary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" id="btnSave" class="c-btn c-btn-success">Guardar</button>
+                        </div>
+                    </form>
 
-                    </div>
-                </div><!-- // .c-modal__content -->
-            </div>
+                </div>
+            </div><!-- // .c-modal__content -->
         </div>
+    </div>
 
 </body>
 </html>
@@ -343,11 +341,11 @@
     document.getElementById("ModalSave").style.zIndex = "1051";
     document.getElementById("error").style.zIndex = "1052";
 
-    function cambio(){
-    
+    function cambio() {
+
         $("#ModalSave2").modal("show");
-        
-    
+
+
     }
 
     $('#btnSave2').click(function () {
@@ -360,7 +358,6 @@
 
     $(document).ready(function () {
         var selectedEvent = null;
-        var dnis = "";
         var dniPacientes = "";
         var events = [];
         var calendar = null;
@@ -369,14 +366,14 @@
     });
 
     function GenerarPsicolog() {
-        
+
         events = [];
         $.ajax({
             type: "Get",
             url: "/Citas/GetEventsPsicolog",
             data: { 'dni': $('#DniPsicologohora').val() },
-            success: function (data) {               
-                $.each(data, function (i, v) {                    
+            success: function (data) {
+                $.each(data, function (i, v) {
                     events.push({
                         id: v.Id,
                         title: v.title,
@@ -386,7 +383,7 @@
                         dniPsicologo: v.dniPsicologo,
                         description: v.description,
                         Psicologo: v.Psicologo
-                        
+
                     });
 
                 })
@@ -394,16 +391,16 @@
                     type: "Get",
                     url: "/Horarios/GetHorariosPsicolog",
                     data: { 'dni': $('#DniPsicologohora').val() },
-                    success: function (data) {               
-                        $.each(data, function (i, v) {                    
+                    success: function (data) {
+                        $.each(data, function (i, v) {
                             events.push({
                                 Citaid: v.Id,
-                                title:  v.title,
+                                title: v.title,
                                 start: v.start,
-                                end:  v.end,
-                                dniPsicologo:v.dniPsicologo,
+                                end: v.end,
+                                dniPsicologo: v.dniPsicologo,
                                 Psicologo: v.Psicologo
-                        
+
                             });
 
                         })
@@ -438,13 +435,13 @@
 
 
     function Generar() {
-        
+
         events = [];
         $.ajax({
             type: "Get",
             url: "/Citas/GetEvents",
-            success: function (data) {               
-                $.each(data, function (i, v) {                    
+            success: function (data) {
+                $.each(data, function (i, v) {
                     events.push({
                         id: v.Id,
                         title: v.title,
@@ -454,23 +451,23 @@
                         dniPsicologo: v.dniPsicologo,
                         description: v.description,
                         Psicologo: v.Psicologo
-                        
+
                     });
 
                 })
                 $.ajax({
                     type: "Get",
                     url: "/Horarios/GetHorarios",
-                    success: function (data) {               
-                        $.each(data, function (i, v) {                    
+                    success: function (data) {
+                        $.each(data, function (i, v) {
                             events.push({
                                 Citaid: v.Id,
-                                title:  v.title,
+                                title: v.title,
                                 start: v.start,
-                                end:  v.end,
-                                dniPsicologo:v.dniPsicologo,
+                                end: v.end,
+                                dniPsicologo: v.dniPsicologo,
                                 Psicologo: v.Psicologo
-                        
+
                             });
 
                         })
@@ -502,7 +499,7 @@
 
 
     function Generar2() {
-       
+
         events = [];
         $.ajax({
             type: "Get",
@@ -522,10 +519,10 @@
                     });
 
                 })
-                
-                
-                
-                
+
+
+
+
 
             },
             error: function (error) {
@@ -557,51 +554,55 @@
 
                     $descripcion.append($('<h4/>').html('<b>Paciente:</b><br>' + calEvent.title));
                     $descripcion.append($('<h4/>').html('<b>Psicologo:</b><br>' + calEvent.Psicologo));
-                    dnis = calEvent.dniPsicologo;
                     dniPacientes = calEvent.dniPaciente;
                     dniPsicologos = calEvent.dniPsicologo;
                     horainicios = calEvent.start.format('YYYY/MM/DD HH:mm:ss A');
                     horafinales = calEvent.end.format('YYYY/MM/DD HH:mm:ss A');
-                    idHorario=calEvent.Citaid;
+                    idHorario = calEvent.Citaid;
 
-                    dfff = "@HttpContext.Current.Session["Dni"]";
+                    dniUsuario = "@HttpContext.Current.Session["Dni"]";
                     usuario = "@HttpContext.Current.Session["TipoUsuario"]";
 
                     if (usuario == "Administrador") {
-                        document.getElementById('opciones').style.visibility = 'visible';                    
+                        document.getElementById('opciones').style.visibility = 'visible';
                         document.getElementById('PacientesTotales').style.visibility = 'visible';
                         document.getElementById('PsicologosTotales').style.visibility = 'visible';
-                        
+
                     }
 
-                    else if (dfff == dniPsicologos && usuario == "Psicologo") {
+                    else if (dniUsuario == dniPsicologos && usuario == "Psicologo") {
                         document.getElementById('opciones').style.visibility = 'visible';
                         document.getElementById('PacientesTotales').style.display = 'visible';
                         document.getElementById('PsicologosTotales').style.display = 'none';
-                    
+                        document.getElementById('DniPsicologo').disabled = true;
+                        document.getElementById('HoraInicio').disabled = true;
+                        document.getElementById('HoraFinal').disabled = true;
+
                     }
-                    else if (dfff == dniPacientes && usuario == "Paciente") {
+                    else if (dniUsuario == dniPacientes && usuario == "Paciente") {
                         document.getElementById('opciones').style.visibility = 'visible';
                         document.getElementById('PacientesTotales').style.display = 'none';
                         document.getElementById('PsicologosTotales').style.display = 'none';
-                    
+                        document.getElementById('HoraInicio').disabled = true;
+                        document.getElementById('HoraFinal').disabled = true;
+                        document.getElementById('DniPsicologo').disabled = true;
+                        document.getElementById('DniPaciente').disabled = true;
+                        document.getElementById('HoraInicio').disabled = true;
+                        document.getElementById('HoraFinal').disabled = true;
+
                     }
-                    else if (dfff == dniPsicologos && usuario == "Psicologo" && calEvent.title=="Disponible"||dfff == dniPsicologos && usuario == "Psicologo" && calEvent.title=="Examen Psicologico") {
-                        document.getElementById('opciones').style.visibility = 'visible';
-                        document.getElementById('PacientesTotales').style.display = 'visible';
-                        document.getElementById('PsicologosTotales').style.display = 'none';
-                        
-                    
-                    }
-                    else if (usuario == "Paciente" && calEvent.title=="Disponible"||usuario == "Paciente" && calEvent.title=="Examen Psicologico") {
+                    else if (usuario == "Paciente" && (calEvent.title.trim() == "Disponible" || calEvent.title.trim() == "Examen Psicologico")) {
                         document.getElementById('opciones').style.visibility = 'visible';
                         document.getElementById('PacientesTotales').style.display = 'none';
                         document.getElementById('PsicologosTotales').style.display = 'none';
-                    
+                        document.getElementById('DniPsicologo').disabled = true;
+                        document.getElementById('DniPaciente').disabled = true;
+                        document.getElementById('HoraInicio').disabled = true;
+                        document.getElementById('HoraFinal').disabled = true;
+
                     }
                     else {
                         document.getElementById('opciones').style.visibility = 'hidden';
-                        
                     }
 
 
@@ -609,7 +610,7 @@
                     $("#standard-modal3").modal("show");
                 },
                 selectable: true,
-                select: function (start,end) {
+                select: function (start, end) {
                     selectedEvent = {
                         id: 0,
                         title: '',
@@ -622,7 +623,7 @@
                     //OpenAddEdit();
 
                     $('.js-calendar2').fullCalendar('unselect');
-                },                  
+                },
                 header:
                 {
                     left: 'prev,next',
@@ -637,29 +638,29 @@
                 timeFormat: 'hh:mm a',
 
                 // Events
-                events:events,
+                events: events,
             })
         }
     }
-    
+
 
     $('#btnSave').click(function () {
         var horastart = $('#HoraInicio').val();
         var horasend = $('#HoraFinal').val();
         var primera = $('#HoraInicio').val().substring(0, 2);
         var segunda = $('#HoraFinal').val().substring(0, 2);
-                     
-        @*@{var fechainicial = ContadorHelpers.FechaIni();                
-        var fecha = ContadorHelpers.ConsultarFechafin(fechainicial); 
-        }*@    
-        var mes1 = $('#HoraInicio').val().substring(3,5);
+
+        @*@{var fechainicial = ContadorHelpers.FechaIni();
+        var fecha = ContadorHelpers.ConsultarFechafin(fechainicial);
+        }*@
+        var mes1 = $('#HoraInicio').val().substring(3, 5);
         var mes2 = $('#HoraFinal').val().substring(3, 5);
         var c = parseInt(mes1, 10);
         var d = parseInt(mes2, 10);
         var a = parseInt(primera, 10);
         var b = parseInt(segunda, 10);
         var horaprimer = horastart[11] + horastart[12];
-        alert(horaprimer);
+        //alert(horaprimer);
         var horasegund = horasend[11] + horasend[12];
         if ($('#DniPaciente').val().trim() == "") {
             alert('Es requerido el Dni del paciente');
@@ -669,7 +670,7 @@
             alert('Es requerido el Dni del paciente');
             return;
         }
-        if ($('#HoraInicio').val().trim() == ""||horasend<=horastart) {
+        if ($('#HoraInicio').val().trim() == "" || horasend <= horastart) {
             alert('Es requerido hora de inicio');
             return;
         }
@@ -678,7 +679,7 @@
             return;
         }
 
-        if ($('#HoraFinal').val().substring(0, 16) == $('#HoraInicio').val().substring(0, 16) || (a > b && c==d)  || horaprimer > horasegund) {
+        if ($('#HoraFinal').val().substring(0, 16) == $('#HoraInicio').val().substring(0, 16) || (a > b && c == d) || horaprimer > horasegund) {
             $("#error").modal("show");
             return;
         }
@@ -733,7 +734,7 @@
             success: function (data) {
                 if (data.status) {
                     eliminar();
-                    
+
                 }
                 else {
                     eliminar();
@@ -758,8 +759,8 @@
 
     function Guardar(data) {
 
-        
-        if(idHorario!=undefined){
+
+        if (idHorario != undefined) {
             $.ajax({
                 type: "Post",
                 url: "/Horarios/Estado",
@@ -780,13 +781,13 @@
                 if (data.status) {
                     Generar();
                     $("#ModalSave").modal('hide');
-                   
+
                 }
                 else {
                     Generar();
                     $("#ModalSave").modal('hide');
-                    
-                    
+
+
 
 
                 }
@@ -802,7 +803,7 @@
 
 
 
-        
+
     }
 
 
@@ -835,7 +836,7 @@
     $("#PsicologosTotalesh").click(function () {
         $.ajax({
             type: "Get",
-            url: '@Url.Action("ListaPsicologos3", "Diagnostico")',
+            url: '@Url.Action("ListaPsicologos", "Diagnostico")',
             cache: false,
             success: function (result) {
                 $('#Psicologos').modal('show');
@@ -869,19 +870,24 @@
             $('#IdCita').val(selectedEvent.id);
             if (selectedEvent.dniPaciente != "" && selectedEvent.dniPsicogolo != "") {
                 $('#DniPaciente').val(dniPacientes);
-                if (usuario!="Psicologo") {
+                if (usuario != "Psicologo") {
                     $('#DniPsicologo').val(dniPsicologos);
+                    if (usuario == "Paciente") {
+                        $('#DniPaciente').val(dniUsuario);
+                    }
+                    
                 }
-                else{
-                    $('#DniPsicologo').val(dfff);
+                else {
+                    $('#DniPsicologo').val(dniUsuario);
+                    
                 }
 
-                
+
                 $('#Descripcion').val(selectedEvent.description);
             }
             $('#HoraInicio').val(moment(selectedEvent.start).format('DD/MM/YYYY HH:mm A'));
             $('#HoraFinal').val(moment(selectedEvent.end).format('DD/MM/YYYY HH:mm A'));
-            alert(selectedEvent.end);
+            //alert(selectedEvent.end);
 
         }
         $("#standard-modal3").modal("hide");
@@ -894,5 +900,8 @@
 
 
 </script>
+
+
+
 
 

@@ -33,7 +33,7 @@ namespace SistTestMillon.Controllers
             if (string.IsNullOrEmpty(search))
                 objProduct = repository.FindEntitySet<Psicologos>(c => true).OrderBy(c => c.IdPsicologo).ToList();
             else
-                objProduct = repository.FindEntitySet<Psicologos>(c => true && (c.FechaNacimiento.ToString().Contains(search) || c.Nombres.Contains(search) || c.ApellidoPaterno.Contains(search) || c.ApellidoMaterno.ToString().Contains(search) || c.Dni.Contains(search))).OrderBy(c => c.IdPsicologo).ToList();
+                objProduct = repository.FindEntitySet<Psicologos>(c => true && (c.FechaNacimiento.ToString().Contains(search) || c.Nombres.Contains(search) || c.ApellidoPaterno.ToString().Contains(search) || c.ApellidoMaterno.ToString().Contains(search) || c.Dni.Contains(search))).OrderBy(c => c.IdPsicologo).ToList();
 
 
             int pageSize = 3;
@@ -51,6 +51,25 @@ namespace SistTestMillon.Controllers
             List<Psicologos> objProduct = new List<Psicologos>();
 
             objProduct = repository.FindEntitySet<Psicologos>(c => true).OrderBy(c => c.IdPsicologo).ToList();
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
+
+
+            return PartialView(objProduct.ToPagedList(pageNumber, pageSize));
+        }
+
+
+        [HttpPost]
+        public ActionResult ListaPsicologos3(int? page, string searchP = null)
+        {
+            IRepository repository = new Model.Repository();
+            List<Psicologos> objProduct = new List<Psicologos>();
+            if (string.IsNullOrEmpty(searchP))
+                objProduct = repository.FindEntitySet<Psicologos>(c => true).OrderBy(c => c.IdPsicologo).ToList();
+            else
+                objProduct = repository.FindEntitySet<Psicologos>(c => true && (c.FechaNacimiento.ToString().Contains(searchP) || c.Nombres.Contains(searchP) || c.ApellidoPaterno.Contains(searchP) || c.ApellidoMaterno.ToString().Contains(searchP) || c.Dni.Contains(searchP))).OrderBy(c => c.IdPsicologo).ToList();
+
+
             int pageSize = 3;
             int pageNumber = page ?? 1;
 
